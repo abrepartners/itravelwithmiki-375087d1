@@ -1,258 +1,315 @@
 
+# iTravelWithMiki Comprehensive Update Plan
 
-# iTravelWithMiki Website Redesign Plan
-## Based on Avery & Bryant Real Estate Media Meeting Notes
-
-This plan transforms the current "premium editorial" travel blog into a **senior-friendly group travel booking website** with a focus on simplicity, trust, and emotional connection.
+This plan implements 4 major changes: adding brand logos, correcting "Mickey" to "Miki" throughout, creating a Support page, building a Trips page, and updating placeholder images with real content.
 
 ---
 
-## Overview of Major Changes
+## Overview of Changes
 
-The meeting notes reveal a fundamental shift in direction:
-
-| Current Design | New Direction |
-|----------------|---------------|
-| Earth tones (Sage, Sand, Terracotta) | Royal Blue, White, Red (brand colors) |
-| Editorial travel blog aesthetic | Senior-friendly booking platform |
-| "National Geographic meets Airbnb" | "Apple simplicity meets family warmth" |
-| Search destinations focus | Featured trips with urgency CTAs |
-| Blog posts/stories grid | Trip categories and booking flow |
+| Category | Changes |
+|----------|---------|
+| **Brand Assets** | Add 6 logo files + Miki photo to project |
+| **Text Corrections** | Replace all "Mickey" references with "Miki" |
+| **New Pages** | Support page with FAQs + Trips page with filters |
+| **Images** | Replace all placeholder photos with real destinations |
+| **Routing** | Add `/support` and `/trips` routes |
 
 ---
 
-## Phase 1: Design System Overhaul
+## Phase 1: Copy Brand Assets to Project
 
-### Color Palette Update
-Replace the earth-tone palette with the brand's established colors:
+### Logo Files to Add
+Copy the uploaded logo files to `src/assets/logos/`:
 
-- **Primary**: Royal Blue (#1E3A8A or similar)
-- **Secondary**: White (#FFFFFF)
-- **Accent**: Red (#DC2626 for urgency/CTAs)
-- **Background**: Clean white/light gray
-- **Text**: Dark charcoal for readability (important for seniors)
+1. **Primary Logo** - `Primary_Logo_Design_copy.png` (for general use)
+2. **Secondary Logo** - `secondarylogo_copy.png` (alternate layout)
+3. **Stacked Logo** - `Stacked_Logo_Designs_copy.png` (vertical layout)
+4. **Submark Logo** - `Submark_Logo_Designs_copy.png` (circular badge)
+5. **Wordmark Logo** - `Wordmark_Logo_Designs_copy.png` (text-only, for navbar)
+6. **Icon Logo** - `ITWM-int_copy.png` (passport icon, for favicon/small uses)
 
-### Typography Adjustments
-- Increase base font size for accessibility (16px minimum body, larger for key content)
-- Keep Playfair Display for elegant headings
-- Ensure high contrast ratios (WCAG AA minimum)
+### Miki Photo
+Copy `Miki_pup.jpeg` to `src/assets/miki-photo.jpeg` for the About section.
 
 ---
 
-## Phase 2: Homepage Redesign
+## Phase 2: Update All "Mickey" References to "Miki"
 
-### 2.1 Hero Section Transformation
+### Files Requiring Text Changes
 
-**Current**: Full-screen video with "Travel the World with Miki" headline and search bar
+| File | Changes |
+|------|---------|
+| `Navbar.tsx` | "About Mickey" link text |
+| `HeroSection.tsx` | "Meet Mickey" button text |
+| `AboutMickey.tsx` | Section title, file rename to `AboutMiki.tsx` |
+| `Footer.tsx` | "About Mickey" quick link |
+| `FeaturedTrips.tsx` | No changes needed |
+| `EmailPopup.tsx` | No changes needed |
 
-**New Design**:
-- Short 5-second silent video clip showing seniors enjoying a trip (replace stock footage later)
-- Company motto/slogan prominently displayed
-- Larger, centered, animated logo (entrance animation)
-- Clear call-to-action button: "Explore Trips"
-- Remove search bar (simplify for target audience)
+---
 
-### 2.2 Featured Trips Section (NEW)
+## Phase 3: Update Logo Usage Across Site
 
-Replace the Bento Grid blog layout with a **4 Featured Trips** showcase:
+### Navbar Logo
+Replace text-based "iTravelWithMiki" with the **Wordmark Logo** image:
+- White version on hero (transparent navbar)
+- Blue version when scrolled (solid navbar)
+- Size: Approximately 180px width on desktop, 140px on mobile
 
+### Footer Logo
+Use the **Submark Logo** (circular badge) in footer brand section.
+
+### Hero Section
+Update to use the **Primary Logo** or **Stacked Logo** as the main animated logo instead of text.
+
+---
+
+## Phase 4: Create Support Page
+
+### File: `src/pages/Support.tsx`
+
+**Structure:**
 ```text
-+--------------------------------------------------+
-|                 FEATURED TRIPS                    |
-|           "Don't Miss These Adventures"           |
-+--------------------------------------------------+
-|  +------------+  +------------+  +------------+  |
-|  |   Trip 1   |  |   Trip 2   |  |   Trip 3   |  |
-|  | Image Slide|  | Image Slide|  | Image Slide|  |
-|  | [3 photos] |  | [3 photos] |  | [3 photos] |  |
-|  |------------|  |------------|  |------------|  |
-|  | Trip Name  |  | Trip Name  |  | Trip Name  |  |
-|  | Price      |  | Price      |  | Price      |  |
-|  | URGENCY!   |  | URGENCY!   |  | URGENCY!   |  |
-|  | [Book Now] |  | [Book Now] |  | [Book Now] |  |
-|  +------------+  +------------+  +------------+  |
-|                                                   |
-|        +---------------------------+              |
-|        |        Trip 4 (Large)     |              |
-|        |   Premium Featured Trip   |              |
-|        +---------------------------+              |
-+--------------------------------------------------+
++------------------------------------------+
+|           SUPPORT CENTER HERO            |
+|    "We're Here to Help You Travel"       |
++------------------------------------------+
+|                                          |
+|  FREQUENTLY ASKED QUESTIONS              |
+|  +------------------------------------+  |
+|  | Booking & Payments (accordion)     |  |
+|  +------------------------------------+  |
+|  | Before Your Trip (accordion)       |  |
+|  +------------------------------------+  |
+|  | During Your Trip (accordion)       |  |
+|  +------------------------------------+  |
+|  | Travel Insurance (accordion)       |  |
+|  +------------------------------------+  |
+|                                          |
+|  DOWNLOADABLE RESOURCES                  |
+|  [Travel Insurance Plan A PDF]           |
+|  [Travel Insurance Plan B PDF]           |
+|  [Packing Checklist PDF]                 |
+|                                          |
+|  CONTACT SECTION                         |
+|  Phone / Email / Address                 |
++------------------------------------------+
 ```
 
-Each trip card includes:
-- Rotating image carousel (3 photos)
-- Trip name and destination
-- Price with optional discount display
-- Urgency badge ("Only 5 spots left!", "Early Bird Discount Ends Soon")
-- Clear "Book Now" or "Learn More" button
+### FAQ Content Categories
+1. **Booking & Payments**
+   - How do I book a trip?
+   - What payment methods do you accept?
+   - What is your cancellation policy?
+   - Can I make payment installments?
 
-### 2.3 "About Mickey" Section (NEW)
+2. **Before Your Trip**
+   - What should I pack?
+   - Do I need a passport?
+   - How do I get trip updates?
+   - What about mobility accommodations?
 
-Personal connection section featuring:
-- Professional photo of Mickey
-- Brief story/bio text
-- Embedded video player (placeholder for now)
-- Tagline: "Travel with family, not strangers"
-- Trust indicators (years in business, trips completed, happy travelers)
+3. **During Your Trip**
+   - What's included in the trip?
+   - What about meals?
+   - What are the bus activities like?
+   - Emergency contacts?
+
+4. **Travel Insurance**
+   - Do I need travel insurance?
+   - What does insurance cover?
+   - How do I file a claim?
+
+### Downloadable Resources
+Placeholder links for:
+- Travel Insurance Plan A (PDF)
+- Travel Insurance Plan B (PDF)
+- Packing Checklist (PDF)
 
 ---
 
-## Phase 3: Navigation Simplification
+## Phase 5: Create Trips Page
 
-### Updated Navigation Structure
+### File: `src/pages/Trips.tsx`
 
-**Desktop Navbar**:
+**Structure:**
 ```text
-[LOGO (centered, larger)]
-
-Trips | About Mickey | Support | Contact
++------------------------------------------+
+|              TRIPS PAGE HERO             |
+|    "Find Your Perfect Adventure"         |
++------------------------------------------+
+|                                          |
+|  FILTER BAR                              |
+|  [All Trips] [Bus Tours] [Land Trips]    |
+|  [International] [Cruises]               |
+|                                          |
+|  TRIP CARDS GRID                         |
+|  +--------+  +--------+  +--------+      |
+|  | Trip 1 |  | Trip 2 |  | Trip 3 |      |
+|  +--------+  +--------+  +--------+      |
+|  +--------+  +--------+  +--------+      |
+|  | Trip 4 |  | Trip 5 |  | Trip 6 |      |
+|  +--------+  +--------+  +--------+      |
+|  ... (more trips)                        |
+|                                          |
++------------------------------------------+
 ```
 
-**Trips Dropdown**:
-- All Trips
-- Bus Tours
-- Land Trips
-- International
-- (Category icons for visual clarity)
+### Trip Data with Real Destinations
+Based on the provided business info, include trips for:
 
-**Mobile Navigation**:
-- Large, touch-friendly menu items
-- Maximum 3 levels deep
-- Clear back buttons
+**Bus/Motorcoach Tours (U.S.):**
+1. Savannah, Georgia
+2. New Orleans, Louisiana
+3. New York City
+4. Niagara Falls
+5. Mackinac Island, Michigan
+6. Nashville, Tennessee
+7. Branson, Missouri
 
-### Logo Updates
-- Larger and centered
-- Clickable to return home
-- Subtle entrance animation on page load
-- White on hero, blue when scrolled
+**Land Trips (International):**
+1. Italy 2026
+2. Spain & Portugal
+3. Alpine Villages (Switzerland/Austria)
+4. Australia & New Zealand
 
----
+**Cruises:**
+1. River Cruises (placeholder)
+2. Ocean Cruises (placeholder)
 
-## Phase 4: New Pages/Sections
-
-### 4.1 Trips Page
-- Category filters (Bus Tours, Land Trips, etc.)
-- Large trip cards with clear pricing
-- Sort by date, price, popularity
-- "Explore" tab for easy browsing
-
-### 4.2 Support/FAQ Page
-- Accordion-style FAQ sections
-- Payment instructions with step-by-step guides
-- Downloadable documents (travel insurance flyers)
-- Informational videos embedded
-- Goal: Reduce support phone calls
-
-### 4.3 Travel Journals (Social Proof)
-- Customer testimonials with photos
-- Trip reviews from real travelers
-- Helps with SEO
-- Builds trust with potential customers
+### Filter Functionality
+- Category tabs with active state styling
+- URL query params for shareable filters (`/trips?category=bus`)
+- Reuse existing `TripCard.tsx` component
 
 ---
 
-## Phase 5: Email Signup Enhancement
+## Phase 6: Update About Section with Real Photo
 
-### Timed Popup Modal
-- Appears after 5-10 seconds on site
-- Dismissible with clear X button
-- Compelling copy: "Join the traveling family!"
-- Simple email input
-- Option to not show again (localStorage)
+### File: `src/components/AboutMiki.tsx` (renamed from AboutMickey.tsx)
 
----
-
-## Files to Create/Modify
-
-### New Files:
-1. `src/components/FeaturedTrips.tsx` - 4 featured trip cards with carousels
-2. `src/components/TripCard.tsx` - Reusable trip card component
-3. `src/components/AboutMickey.tsx` - Personal brand section
-4. `src/components/EmailPopup.tsx` - Timed email signup modal
-5. `src/components/UrgencyBadge.tsx` - "Limited spots" badge component
-6. `src/pages/Trips.tsx` - All trips with filtering
-7. `src/pages/Support.tsx` - FAQ and help resources
-8. `src/pages/AboutMickey.tsx` - Full about page
-
-### Modified Files:
-1. `src/index.css` - New color palette (royal blue, white, red)
-2. `src/components/Navbar.tsx` - Simplified navigation, centered logo
-3. `src/components/HeroSection.tsx` - 5-second video, slogan, CTA
-4. `src/components/Footer.tsx` - Updated branding
-5. `src/pages/Index.tsx` - New section layout
-6. `tailwind.config.ts` - Updated color tokens
-7. `src/App.tsx` - New routes
+**Changes:**
+- Replace placeholder Unsplash image with `Miki_pup.jpeg`
+- Update bio text to reflect actual business info:
+  - Based in Maumelle/Little Rock, Arkansas
+  - Pre-planned group vacations for 50+ travelers
+  - Bus tours include games, snacks, and videos
+  - Emphasis on social travel and meeting new people
 
 ---
 
-## Technical Implementation Details
+## Phase 7: Update Placeholder Images with Real Destinations
 
-### Accessibility Considerations (Senior-Friendly)
-- Minimum 16px font size for body text
-- 18-20px for important content
-- High contrast ratios (4.5:1 minimum)
-- Large click/tap targets (44x44px minimum)
-- Clear focus states for keyboard navigation
-- Reduced motion option for animations
+### Image Updates
 
-### Image Carousel Implementation
-- Use existing `embla-carousel-react` dependency
-- Auto-rotate with pause on hover
-- Touch-friendly swipe gestures
-- Lazy loading for performance
+| Location | Current | New (Unsplash alternatives) |
+|----------|---------|------------------------------|
+| Hero Video | Generic travel video | Keep current (works well) |
+| Featured Trip 1 | Alaska | Keep (actual destination) |
+| Featured Trip 2 | Nashville | Real Nashville imagery |
+| Featured Trip 3 | New Orleans | Real New Orleans imagery |
+| Featured Trip 4 | Branson | Real Branson imagery |
 
-### Email Popup Timing
-- Check localStorage to avoid repeat popups
-- 5-second delay on first visit
-- Smooth fade-in animation
-- Mobile-responsive design
+For trips page, use high-quality Unsplash images of:
+- Savannah historic district
+- New York City skyline
+- Niagara Falls
+- Mackinac Island
+- Italian coast/Rome
+- Spain/Portugal landmarks
+- Swiss Alps
+- Sydney Opera House
+
+---
+
+## Phase 8: Update Routing
+
+### File: `src/App.tsx`
+
+Add new routes:
+```typescript
+<Route path="/support" element={<Support />} />
+<Route path="/trips" element={<Trips />} />
+```
+
+---
+
+## Phase 9: Update Footer with Correct Address
+
+### Current Address (placeholder):
+```
+123 Travel Lane
+Adventure City, TX 75001
+```
+
+### Correct Address:
+```
+P.O. Box 13993
+Little Rock, AR 72113
+```
+
+---
+
+## Files Summary
+
+### New Files to Create
+1. `src/assets/logos/` - Directory for logo files
+2. `src/assets/miki-photo.jpeg` - Miki's photo
+3. `src/pages/Support.tsx` - Support/FAQ page
+4. `src/pages/Trips.tsx` - All trips page with filtering
+5. `src/data/trips.ts` - Centralized trip data
+6. `src/data/faqs.ts` - FAQ content data
+
+### Files to Modify
+1. `src/components/Navbar.tsx` - Logo image, "Miki" text
+2. `src/components/HeroSection.tsx` - Logo image, "Miki" button
+3. `src/components/AboutMickey.tsx` - Rename to `AboutMiki.tsx`, real photo, updated bio
+4. `src/components/Footer.tsx` - Logo image, correct address, "Miki" text
+5. `src/components/FeaturedTrips.tsx` - Real destination images
+6. `src/pages/Index.tsx` - Import renamed AboutMiki component
+7. `src/App.tsx` - Add new routes
+
+---
+
+## Technical Implementation Notes
+
+### Logo Implementation
+Import logos as ES6 modules for proper bundling:
+```typescript
+import wordmarkLogo from '@/assets/logos/wordmark.png';
+import submarkLogo from '@/assets/logos/submark.png';
+```
+
+### Responsive Logo Sizing
+```text
+- Mobile: width ~140px
+- Tablet: width ~160px  
+- Desktop: width ~180px
+```
+
+### Accordion Component (Support Page)
+Utilize existing Shadcn `@/components/ui/accordion` for FAQ sections.
+
+### Senior-Friendly Considerations
+- All FAQ items have large tap targets
+- High contrast text throughout
+- Clear section headings
+- Downloadable resources are prominently displayed
+- Phone number is clickable for mobile users
 
 ---
 
 ## Implementation Order
 
-1. **Phase 1**: Update design system (colors, typography)
-2. **Phase 2.1**: Rebuild Hero Section with new branding
-3. **Phase 2.2**: Create Featured Trips section
-4. **Phase 2.3**: Add About Mickey section
-5. **Phase 3**: Update Navigation
-6. **Phase 5**: Add Email Popup
-7. **Phase 4**: Create additional pages (Trips, Support, Travel Journals)
-
----
-
-## Sample Trip Data Structure
-
-```typescript
-interface Trip {
-  id: string;
-  name: string;
-  destination: string;
-  images: string[];
-  price: number;
-  discountPrice?: number;
-  spotsLeft?: number;
-  urgencyMessage?: string;
-  departureDate: string;
-  category: 'bus' | 'land' | 'international';
-  featured: boolean;
-}
-```
-
----
-
-## Questions Addressed from Meeting Notes
-
-| Requirement | Solution |
-|-------------|----------|
-| Simple for seniors | Large fonts, high contrast, minimal clicks |
-| Brand colors (blue, white, red) | Updated color palette |
-| 5-second video hook | Hero section video with autoplay |
-| 4 featured trips | Featured Trips section with urgency badges |
-| About Mickey section | Dedicated component with video |
-| Simple navigation | Streamlined navbar with dropdowns |
-| Support section | New Support page with FAQs |
-| Email popup | Timed modal component |
-| Travel journals | Social proof section (future phase) |
-| Downloadable flyers | Links in Support page |
-
+1. Copy all brand assets to project
+2. Rename AboutMickey.tsx to AboutMiki.tsx
+3. Update all "Mickey" text references to "Miki"
+4. Update Navbar with logo images
+5. Update HeroSection with logo
+6. Update Footer with logo and correct address
+7. Create Support page
+8. Create Trips page with data
+9. Update Featured Trips with real destination images
+10. Add routes to App.tsx
+11. Update Index.tsx imports
