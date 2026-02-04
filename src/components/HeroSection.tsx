@@ -1,6 +1,6 @@
 import { motion } from 'framer-motion';
-import { Search, MapPin } from 'lucide-react';
-import { Input } from '@/components/ui/input';
+import { ArrowRight } from 'lucide-react';
+import { Button } from '@/components/ui/button';
 
 const HeroSection = () => {
   return (
@@ -13,73 +13,76 @@ const HeroSection = () => {
           loop
           playsInline
           className="w-full h-full object-cover"
-          poster="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=1920&q=80"
+          poster="https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?w=1920&q=80"
         >
           <source
-            src="https://videos.pexels.com/video-files/2169880/2169880-uhd_2560_1440_30fps.mp4"
+            src="https://videos.pexels.com/video-files/3015510/3015510-uhd_2560_1440_24fps.mp4"
             type="video/mp4"
           />
         </video>
         {/* Dark Overlay */}
-        <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-black/30 to-black/60" />
+        <div className="absolute inset-0 bg-gradient-to-b from-black/50 via-black/30 to-black/60" />
       </div>
 
       {/* Content */}
-      <div className="relative z-10 h-full flex flex-col items-center justify-center px-6">
-        {/* Headline */}
+      <div className="relative z-10 h-full flex flex-col items-center justify-center px-6 text-center">
+        {/* Logo Animation */}
+        <motion.div
+          initial={{ opacity: 0, scale: 0.8 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 0.8, ease: 'easeOut' }}
+          className="mb-8"
+        >
+          <h1
+            className="text-5xl md:text-6xl lg:text-7xl text-white font-bold tracking-tight"
+            style={{ fontFamily: 'var(--font-display)' }}
+          >
+            iTravelWithMiki
+          </h1>
+        </motion.div>
+
+        {/* Slogan */}
+        <motion.p
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 0.3 }}
+          className="text-xl md:text-2xl lg:text-3xl text-white/90 font-light mb-4 max-w-3xl"
+        >
+          Travel with Family, Not Strangers
+        </motion.p>
+
+        {/* Subtitle */}
+        <motion.p
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 0.5 }}
+          className="text-lg md:text-xl text-white/70 mb-12 max-w-2xl"
+        >
+          Unforgettable group adventures designed for those who love to explore, 
+          connect, and create lasting memories together.
+        </motion.p>
+
+        {/* CTA Buttons */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 1, delay: 0.3 }}
-          className="text-center mb-16"
+          transition={{ duration: 0.8, delay: 0.7 }}
+          className="flex flex-col sm:flex-row gap-4"
         >
-          <motion.p
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.8, delay: 0.5 }}
-            className="text-white/80 text-sm md:text-base tracking-[0.3em] uppercase mb-6"
+          <Button 
+            size="lg" 
+            className="btn-senior bg-accent hover:bg-accent/90 text-accent-foreground px-10"
           >
-            Explore • Experience • Discover
-          </motion.p>
-          <h1
-            className="text-5xl md:text-6xl lg:text-7xl text-white font-semibold leading-tight text-balance max-w-4xl"
-            style={{ fontFamily: 'var(--font-display)' }}
+            Explore Trips
+            <ArrowRight className="w-5 h-5 ml-2" />
+          </Button>
+          <Button 
+            size="lg" 
+            variant="outline"
+            className="btn-senior border-white/30 text-white hover:bg-white hover:text-foreground bg-transparent"
           >
-            Travel the World
-            <br />
-            <span className="italic font-normal">with Miki</span>
-          </h1>
-          <motion.p
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.8, delay: 0.8 }}
-            className="mt-8 text-white/70 text-lg md:text-xl max-w-2xl mx-auto"
-          >
-            Curated journeys to the world's most breathtaking destinations.
-            Stories that inspire wanderlust.
-          </motion.p>
-        </motion.div>
-
-        {/* Glassmorphism Search Bar */}
-        <motion.div
-          initial={{ opacity: 0, y: 40 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 1 }}
-          className="w-full max-w-2xl"
-        >
-          <div className="glass-light rounded-2xl p-2">
-            <div className="flex items-center gap-3 bg-white/10 rounded-xl px-5 py-4">
-              <MapPin className="w-5 h-5 text-white/60 flex-shrink-0" />
-              <Input
-                type="text"
-                placeholder="Search destinations..."
-                className="flex-1 bg-transparent border-none text-white placeholder:text-white/50 text-lg focus-visible:ring-0 focus-visible:ring-offset-0"
-              />
-              <button className="flex-shrink-0 bg-white text-foreground p-3 rounded-xl hover:bg-white/90 transition-colors duration-300">
-                <Search className="w-5 h-5" />
-              </button>
-            </div>
-          </div>
+            Meet Mickey
+          </Button>
         </motion.div>
       </div>
 

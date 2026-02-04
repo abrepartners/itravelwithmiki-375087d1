@@ -17,6 +17,16 @@ export default {
         serif: ['Playfair Display', 'Georgia', 'serif'],
         sans: ['Inter', 'system-ui', 'sans-serif'],
       },
+      fontSize: {
+        // Senior-friendly sizing
+        'body': ['1rem', { lineHeight: '1.7' }],
+        'body-lg': ['1.125rem', { lineHeight: '1.7' }],
+        'heading-sm': ['1.5rem', { lineHeight: '1.3' }],
+        'heading-md': ['2rem', { lineHeight: '1.3' }],
+        'heading-lg': ['2.5rem', { lineHeight: '1.2' }],
+        'heading-xl': ['3rem', { lineHeight: '1.2' }],
+        'hero': ['4rem', { lineHeight: '1.1' }],
+      },
       colors: {
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
@@ -84,10 +94,21 @@ export default {
             height: "0",
           },
         },
+        "fade-in-up": {
+          "0%": {
+            opacity: "0",
+            transform: "translateY(20px)",
+          },
+          "100%": {
+            opacity: "1",
+            transform: "translateY(0)",
+          },
+        },
       },
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
+        "fade-in-up": "fade-in-up 0.6s ease-out",
       },
     },
   },

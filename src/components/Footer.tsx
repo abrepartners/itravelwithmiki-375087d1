@@ -1,46 +1,46 @@
-import { Instagram, Twitter, Youtube, Mail } from 'lucide-react';
+import { Facebook, Instagram, Youtube, Mail, Phone, MapPin } from 'lucide-react';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 
 const Footer = () => {
   return (
-    <footer className="bg-foreground text-background py-20 px-6 lg:px-12">
+    <footer className="bg-primary text-primary-foreground py-16 px-6 lg:px-12" id="contact">
       <div className="container mx-auto">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 lg:gap-8 mb-16">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 lg:gap-8 mb-12">
           {/* Brand */}
-          <div className="lg:col-span-2">
+          <div className="lg:col-span-1">
             <h2
-              className="text-3xl font-semibold mb-4"
+              className="text-2xl font-bold mb-4"
               style={{ fontFamily: 'var(--font-display)' }}
             >
               iTravelWithMiki
             </h2>
-            <p className="text-background/70 max-w-md mb-8">
-              Inspiring wanderlust through immersive storytelling and curated travel experiences.
-              Join the journey.
+            <p className="text-primary-foreground/80 mb-6 text-base leading-relaxed">
+              Your trusted travel family since 2009. Creating unforgettable memories, one trip at a time.
             </p>
-            <div className="flex gap-4">
-              {[Instagram, Twitter, Youtube].map((Icon, index) => (
+            <div className="flex gap-3">
+              {[Facebook, Instagram, Youtube].map((Icon, index) => (
                 <a
                   key={index}
                   href="#"
-                  className="w-10 h-10 rounded-full border border-background/20 flex items-center justify-center hover:bg-background hover:text-foreground transition-all duration-300"
+                  className="w-11 h-11 rounded-full bg-primary-foreground/10 flex items-center justify-center hover:bg-primary-foreground hover:text-primary transition-all duration-300"
+                  aria-label={`Social media link ${index + 1}`}
                 >
-                  <Icon className="w-4 h-4" />
+                  <Icon className="w-5 h-5" />
                 </a>
               ))}
             </div>
           </div>
 
-          {/* Links */}
+          {/* Quick Links */}
           <div>
-            <h3 className="text-sm font-semibold uppercase tracking-wider mb-6">Explore</h3>
-            <ul className="space-y-4">
-              {['Destinations', 'Stories', 'Travel Tips', 'Photography'].map((link) => (
+            <h3 className="text-base font-semibold uppercase tracking-wider mb-5">Quick Links</h3>
+            <ul className="space-y-3">
+              {['All Trips', 'About Mickey', 'Support & FAQ', 'Travel Insurance'].map((link) => (
                 <li key={link}>
                   <a
                     href="#"
-                    className="text-background/70 hover:text-background transition-colors duration-300"
+                    className="text-primary-foreground/80 hover:text-primary-foreground transition-colors duration-300 text-base"
                   >
                     {link}
                   </a>
@@ -49,39 +49,65 @@ const Footer = () => {
             </ul>
           </div>
 
+          {/* Contact Info */}
+          <div>
+            <h3 className="text-base font-semibold uppercase tracking-wider mb-5">Contact Us</h3>
+            <ul className="space-y-4">
+              <li className="flex items-start gap-3">
+                <Phone className="w-5 h-5 mt-0.5 flex-shrink-0" />
+                <div>
+                  <p className="text-primary-foreground font-medium">(555) 123-4567</p>
+                  <p className="text-primary-foreground/70 text-sm">Mon-Fri 9am-5pm</p>
+                </div>
+              </li>
+              <li className="flex items-start gap-3">
+                <Mail className="w-5 h-5 mt-0.5 flex-shrink-0" />
+                <a href="mailto:info@itravelwithmiki.com" className="text-primary-foreground hover:underline">
+                  info@itravelwithmiki.com
+                </a>
+              </li>
+              <li className="flex items-start gap-3">
+                <MapPin className="w-5 h-5 mt-0.5 flex-shrink-0" />
+                <p className="text-primary-foreground/80">
+                  123 Travel Lane<br />
+                  Adventure City, TX 75001
+                </p>
+              </li>
+            </ul>
+          </div>
+
           {/* Newsletter */}
           <div>
-            <h3 className="text-sm font-semibold uppercase tracking-wider mb-6">Newsletter</h3>
-            <p className="text-background/70 text-sm mb-4">
-              Get the latest travel stories delivered to your inbox.
+            <h3 className="text-base font-semibold uppercase tracking-wider mb-5">Stay Updated</h3>
+            <p className="text-primary-foreground/80 text-base mb-4">
+              Get exclusive deals and trip announcements.
             </p>
-            <div className="flex gap-2">
+            <div className="flex flex-col gap-3">
               <Input
                 type="email"
                 placeholder="Your email"
-                className="bg-background/10 border-background/20 text-background placeholder:text-background/50 focus-visible:ring-background/30"
+                className="h-12 bg-primary-foreground/10 border-primary-foreground/20 text-primary-foreground placeholder:text-primary-foreground/50 focus-visible:ring-primary-foreground/30"
               />
               <Button
-                size="icon"
-                className="bg-background text-foreground hover:bg-background/90 flex-shrink-0"
+                className="h-12 bg-accent text-accent-foreground hover:bg-accent/90 font-semibold"
               >
-                <Mail className="w-4 h-4" />
+                Subscribe
               </Button>
             </div>
           </div>
         </div>
 
         {/* Bottom Bar */}
-        <div className="pt-8 border-t border-background/10 flex flex-col md:flex-row justify-between items-center gap-4">
-          <p className="text-background/50 text-sm">
+        <div className="pt-8 border-t border-primary-foreground/20 flex flex-col md:flex-row justify-between items-center gap-4">
+          <p className="text-primary-foreground/70 text-sm">
             © 2026 iTravelWithMiki. All rights reserved.
           </p>
           <div className="flex gap-6">
-            {['Privacy', 'Terms', 'Cookies'].map((link) => (
+            {['Privacy Policy', 'Terms of Service', 'Accessibility'].map((link) => (
               <a
                 key={link}
                 href="#"
-                className="text-background/50 text-sm hover:text-background transition-colors duration-300"
+                className="text-primary-foreground/70 text-sm hover:text-primary-foreground transition-colors duration-300"
               >
                 {link}
               </a>

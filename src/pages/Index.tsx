@@ -1,15 +1,19 @@
 import Navbar from '@/components/Navbar';
 import HeroSection from '@/components/HeroSection';
-import BentoGrid from '@/components/BentoGrid';
+import FeaturedTrips from '@/components/FeaturedTrips';
+import AboutMickey from '@/components/AboutMickey';
 import Footer from '@/components/Footer';
+import EmailPopup from '@/components/EmailPopup';
 
 const Index = () => {
   return (
     <main className="min-h-screen">
       <Navbar />
       <HeroSection />
-      <BentoGrid />
+      <FeaturedTrips />
+      <AboutMickey />
       <Footer />
+      <EmailPopup />
     </main>
   );
 };
