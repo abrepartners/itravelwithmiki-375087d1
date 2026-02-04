@@ -1,82 +1,92 @@
+# iTravelWithMiki Development Reference
 
-
-# Fix Logo Colors + Create Development Reference
-
-This plan addresses two issues:
-1. Remove logo color filters so the original brand colors display
-2. Create a development reference file for future updates
+This document tracks the comprehensive update plan and serves as a reference for future development.
 
 ---
 
-## Changes Summary
+## Completed Tasks ✅
 
-| Item | Issue | Fix |
-|------|-------|-----|
-| Hero Section Logo | `brightness-0 invert` forces white | Remove filter to show original colors |
-| Footer Logo | `brightness-0 invert` forces white | Keep white (works on blue background) |
-| Development Reference | None exists | Create `.lovable/plan.md` with corrected "Miki" spelling |
+| Category | Status |
+|----------|--------|
+| Brand Assets | ✅ Added 6 logo files + Miki photo |
+| Text Corrections | ✅ All "Mickey" → "Miki" |
+| Support Page | ✅ Created with FAQs |
+| Trips Page | ✅ Created with filters |
+| Routing | ✅ Added `/support` and `/trips` routes |
+| Hero Logo | ✅ Shows original brand colors |
 
 ---
 
-## Phase 1: Fix Hero Section Logo
+## Logo Usage Guide
 
-### File: `src/components/HeroSection.tsx`
+| Location | Logo File | Filter Applied |
+|----------|-----------|----------------|
+| Navbar (transparent) | `wordmark-logo.png` | `brightness-0 invert` (white) |
+| Navbar (scrolled) | `wordmark-logo.png` | None (original colors) |
+| Hero Section | `stacked-logo.png` | None (original colors) |
+| Footer | `submark-logo.png` | `brightness-0 invert` (white) |
 
-**Current (Line 40):**
-```tsx
-className="h-32 md:h-40 lg:h-48 w-auto brightness-0 invert"
+---
+
+## File Structure
+
+### Assets
+```
+src/assets/
+├── logos/
+│   ├── primary-logo.png
+│   ├── secondary-logo.png
+│   ├── stacked-logo.png
+│   ├── submark-logo.png
+│   ├── wordmark-logo.png
+│   └── icon-logo.png
+└── miki-photo.jpeg
 ```
 
-**Updated:**
-```tsx
-className="h-32 md:h-40 lg:h-48 w-auto"
+### Data Files
+```
+src/data/
+├── trips.ts     # All trip destinations
+└── faqs.ts      # FAQ categories and content
 ```
 
-Remove the `brightness-0 invert` filter so the stacked logo displays in its original brand colors (blue).
-
-**Note:** The dark video overlay behind the hero provides enough contrast for the colored logo to be visible.
-
----
-
-## Phase 2: Keep Footer Logo White
-
-The footer has a dark blue (`bg-primary`) background. The `brightness-0 invert` filter on the submark logo correctly makes it white for visibility. This should remain unchanged.
-
----
-
-## Phase 3: Update Development Reference File
-
-### File: `.lovable/plan.md`
-
-Update the existing plan file to:
-1. Correct all "Mickey" references to "Miki"
-2. Mark completed tasks
-3. Serve as a reference for future development
-
-**Key corrections in the plan:**
-- Line 43: "About Mickey" → "About Miki" 
-- Line 44: "Meet Mickey" → "Meet Miki"
-- Line 45: "AboutMickey.tsx" → "AboutMiki.tsx"
-- Line 46: "About Mickey" → "About Miki"
+### Pages
+```
+src/pages/
+├── Index.tsx    # Home page
+├── Trips.tsx    # All trips with filtering
+├── Support.tsx  # FAQs and resources
+└── NotFound.tsx # 404 page
+```
 
 ---
 
-## Files to Modify
+## Key Components
 
-1. **`src/components/HeroSection.tsx`** - Remove logo color filter (1 line change)
-2. **`.lovable/plan.md`** - Update spelling and mark completion status
+| Component | Purpose |
+|-----------|---------|
+| `AboutMiki.tsx` | "Meet Your Guide" section |
+| `HeroSection.tsx` | Video hero with stacked logo |
+| `FeaturedTrips.tsx` | Homepage trip cards |
+| `TripCard.tsx` | Reusable trip card |
+| `Navbar.tsx` | Navigation with wordmark logo |
+| `Footer.tsx` | Footer with submark logo |
 
 ---
 
-## Technical Notes
+## Brand Details
 
-### Why the colored logo works on the hero:
-- The video has a dark gradient overlay (`from-black/50 via-black/30 to-black/60`)
-- This provides sufficient contrast for the blue/colored logo
-- The original brand colors will now be visible and match the brand identity
+- **Name**: Miki (not Mickey)
+- **Business**: iTravelWithMiki
+- **Location**: P.O. Box 13993, Little Rock, AR 72113
+- **Phone**: (501) 951-1749
+- **Email**: info@itravelwithmiki.com
 
-### Footer logo stays white because:
-- The footer background is `bg-primary` (Royal Blue)
-- White logo provides proper contrast
-- Matches the white text used throughout the footer
+---
 
+## Remaining Tasks
+
+- [ ] Upload downloadable PDFs (insurance plans, packing checklist)
+- [ ] Connect email signup to backend
+- [ ] Add trip detail pages
+- [ ] Replace remaining placeholder images with real destinations
