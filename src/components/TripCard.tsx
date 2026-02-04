@@ -69,21 +69,21 @@ const TripCard = ({ trip, featured = false, className }: TripCardProps) => {
           <>
             <button
               onClick={(e) => { e.stopPropagation(); prevImage(); }}
-              className="absolute left-4 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-white/90 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 hover:bg-white"
+              className="absolute left-2 sm:left-4 top-1/2 -translate-y-1/2 w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-white/90 flex items-center justify-center opacity-100 sm:opacity-0 sm:group-hover:opacity-100 transition-opacity duration-300 hover:bg-white"
               aria-label="Previous image"
             >
-              <ChevronLeft className="w-5 h-5 text-foreground" />
+              <ChevronLeft className="w-4 h-4 sm:w-5 sm:h-5 text-foreground" />
             </button>
             <button
               onClick={(e) => { e.stopPropagation(); nextImage(); }}
-              className="absolute right-4 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-white/90 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 hover:bg-white"
+              className="absolute right-2 sm:right-4 top-1/2 -translate-y-1/2 w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-white/90 flex items-center justify-center opacity-100 sm:opacity-0 sm:group-hover:opacity-100 transition-opacity duration-300 hover:bg-white"
               aria-label="Next image"
             >
-              <ChevronRight className="w-5 h-5 text-foreground" />
+              <ChevronRight className="w-4 h-4 sm:w-5 sm:h-5 text-foreground" />
             </button>
 
             {/* Dots Indicator */}
-            <div className="absolute bottom-20 left-1/2 -translate-x-1/2 flex gap-2">
+            <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-2">
               {trip.images.map((_, index) => (
                 <button
                   key={index}

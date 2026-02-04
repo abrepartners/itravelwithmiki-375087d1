@@ -25,7 +25,7 @@ const AboutMickey = () => {
               <img
                 src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=800&q=80"
                 alt="Mickey - Your Travel Guide"
-                className="w-full h-[500px] object-cover"
+                className="w-full h-[350px] sm:h-[400px] md:h-[500px] object-cover"
               />
               {/* Play Button Overlay */}
               <button
@@ -39,7 +39,7 @@ const AboutMickey = () => {
             </div>
 
             {/* Decorative Element */}
-            <div className="absolute -bottom-6 -right-6 w-48 h-48 bg-accent/10 rounded-2xl -z-10" />
+            <div className="absolute -bottom-4 -right-4 sm:-bottom-6 sm:-right-6 w-32 sm:w-48 h-32 sm:h-48 bg-accent/10 rounded-2xl -z-10" />
           </motion.div>
 
           {/* Content Side */}
@@ -72,12 +72,12 @@ const AboutMickey = () => {
             </p>
 
             {/* Stats */}
-            <div className="grid grid-cols-3 gap-6 mb-8">
+            <div className="grid grid-cols-3 gap-3 sm:gap-6 mb-8">
               {stats.map((stat) => (
                 <div key={stat.label} className="text-center">
-                  <stat.icon className="w-8 h-8 text-primary mx-auto mb-2" />
-                  <div className="text-2xl font-bold text-foreground">{stat.value}</div>
-                  <div className="text-sm text-muted-foreground">{stat.label}</div>
+                  <stat.icon className="w-6 h-6 sm:w-8 sm:h-8 text-primary mx-auto mb-2" />
+                  <div className="text-lg sm:text-2xl font-bold text-foreground">{stat.value}</div>
+                  <div className="text-xs sm:text-sm text-muted-foreground">{stat.label}</div>
                 </div>
               ))}
             </div>

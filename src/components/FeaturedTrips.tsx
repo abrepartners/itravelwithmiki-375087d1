@@ -76,7 +76,7 @@ const FeaturedTrips = () => {
   const otherTrips = featuredTrips.slice(1);
 
   return (
-    <section className="py-20 lg:py-28 px-6 lg:px-12 bg-secondary" id="trips">
+    <section className="py-16 sm:py-20 lg:py-28 px-4 sm:px-6 lg:px-12 bg-secondary" id="trips">
       <div className="container mx-auto">
         {/* Section Header */}
         <motion.div
@@ -101,9 +101,9 @@ const FeaturedTrips = () => {
         </motion.div>
 
         {/* Grid Layout */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
           {/* Main Featured Trip - Full width on mobile, 2/3 on desktop */}
-          <div className="md:col-span-2 lg:col-span-2 lg:row-span-2">
+          <div className="sm:col-span-2 lg:col-span-2 lg:row-span-2">
             <TripCard trip={mainFeatured} featured className="h-full" />
           </div>
 
