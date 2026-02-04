@@ -104,7 +104,7 @@ const TripCard = ({ trip, featured = false, className }: TripCardProps) => {
           <div className="absolute top-4 left-4">
             <UrgencyBadge 
               message={trip.urgencyMessage} 
-              variant={trip.spotsLeft ? 'spots' : 'discount'} 
+              variant={trip.soldOut ? 'default' : trip.spotsLeft ? 'spots' : 'discount'} 
             />
           </div>
         )}
@@ -155,14 +155,36 @@ const TripCard = ({ trip, featured = false, className }: TripCardProps) => {
         </div>
 
         {/* CTA Button */}
-        <Button 
-          className={cn(
-            'w-full btn-senior bg-primary hover:bg-primary/90',
-            featured && 'md:w-auto'
-          )}
-        >
-          Book Now
-        </Button>
+        {trip.bookingUrl ? (
+          <Button 
+            className={cn(
+              'w-full btn-senior',
+              trip.soldOut 
+                ? 'bg-muted text-muted-foreground cursor-not-allowed' 
+                : 'bg-primary hover:bg-primary/90',
+              featured && 'md:w-auto'
+            )}
+            disabled={trip.soldOut}
+            asChild={!trip.soldOut}
+          >
+            {trip.soldOut ? (
+              <span>Sold Out</span>
+            ) : (
+              <a href={trip.bookingUrl} target="_blank" rel="noopener noreferrer">
+                Book Now
+              </a>
+            )}
+          </Button>
+        ) : (
+          <Button 
+            className={cn(
+              'w-full btn-senior bg-primary hover:bg-primary/90',
+              featured && 'md:w-auto'
+            )}
+          >
+            Book Now
+          </Button>
+        )}
       </div>
     </motion.article>
   );

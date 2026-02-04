@@ -1,79 +1,16 @@
 import { motion } from 'framer-motion';
 import TripCard from '@/components/TripCard';
-import type { Trip } from '@/types/trip';
-
-// Sample featured trips data
-const featuredTrips: Trip[] = [
-  {
-    id: '1',
-    name: 'Alaskan Wilderness Adventure',
-    destination: 'Alaska, USA',
-    images: [
-      'https://images.unsplash.com/photo-1531366936337-7c912a4589a7?w=800&q=80',
-      'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=800&q=80',
-      'https://images.unsplash.com/photo-1494500764479-0c8f2919a3d8?w=800&q=80',
-    ],
-    price: 3299,
-    discountPrice: 2899,
-    spotsLeft: 4,
-    urgencyMessage: 'Only 4 spots left!',
-    departureDate: 'June 15-22, 2026',
-    category: 'international',
-    featured: true,
-  },
-  {
-    id: '2',
-    name: 'Nashville Music City Tour',
-    destination: 'Nashville, TN',
-    images: [
-      'https://images.unsplash.com/photo-1545419913-775e3e45f024?w=800&q=80',
-      'https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?w=800&q=80',
-      'https://images.unsplash.com/photo-1510915361894-db8b60106cb1?w=800&q=80',
-    ],
-    price: 899,
-    urgencyMessage: 'Early Bird Special!',
-    departureDate: 'April 10-14, 2026',
-    category: 'bus',
-    featured: false,
-  },
-  {
-    id: '3',
-    name: 'New Orleans Jazz & Culture',
-    destination: 'New Orleans, LA',
-    images: [
-      'https://images.unsplash.com/photo-1568402102990-bc541580b59f?w=800&q=80',
-      'https://images.unsplash.com/photo-1541971297127-c4e7f6e4c7fd?w=800&q=80',
-      'https://images.unsplash.com/photo-1550355191-aa8a80b41353?w=800&q=80',
-    ],
-    price: 1199,
-    discountPrice: 999,
-    spotsLeft: 8,
-    urgencyMessage: 'Save $200 - Limited Time!',
-    departureDate: 'May 5-10, 2026',
-    category: 'bus',
-    featured: false,
-  },
-  {
-    id: '4',
-    name: 'Branson Christmas Spectacular',
-    destination: 'Branson, MO',
-    images: [
-      'https://images.unsplash.com/photo-1482517967863-00e15c9b44be?w=800&q=80',
-      'https://images.unsplash.com/photo-1544551763-46a013bb70d5?w=800&q=80',
-      'https://images.unsplash.com/photo-1512389142860-9c449e58a814?w=800&q=80',
-    ],
-    price: 799,
-    spotsLeft: 12,
-    urgencyMessage: 'Filling up fast!',
-    departureDate: 'December 8-12, 2026',
-    category: 'bus',
-    featured: false,
-  },
-];
+import { featuredTrips } from '@/data/trips';
 
 const FeaturedTrips = () => {
-  const mainFeatured = featuredTrips[0];
-  const otherTrips = featuredTrips.slice(1);
+  // Get up to 4 featured trips for the layout
+  const displayTrips = featuredTrips.slice(0, 4);
+  const mainFeatured = displayTrips[0];
+  const otherTrips = displayTrips.slice(1);
+
+  if (!mainFeatured) {
+    return null;
+  }
 
   return (
     <section className="py-16 sm:py-20 lg:py-28 px-4 sm:px-6 lg:px-12 bg-secondary" id="trips">

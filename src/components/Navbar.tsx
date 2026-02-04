@@ -12,9 +12,10 @@ import wordmarkLogo from '@/assets/logos/wordmark-logo.png';
 
 const tripCategories = [
   { label: 'All Trips', href: '/trips' },
-  { label: 'Bus Tours', href: '/trips?category=bus' },
-  { label: 'Cruises', href: '/trips?category=land' },
-  { label: 'International', href: '/trips?category=international' },
+  { label: 'Land Trips', href: '/trips?category=land' },
+  { label: 'River Cruises', href: '/trips?category=river-cruise' },
+  { label: 'Ocean Cruises', href: '/trips?category=ocean-cruise' },
+  { label: 'Bus Trips', href: '/trips?category=bus' },
 ];
 
 const navLinks = [
