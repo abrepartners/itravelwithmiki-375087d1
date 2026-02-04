@@ -1,6 +1,7 @@
 import { Facebook, Instagram, Youtube, Mail, Phone, MapPin } from 'lucide-react';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
+import submarkLogo from '@/assets/logos/submark-logo.png';
 
 const Footer = () => {
   return (
@@ -9,12 +10,11 @@ const Footer = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 lg:gap-8 mb-12">
           {/* Brand */}
           <div className="lg:col-span-1">
-            <h2
-              className="text-2xl font-bold mb-4"
-              style={{ fontFamily: 'var(--font-display)' }}
-            >
-              iTravelWithMiki
-            </h2>
+            <img
+              src={submarkLogo}
+              alt="iTravelWithMiki"
+              className="h-16 w-auto mb-4 brightness-0 invert"
+            />
             <p className="text-primary-foreground/80 mb-6 text-base leading-relaxed">
               Your trusted travel family since 2009. Creating unforgettable memories, one trip at a time.
             </p>
@@ -36,13 +36,18 @@ const Footer = () => {
           <div>
             <h3 className="text-base font-semibold uppercase tracking-wider mb-5">Quick Links</h3>
             <ul className="space-y-3">
-              {['All Trips', 'About Mickey', 'Support & FAQ', 'Travel Insurance'].map((link) => (
-                <li key={link}>
+              {[
+                { label: 'All Trips', href: '/trips' },
+                { label: 'About Miki', href: '#about' },
+                { label: 'Support & FAQ', href: '/support' },
+                { label: 'Travel Insurance', href: '/support#insurance' },
+              ].map((link) => (
+                <li key={link.label}>
                   <a
-                    href="#"
+                    href={link.href}
                     className="text-primary-foreground/80 hover:text-primary-foreground transition-colors duration-300 text-base"
                   >
-                    {link}
+                    {link.label}
                   </a>
                 </li>
               ))}
@@ -56,8 +61,10 @@ const Footer = () => {
               <li className="flex items-start gap-3">
                 <Phone className="w-5 h-5 mt-0.5 flex-shrink-0" />
                 <div>
-                  <p className="text-primary-foreground font-medium">(555) 123-4567</p>
-                  <p className="text-primary-foreground/70 text-sm">Mon-Fri 9am-5pm</p>
+                  <a href="tel:+15019511749" className="text-primary-foreground font-medium hover:underline">
+                    (501) 951-1749
+                  </a>
+                  <p className="text-primary-foreground/70 text-sm">Mon-Fri 9am-5pm CST</p>
                 </div>
               </li>
               <li className="flex items-start gap-3">
@@ -69,8 +76,8 @@ const Footer = () => {
               <li className="flex items-start gap-3">
                 <MapPin className="w-5 h-5 mt-0.5 flex-shrink-0" />
                 <p className="text-primary-foreground/80">
-                  123 Travel Lane<br />
-                  Adventure City, TX 75001
+                  P.O. Box 13993<br />
+                  Little Rock, AR 72113
                 </p>
               </li>
             </ul>

@@ -1,7 +1,7 @@
 import Navbar from '@/components/Navbar';
 import HeroSection from '@/components/HeroSection';
 import FeaturedTrips from '@/components/FeaturedTrips';
-import AboutMickey from '@/components/AboutMickey';
+import AboutMiki from '@/components/AboutMiki';
 import Footer from '@/components/Footer';
 import EmailPopup from '@/components/EmailPopup';
 
@@ -11,7 +11,7 @@ const Index = () => {
       <Navbar />
       <HeroSection />
       <FeaturedTrips />
-      <AboutMickey />
+      <AboutMiki />
       <Footer />
       <EmailPopup />
     </main>

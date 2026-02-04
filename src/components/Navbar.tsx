@@ -8,16 +8,17 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
+import wordmarkLogo from '@/assets/logos/wordmark-logo.png';
 
 const tripCategories = [
   { label: 'All Trips', href: '/trips' },
   { label: 'Bus Tours', href: '/trips?category=bus' },
-  { label: 'Land Trips', href: '/trips?category=land' },
+  { label: 'Cruises', href: '/trips?category=land' },
   { label: 'International', href: '/trips?category=international' },
 ];
 
 const navLinks = [
-  { label: 'About Mickey', href: '#about' },
+  { label: 'About Miki', href: '#about' },
   { label: 'Support', href: '/support' },
   { label: 'Contact', href: '#contact' },
 ];
@@ -105,14 +106,13 @@ const Navbar = () => {
 
           {/* Logo - Centered */}
           <a href="/" className="absolute left-1/2 -translate-x-1/2">
-            <h1
-              className={`font-bold text-2xl md:text-3xl tracking-tight transition-colors duration-300 ${
-                isScrolled ? 'text-primary' : 'text-white'
+            <img
+              src={wordmarkLogo}
+              alt="iTravelWithMiki"
+              className={`h-10 md:h-12 w-auto transition-all duration-300 ${
+                isScrolled ? '' : 'brightness-0 invert'
               }`}
-              style={{ fontFamily: 'var(--font-display)' }}
-            >
-              iTravelWithMiki
-            </h1>
+            />
           </a>
 
           {/* Desktop Nav - Right */}
@@ -137,8 +137,9 @@ const Navbar = () => {
                   ? 'bg-primary text-primary-foreground hover:bg-primary/90'
                   : 'bg-white text-foreground hover:bg-white/90'
               }`}
+              asChild
             >
-              Book a Trip
+              <a href="/trips">Book a Trip</a>
             </Button>
           </div>
 
@@ -184,8 +185,8 @@ const Navbar = () => {
                 </a>
               ))}
 
-              <Button className="w-full mt-4 btn-senior bg-primary hover:bg-primary/90">
-                Book a Trip
+              <Button className="w-full mt-4 btn-senior bg-primary hover:bg-primary/90" asChild>
+                <a href="/trips">Book a Trip</a>
               </Button>
             </div>
           </motion.div>
