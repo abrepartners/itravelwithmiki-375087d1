@@ -12,7 +12,7 @@ import wordmarkLogo from '@/assets/logos/wordmark-logo.png';
 
 const tripCategories = [
   { label: 'All Trips', href: '/trips' },
-  { label: 'Land Trips', href: '/trips?category=land' },
+  { label: 'Land Trips', href: '/land-trips' },
   { label: 'River Cruises', href: '/trips?category=river-cruise' },
   { label: 'Ocean Cruises', href: '/trips?category=ocean-cruise' },
   { label: 'Bus Trips', href: '/trips?category=bus' },
