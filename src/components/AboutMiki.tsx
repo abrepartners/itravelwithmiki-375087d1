@@ -1,6 +1,7 @@
 import { motion } from 'framer-motion';
 import { Play, Users, Calendar, Award } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import mikiPhoto from '@/assets/miki-photo.jpeg';
 
 const stats = [
   { icon: Calendar, value: '15+', label: 'Years of Experience' },
@@ -8,7 +9,7 @@ const stats = [
   { icon: Award, value: '500+', label: 'Trips Completed' },
 ];
 
-const AboutMickey = () => {
+const AboutMiki = () => {
   return (
     <section className="py-20 lg:py-28 px-6 lg:px-12 bg-background" id="about">
       <div className="container mx-auto">
@@ -23,8 +24,8 @@ const AboutMickey = () => {
           >
             <div className="relative rounded-2xl overflow-hidden shadow-elevated">
               <img
-                src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=800&q=80"
-                alt="Mickey - Your Travel Guide"
+                src={mikiPhoto}
+                alt="Miki - Your Travel Guide"
                 className="w-full h-[350px] sm:h-[400px] md:h-[500px] object-cover"
               />
               {/* Play Button Overlay */}
@@ -61,14 +62,14 @@ const AboutMickey = () => {
               <span className="text-primary">Not Strangers</span>
             </h2>
             <p className="text-muted-foreground text-body-lg mb-6 leading-relaxed">
-              Hi, I'm Mickey! For over 15 years, I've been helping people like you experience the 
-              joy of travel without the stress. When you travel with us, you're not just joining a 
-              tour—you're becoming part of our traveling family.
+              Hi, I'm Miki! Based in Maumelle, Arkansas, I've been helping travelers aged 50 and up 
+              experience the joy of group travel for over 15 years. When you travel with us, you're 
+              not just joining a tour—you're becoming part of our traveling family.
             </p>
             <p className="text-muted-foreground text-body-lg mb-8 leading-relaxed">
-              Every trip is carefully planned to ensure you have fun, make lasting memories, and 
-              return home with stories to share. From the moment you book until the moment you're 
-              back home, I'm here to take care of everything.
+              Our motorcoach trips include fun on-bus activities like games, snacks, and videos to keep 
+              everyone engaged. Whether it's a scenic U.S. bus tour or an international adventure, I take 
+              care of everything so you can focus on making memories and meeting wonderful new friends.
             </p>
 
             {/* Stats */}
@@ -83,8 +84,8 @@ const AboutMickey = () => {
             </div>
 
             {/* CTA */}
-            <Button className="btn-senior bg-primary hover:bg-primary/90">
-              Learn More About Mickey
+            <Button className="btn-senior bg-primary hover:bg-primary/90" asChild>
+              <a href="/support">Learn More About Miki</a>
             </Button>
           </motion.div>
         </div>
@@ -93,4 +94,4 @@ const AboutMickey = () => {
   );
 };
 
-export default AboutMickey;
+export default AboutMiki;

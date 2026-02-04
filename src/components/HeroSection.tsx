@@ -1,6 +1,7 @@
 import { motion } from 'framer-motion';
 import { ArrowRight } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import stackedLogo from '@/assets/logos/stacked-logo.png';
 
 const HeroSection = () => {
   return (
@@ -33,12 +34,11 @@ const HeroSection = () => {
           transition={{ duration: 0.8, ease: 'easeOut' }}
           className="mb-8"
         >
-          <h1
-            className="text-5xl md:text-6xl lg:text-7xl text-white font-bold tracking-tight"
-            style={{ fontFamily: 'var(--font-display)' }}
-          >
-            iTravelWithMiki
-          </h1>
+          <img
+            src={stackedLogo}
+            alt="iTravelWithMiki"
+            className="h-32 md:h-40 lg:h-48 w-auto brightness-0 invert"
+          />
         </motion.div>
 
         {/* Slogan */}
@@ -72,16 +72,20 @@ const HeroSection = () => {
           <Button 
             size="lg" 
             className="btn-senior bg-accent hover:bg-accent/90 text-accent-foreground px-10"
+            asChild
           >
-            Explore Trips
-            <ArrowRight className="w-5 h-5 ml-2" />
+            <a href="/trips">
+              Explore Trips
+              <ArrowRight className="w-5 h-5 ml-2" />
+            </a>
           </Button>
           <Button 
             size="lg" 
             variant="outline"
             className="btn-senior border-white/30 text-white hover:bg-white hover:text-foreground bg-transparent"
+            asChild
           >
-            Meet Mickey
+            <a href="#about">Meet Miki</a>
           </Button>
         </motion.div>
       </div>
