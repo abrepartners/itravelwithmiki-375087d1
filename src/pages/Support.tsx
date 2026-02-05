@@ -1,3 +1,5 @@
+import { useEffect } from 'react';
+import { useLocation } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { Phone, Mail, MapPin, Download, CreditCard, Luggage, Bus, Shield } from 'lucide-react';
 import Navbar from '@/components/Navbar';
@@ -10,6 +12,7 @@ import {
 } from '@/components/ui/accordion';
 import { Button } from '@/components/ui/button';
 import { faqCategories, downloadableResources } from '@/data/faqs';
+import { useInsuranceProviders } from '@/stores/insuranceStore';
 
 const iconMap: Record<string, React.ComponentType<{ className?: string }>> = {
   CreditCard,
@@ -19,6 +22,21 @@ const iconMap: Record<string, React.ComponentType<{ className?: string }>> = {
 };
 
 const Support = () => {
+  const location = useLocation();
+  const insuranceProviders = useInsuranceProviders();
+
+  // Handle anchor scroll on page load
+  useEffect(() => {
+    if (location.hash) {
+      const element = document.getElementById(location.hash.slice(1));
+      if (element) {
+        setTimeout(() => {
+          element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }, 100);
+      }
+    }
+  }, [location.hash]);
+
   return (
     <main className="min-h-screen bg-background">
       <Navbar />
@@ -118,8 +136,67 @@ const Support = () => {
         </div>
       </section>
 
+      {/* Insurance Providers Section */}
+      <section className="py-16 lg:py-24 px-6 lg:px-12 bg-secondary" id="insurance">
+        <div className="container mx-auto max-w-4xl">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
+            className="text-center mb-12"
+          >
+            <h2
+              className="text-heading-lg md:text-heading-xl font-semibold text-foreground mb-4"
+              style={{ fontFamily: 'var(--font-display)' }}
+            >
+              Travel Insurance
+            </h2>
+            <p className="text-muted-foreground text-body-lg">
+              Protect your trip investment with comprehensive travel insurance.
+            </p>
+          </motion.div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            {insuranceProviders.map((provider, index) => (
+              <motion.div
+                key={provider.id}
+                id={`insurance-${provider.id}`}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6, delay: index * 0.1 }}
+                className="bg-background rounded-2xl p-6 lg:p-8 text-center scroll-mt-32"
+              >
+                <div className="w-16 h-16 rounded-full bg-primary/10 flex items-center justify-center mx-auto mb-4">
+                  <Shield className="w-8 h-8 text-primary" />
+                </div>
+                <h3
+                  className="text-xl font-semibold text-foreground mb-1"
+                  style={{ fontFamily: 'var(--font-display)' }}
+                >
+                  {provider.name}
+                </h3>
+                <p className="text-primary font-medium text-sm mb-3">{provider.subtitle}</p>
+                <p className="text-muted-foreground text-sm mb-6">{provider.description}</p>
+                {provider.pdfUrl && provider.pdfUrl !== '#' ? (
+                  <Button asChild className="gap-2">
+                    <a href={provider.pdfUrl} target="_blank" rel="noopener noreferrer">
+                      <Download className="w-4 h-4" />
+                      Download PDF
+                    </a>
+                  </Button>
+                ) : (
+                  <p className="text-muted-foreground text-sm italic">PDF coming soon</p>
+                )}
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </section>
+
       {/* Downloadable Resources */}
-      <section className="py-16 lg:py-24 px-6 lg:px-12 bg-secondary">
+      <section className="py-16 lg:py-24 px-6 lg:px-12">
         <div className="container mx-auto max-w-4xl">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -148,7 +225,7 @@ const Support = () => {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.6, delay: index * 0.1 }}
-                className="bg-background rounded-2xl p-6 text-center hover:shadow-lg transition-shadow duration-300 group"
+                className="bg-secondary rounded-2xl p-6 text-center hover:shadow-lg transition-shadow duration-300 group"
               >
                 <div className="w-16 h-16 rounded-full bg-primary/10 flex items-center justify-center mx-auto mb-4 group-hover:bg-primary/20 transition-colors">
                   <Download className="w-8 h-8 text-primary" />
@@ -165,7 +242,7 @@ const Support = () => {
       </section>
 
       {/* Contact Section */}
-      <section className="py-16 lg:py-24 px-6 lg:px-12">
+      <section className="py-16 lg:py-24 px-6 lg:px-12 bg-secondary">
         <div className="container mx-auto max-w-4xl">
           <motion.div
             initial={{ opacity: 0, y: 20 }}

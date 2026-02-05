@@ -18,9 +18,13 @@ const tripCategories = [
   { label: 'Bus Trips', href: '/trips?category=bus' },
 ];
 
+const insuranceOptions = [
+  { label: 'Allianz Insurance', subtitle: 'For International Trips', href: '/support#insurance-allianz' },
+  { label: 'Travel Confident', subtitle: 'For Diamond Tours', href: '/support#insurance-diamond' },
+];
+
 const navLinks = [
   { label: 'About Miki', href: '#about' },
-  { label: 'Travel Insurance', href: '/support#insurance' },
   { label: 'Support', href: '/support' },
   { label: 'Contact', href: '#contact' },
 ];
@@ -91,19 +95,16 @@ const Navbar = () => {
               </DropdownMenuContent>
             </DropdownMenu>
 
-            {navLinks.slice(0, 1).map((link) => (
-              <a
-                key={link.label}
-                href={link.href}
-                className={`text-base font-medium tracking-wide transition-colors duration-300 ${
-                  isScrolled
-                    ? 'text-foreground hover:text-primary'
-                    : 'text-white/90 hover:text-white'
-                }`}
-              >
-                {link.label}
-              </a>
-            ))}
+            <a
+              href="#about"
+              className={`text-base font-medium tracking-wide transition-colors duration-300 ${
+                isScrolled
+                  ? 'text-foreground hover:text-primary'
+                  : 'text-white/90 hover:text-white'
+              }`}
+            >
+              About Miki
+            </a>
           </div>
 
           {/* Logo - Centered */}
@@ -119,6 +120,32 @@ const Navbar = () => {
 
           {/* Desktop Nav - Right */}
           <div className="hidden md:flex items-center gap-8">
+            {/* Insurance Dropdown */}
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <button
+                  className={`flex items-center gap-1 text-base font-medium tracking-wide transition-colors duration-300 ${
+                    isScrolled
+                      ? 'text-foreground hover:text-primary'
+                      : 'text-white/90 hover:text-white'
+                  }`}
+                >
+                  Travel Insurance
+                  <ChevronDown className="w-4 h-4" />
+                </button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent align="end" className="w-56">
+                {insuranceOptions.map((option) => (
+                  <DropdownMenuItem key={option.label} asChild>
+                    <a href={option.href} className="flex flex-col items-start py-3 cursor-pointer">
+                      <span className="font-medium">{option.label}</span>
+                      <span className="text-xs text-muted-foreground">{option.subtitle}</span>
+                    </a>
+                  </DropdownMenuItem>
+                ))}
+              </DropdownMenuContent>
+            </DropdownMenu>
+
             {navLinks.slice(1).map((link) => (
               <a
                 key={link.label}
@@ -175,8 +202,26 @@ const Navbar = () => {
                 ))}
               </div>
 
+              {/* Insurance Section */}
+              <div className="border-b border-border pb-4">
+                <p className="text-sm font-semibold text-muted-foreground uppercase tracking-wide mb-3">
+                  Travel Insurance
+                </p>
+                {insuranceOptions.map((option) => (
+                  <a
+                    key={option.label}
+                    href={option.href}
+                    className="block text-foreground text-lg py-2"
+                    onClick={() => setIsMobileMenuOpen(false)}
+                  >
+                    {option.label}
+                    <span className="block text-sm text-muted-foreground">{option.subtitle}</span>
+                  </a>
+                ))}
+              </div>
+
               {/* Other Links */}
-              {navLinks.map((link) => (
+              {navLinks.slice(1).map((link) => (
                 <a
                   key={link.label}
                   href={link.href}

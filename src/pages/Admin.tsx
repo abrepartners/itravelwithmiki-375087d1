@@ -1,32 +1,55 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { Plus, LogOut, RotateCcw } from 'lucide-react';
+import { Plus, LogOut, RotateCcw, Map, Image, Shield } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { useAdmin } from '@/contexts/AdminContext';
 import { tripStore } from '@/stores/tripStore';
+import { galleryStore } from '@/stores/galleryStore';
+import { insuranceStore } from '@/stores/insuranceStore';
 import TripForm from '@/components/admin/TripForm';
 import TripList from '@/components/admin/TripList';
+import GalleryManager from '@/components/admin/GalleryManager';
+import InsuranceManager from '@/components/admin/InsuranceManager';
 import type { Trip } from '@/types/trip';
+import type { GalleryImage, InsuranceProvider } from '@/types/gallery';
 import wordmarkLogo from '@/assets/logos/wordmark-logo.png';
 
 const Admin = () => {
   const { isAuthenticated, logout } = useAdmin();
   const navigate = useNavigate();
   const [trips, setTrips] = useState<Trip[]>([]);
+  const [galleryImages, setGalleryImages] = useState<GalleryImage[]>([]);
+  const [insuranceProviders, setInsuranceProviders] = useState<InsuranceProvider[]>([]);
   const [showForm, setShowForm] = useState(false);
   const [editingTrip, setEditingTrip] = useState<Trip | null>(null);
+  const [activeTab, setActiveTab] = useState('trips');
 
   useEffect(() => {
     if (!isAuthenticated) {
       navigate('/admin/login');
       return;
     }
-    setTrips(tripStore.getTrips());
+    refreshAll();
   }, [isAuthenticated, navigate]);
+
+  const refreshAll = () => {
+    setTrips(tripStore.getTrips());
+    setGalleryImages(galleryStore.getImages());
+    setInsuranceProviders(insuranceStore.getProviders());
+  };
 
   const refreshTrips = () => {
     setTrips(tripStore.getTrips());
+  };
+
+  const refreshGallery = () => {
+    setGalleryImages(galleryStore.getImages());
+  };
+
+  const refreshInsurance = () => {
+    setInsuranceProviders(insuranceStore.getProviders());
   };
 
   const handleAddTrip = (trip: Trip) => {
@@ -101,65 +124,100 @@ const Admin = () => {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.4 }}
         >
-          {/* Actions Bar */}
-          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-8">
-            <div>
-              <h2 
-                className="text-heading-md font-semibold text-foreground"
-                style={{ fontFamily: 'var(--font-display)' }}
-              >
-                Trip Management
-              </h2>
-              <p className="text-muted-foreground mt-1">
-                {trips.length} {trips.length === 1 ? 'trip' : 'trips'} total
-              </p>
-            </div>
-            <div className="flex items-center gap-3">
-              <Button
-                variant="outline"
-                onClick={handleReset}
-                className="gap-2"
-              >
-                <RotateCcw className="w-4 h-4" />
-                Reset to Defaults
-              </Button>
-              <Button
-                onClick={() => {
-                  setEditingTrip(null);
-                  setShowForm(true);
-                }}
-                className="gap-2"
-              >
-                <Plus className="w-4 h-4" />
-                Add New Trip
-              </Button>
-            </div>
-          </div>
+          <Tabs value={activeTab} onValueChange={setActiveTab} className="space-y-6">
+            <TabsList className="grid w-full max-w-md grid-cols-3 h-12">
+              <TabsTrigger value="trips" className="gap-2 text-sm">
+                <Map className="w-4 h-4" />
+                <span className="hidden sm:inline">Trip Management</span>
+                <span className="sm:hidden">Trips</span>
+              </TabsTrigger>
+              <TabsTrigger value="gallery" className="gap-2 text-sm">
+                <Image className="w-4 h-4" />
+                <span className="hidden sm:inline">Gallery Photos</span>
+                <span className="sm:hidden">Gallery</span>
+              </TabsTrigger>
+              <TabsTrigger value="insurance" className="gap-2 text-sm">
+                <Shield className="w-4 h-4" />
+                <span className="hidden sm:inline">Insurance Docs</span>
+                <span className="sm:hidden">Insurance</span>
+              </TabsTrigger>
+            </TabsList>
 
-          {/* Form or List */}
-          {showForm ? (
-            <div className="bg-card border border-border rounded-xl p-6 lg:p-8">
-              <h3 
-                className="text-heading-sm font-semibold text-foreground mb-6"
-                style={{ fontFamily: 'var(--font-display)' }}
-              >
-                {editingTrip ? 'Edit Trip' : 'Add New Trip'}
-              </h3>
-              <TripForm
-                trip={editingTrip}
-                onSave={editingTrip ? handleUpdateTrip : handleAddTrip}
-                onCancel={handleCancel}
-              />
-            </div>
-          ) : (
-            <div className="bg-card border border-border rounded-xl p-6">
-              <TripList
-                trips={trips}
-                onEdit={handleEdit}
-                onDelete={handleDeleteTrip}
-              />
-            </div>
-          )}
+            {/* Trip Management Tab */}
+            <TabsContent value="trips" className="space-y-6">
+              {/* Actions Bar */}
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+                <div>
+                  <h2 
+                    className="text-heading-md font-semibold text-foreground"
+                    style={{ fontFamily: 'var(--font-display)' }}
+                  >
+                    Trip Management
+                  </h2>
+                  <p className="text-muted-foreground mt-1">
+                    {trips.length} {trips.length === 1 ? 'trip' : 'trips'} total
+                  </p>
+                </div>
+                <div className="flex items-center gap-3">
+                  <Button
+                    variant="outline"
+                    onClick={handleReset}
+                    className="gap-2"
+                  >
+                    <RotateCcw className="w-4 h-4" />
+                    Reset to Defaults
+                  </Button>
+                  <Button
+                    onClick={() => {
+                      setEditingTrip(null);
+                      setShowForm(true);
+                    }}
+                    className="gap-2"
+                  >
+                    <Plus className="w-4 h-4" />
+                    Add New Trip
+                  </Button>
+                </div>
+              </div>
+
+              {/* Form or List */}
+              {showForm ? (
+                <div className="bg-card border border-border rounded-xl p-6 lg:p-8">
+                  <h3 
+                    className="text-heading-sm font-semibold text-foreground mb-6"
+                    style={{ fontFamily: 'var(--font-display)' }}
+                  >
+                    {editingTrip ? 'Edit Trip' : 'Add New Trip'}
+                  </h3>
+                  <TripForm
+                    trip={editingTrip}
+                    onSave={editingTrip ? handleUpdateTrip : handleAddTrip}
+                    onCancel={handleCancel}
+                  />
+                </div>
+              ) : (
+                <div className="bg-card border border-border rounded-xl p-6">
+                  <TripList
+                    trips={trips}
+                    onEdit={handleEdit}
+                    onDelete={handleDeleteTrip}
+                  />
+                </div>
+              )}
+            </TabsContent>
+
+            {/* Gallery Tab */}
+            <TabsContent value="gallery">
+              <div className="bg-card border border-border rounded-xl p-6">
+                <GalleryManager images={galleryImages} onRefresh={refreshGallery} />
+              </div>
+            </TabsContent>
+
+            {/* Insurance Tab */}
+            <TabsContent value="insurance">
+              <InsuranceManager providers={insuranceProviders} onRefresh={refreshInsurance} />
+            </TabsContent>
+          </Tabs>
         </motion.div>
       </div>
     </main>

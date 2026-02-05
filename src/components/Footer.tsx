@@ -1,12 +1,16 @@
 import { Facebook, Instagram, Youtube, Mail, Phone, MapPin } from 'lucide-react';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
+import FooterGallery from '@/components/FooterGallery';
 import primaryLogo from '@/assets/logos/primary-logo.png';
 
 const Footer = () => {
   return (
-    <footer className="bg-primary text-primary-foreground py-16 px-6 lg:px-12" id="contact">
-      <div className="container mx-auto">
+    <footer className="bg-primary text-primary-foreground" id="contact">
+      {/* Scrolling Gallery */}
+      <FooterGallery />
+      
+      <div className="container mx-auto py-16 px-6 lg:px-12">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 lg:gap-8 mb-12">
           {/* Brand */}
           <div className="lg:col-span-1">
