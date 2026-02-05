@@ -1,7 +1,7 @@
 import { Facebook, Instagram, Youtube, Mail, Phone, MapPin } from 'lucide-react';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
-import submarkLogo from '@/assets/logos/submark-logo.png';
+import primaryLogo from '@/assets/logos/primary-logo.png';
 
 const Footer = () => {
   return (
@@ -11,9 +11,9 @@ const Footer = () => {
           {/* Brand */}
           <div className="lg:col-span-1">
             <img
-              src={submarkLogo}
+              src={primaryLogo}
               alt="iTravelWithMiki"
-              className="h-16 w-auto mb-4 brightness-0 invert"
+              className="h-20 w-auto mb-4"
             />
             <p className="text-primary-foreground/80 mb-6 text-base leading-relaxed">
               Your trusted travel family since 2009. Creating unforgettable memories, one trip at a time.
