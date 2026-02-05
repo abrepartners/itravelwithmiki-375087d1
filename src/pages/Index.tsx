@@ -3,7 +3,6 @@ import HeroSection from '@/components/HeroSection';
 import FeaturedTrips from '@/components/FeaturedTrips';
 import AboutMiki from '@/components/AboutMiki';
 import Footer from '@/components/Footer';
-import EmailPopup from '@/components/EmailPopup';
 
 const Index = () => {
   return (
@@ -13,7 +12,6 @@ const Index = () => {
       <FeaturedTrips />
       <AboutMiki />
       <Footer />
-      <EmailPopup />
     </main>
   );
 };
