@@ -37,7 +37,7 @@ const HeroSection = () => {
           <img
             src={stackedLogo}
             alt="iTravelWithMiki"
-            className="h-32 md:h-40 lg:h-48 w-auto"
+            className="h-48 md:h-60 lg:h-80 w-auto"
           />
         </motion.div>
 

@@ -1,8 +1,9 @@
 import { motion } from 'framer-motion';
 import TripCard from '@/components/TripCard';
-import { featuredTrips } from '@/data/trips';
+import { useFeaturedTrips } from '@/stores/tripStore';
 
 const FeaturedTrips = () => {
+  const featuredTrips = useFeaturedTrips();
   // Get up to 4 featured trips for the layout
   const displayTrips = featuredTrips.slice(0, 4);
   const mainFeatured = displayTrips[0];
