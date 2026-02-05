@@ -4,20 +4,22 @@ import { motion } from 'framer-motion';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import TripCard from '@/components/TripCard';
-import { allTrips, tripCategories } from '@/data/trips';
+import { tripCategories } from '@/data/trips';
+import { useTrips } from '@/stores/tripStore';
 import { cn } from '@/lib/utils';
 
 const Trips = () => {
   const [searchParams, setSearchParams] = useSearchParams();
   const categoryFromUrl = searchParams.get('category') || 'all';
   const [activeCategory, setActiveCategory] = useState(categoryFromUrl);
+  const allTrips = useTrips();
 
   const filteredTrips = useMemo(() => {
     if (activeCategory === 'all') {
       return allTrips;
     }
     return allTrips.filter((trip) => trip.category === activeCategory);
-  }, [activeCategory]);
+  }, [activeCategory, allTrips]);
 
   const handleCategoryChange = (categoryId: string) => {
     setActiveCategory(categoryId);

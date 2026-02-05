@@ -119,6 +119,12 @@ const Footer = () => {
                 {link}
               </a>
             ))}
+            <a
+              href="/admin"
+              className="text-primary-foreground/50 text-sm hover:text-primary-foreground transition-colors duration-300"
+            >
+              Admin
+            </a>
           </div>
         </div>
       </div>

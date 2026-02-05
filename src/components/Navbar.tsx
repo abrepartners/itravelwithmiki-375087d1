@@ -20,6 +20,7 @@ const tripCategories = [
 
 const navLinks = [
   { label: 'About Miki', href: '#about' },
+  { label: 'Travel Insurance', href: '/support#insurance' },
   { label: 'Support', href: '/support' },
   { label: 'Contact', href: '#contact' },
 ];
@@ -64,7 +65,7 @@ const Navbar = () => {
           </button>
 
           {/* Desktop Nav - Left */}
-          <div className="hidden md:flex items-center gap-6">
+          <div className="hidden md:flex items-center gap-8">
             {/* Trips Dropdown */}
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
@@ -110,14 +111,14 @@ const Navbar = () => {
             <img
               src={wordmarkLogo}
               alt="iTravelWithMiki"
-              className={`h-10 md:h-12 w-auto transition-all duration-300 ${
+              className={`h-12 md:h-14 w-auto transition-all duration-300 ${
                 isScrolled ? '' : 'brightness-0 invert'
               }`}
             />
           </a>
 
           {/* Desktop Nav - Right */}
-          <div className="hidden md:flex items-center gap-6">
+          <div className="hidden md:flex items-center gap-8">
             {navLinks.slice(1).map((link) => (
               <a
                 key={link.label}
