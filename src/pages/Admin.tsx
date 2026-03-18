@@ -98,50 +98,44 @@ const Admin = () => {
 
   return (
     <main className="min-h-screen bg-background">
-      {/* Header */}
-      <header className="bg-card border-b border-border sticky top-0 z-50">
-        <div className="container mx-auto px-6 py-4">
-          <div className="flex items-center justify-between">
-            <div className="flex items-center gap-4">
-              <a href="/">
+      <Tabs value={activeTab} onValueChange={setActiveTab}>
+        {/* Header */}
+        <header className="bg-card border-b border-border sticky top-0 z-50">
+          <div className="container mx-auto px-6 py-3">
+            <div className="flex items-center justify-between">
+              <a href="/" className="shrink-0">
                 <img src={wordmarkLogo} alt="iTravelWithMiki" className="h-8" />
               </a>
-              <span className="text-muted-foreground">|</span>
-              <h1 className="font-semibold text-foreground">Admin Dashboard</h1>
+              <TabsList className="flex h-10 bg-muted">
+                <TabsTrigger value="trips" className="gap-2 text-sm px-4">
+                  <Map className="w-4 h-4" />
+                  <span className="hidden sm:inline">Trips</span>
+                </TabsTrigger>
+                <TabsTrigger value="gallery" className="gap-2 text-sm px-4">
+                  <Image className="w-4 h-4" />
+                  <span className="hidden sm:inline">Gallery</span>
+                </TabsTrigger>
+                <TabsTrigger value="insurance" className="gap-2 text-sm px-4">
+                  <Shield className="w-4 h-4" />
+                  <span className="hidden sm:inline">Insurance</span>
+                </TabsTrigger>
+              </TabsList>
+              <Button variant="outline" onClick={handleLogout} className="gap-2 shrink-0">
+                <LogOut className="w-4 h-4" />
+                <span className="hidden sm:inline">Logout</span>
+              </Button>
             </div>
-            <Button variant="outline" onClick={handleLogout} className="gap-2">
-              <LogOut className="w-4 h-4" />
-              Logout
-            </Button>
           </div>
-        </div>
-      </header>
+        </header>
 
-      {/* Main Content */}
-      <div className="container mx-auto px-6 py-8">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.4 }}
-        >
-          <Tabs value={activeTab} onValueChange={setActiveTab} className="space-y-6">
-            <TabsList className="grid w-full max-w-md grid-cols-3 h-12">
-              <TabsTrigger value="trips" className="gap-2 text-sm">
-                <Map className="w-4 h-4" />
-                <span className="hidden sm:inline">Trip Management</span>
-                <span className="sm:hidden">Trips</span>
-              </TabsTrigger>
-              <TabsTrigger value="gallery" className="gap-2 text-sm">
-                <Image className="w-4 h-4" />
-                <span className="hidden sm:inline">Gallery Photos</span>
-                <span className="sm:hidden">Gallery</span>
-              </TabsTrigger>
-              <TabsTrigger value="insurance" className="gap-2 text-sm">
-                <Shield className="w-4 h-4" />
-                <span className="hidden sm:inline">Insurance Docs</span>
-                <span className="sm:hidden">Insurance</span>
-              </TabsTrigger>
-            </TabsList>
+        {/* Main Content */}
+        <div className="container mx-auto px-6 py-8">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.4 }}
+            className="space-y-6"
+          >
 
             {/* Trip Management Tab */}
             <TabsContent value="trips" className="space-y-6">
