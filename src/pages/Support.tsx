@@ -21,6 +21,7 @@ const iconMap: Record<string, React.ComponentType<{ className?: string }>> = {
   Luggage,
   Bus,
   Shield,
+  HelpCircle,
 };
 
 const Support = () => {
