@@ -1,9 +1,11 @@
 import { useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { Phone, Mail, MapPin, Download, CreditCard, Luggage, Bus, Shield } from 'lucide-react';
+import { Phone, Mail, MapPin, Download, CreditCard, Luggage, Bus, Shield, HelpCircle } from 'lucide-react';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
+import SEOHead from '@/components/SEOHead';
+import BreadcrumbNav from '@/components/BreadcrumbNav';
 import {
   Accordion,
   AccordionContent,
