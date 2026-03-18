@@ -4,6 +4,8 @@ import { motion } from 'framer-motion';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import TripCard from '@/components/TripCard';
+import SEOHead from '@/components/SEOHead';
+import BreadcrumbNav from '@/components/BreadcrumbNav';
 import { tripCategories } from '@/data/trips';
 import { useTrips } from '@/stores/tripStore';
 import { cn } from '@/lib/utils';
