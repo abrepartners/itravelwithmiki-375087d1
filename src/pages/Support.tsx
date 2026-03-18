@@ -42,6 +42,11 @@ const Support = () => {
 
   return (
     <main className="min-h-screen bg-background">
+      <SEOHead
+        title="Support & FAQ — iTravelWithMiki"
+        description="Get help with booking, travel insurance, packing tips, and more. Contact iTravelWithMiki by phone, email, or mail."
+        canonical="https://itravelwithmiki.lovable.app/support"
+      />
       <Navbar />
 
       {/* Hero Section */}

@@ -34,6 +34,11 @@ const Trips = () => {
 
   return (
     <main className="min-h-screen bg-background">
+      <SEOHead
+        title="Browse Trips — iTravelWithMiki"
+        description="Explore bus tours, river cruises, ocean cruises, and international land trips. Find your perfect adventure with iTravelWithMiki."
+        canonical="https://itravelwithmiki.lovable.app/trips"
+      />
       <Navbar />
 
       {/* Hero Section */}
