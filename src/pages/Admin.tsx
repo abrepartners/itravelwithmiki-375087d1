@@ -211,9 +211,9 @@ const Admin = () => {
             <TabsContent value="insurance">
               <InsuranceManager providers={insuranceProviders} onRefresh={refreshInsurance} />
             </TabsContent>
-          </Tabs>
-        </motion.div>
-      </div>
+          </motion.div>
+        </div>
+      </Tabs>
     </main>
   );
 };
