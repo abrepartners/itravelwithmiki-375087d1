@@ -1,6 +1,10 @@
 import { useEffect, useRef, useState } from 'react';
-import { ChevronDown } from 'lucide-react';
+import { ChevronDown, HelpCircle, CreditCard, Bus, Luggage } from 'lucide-react';
 import { faqCategories } from '@/data/faqs';
+
+const categoryIcons: Record<string, React.ComponentType<{ className?: string }>> = {
+  HelpCircle, CreditCard, Bus, Luggage,
+};
 
 interface FAQSectionProps {
   /** Show only a subset of FAQs (for homepage) */
