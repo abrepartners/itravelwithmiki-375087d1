@@ -60,6 +60,29 @@ const milestones = [
   { year: '2026', text: 'Over 2,000 travelers have joined the iTravel family' },
 ];
 
+const experienceFaqs = [
+  {
+    question: 'Who are these trips designed for?',
+    answer: 'Our trips are designed for travelers aged 50 and up who want stress-free, well-organized adventures with like-minded people. Whether you\'re a seasoned traveler or taking your first big trip, we plan everything so you can just relax and enjoy.',
+  },
+  {
+    question: "What's included in the trip price?",
+    answer: 'Most trips include transportation, hotel accommodations, many meals (breakfast is almost always included), admission to attractions, and the services of a professional tour guide. Specifics vary by trip and are listed on each trip page.',
+  },
+  {
+    question: 'Can I travel solo or do I need a companion?',
+    answer: 'You can absolutely come solo! Many of our travelers do. We foster a warm, family-like atmosphere where everyone feels welcome. Solo travelers can choose single-occupancy rooms or be matched with a roommate to share costs.',
+  },
+  {
+    question: 'What makes traveling with Miki different from other travel agencies?',
+    answer: 'We\'re a family, not a faceless agency. Miki personally plans and often leads every trip. Expect bus games, surprise stops, birthday celebrations, and someone who genuinely cares about your comfort and happiness.',
+  },
+  {
+    question: 'How physically demanding are the trips?',
+    answer: 'Our trips are designed with comfort in mind. We include frequent rest stops, accessible accommodations, and no rushed itineraries. If you have specific mobility needs, let us know at booking and we\'ll make accommodations.',
+  },
+];
+
 /* ───────────── Scroll-reveal hook ─────────────── */
 
 const useScrollReveal = (rootMargin = '0px 0px -60px 0px') => {
