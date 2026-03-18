@@ -25,6 +25,7 @@ const insuranceOptions = [
 
 const navLinks = [
   { label: 'About Miki', href: '#about' },
+  { label: 'The Experience', href: '/experience' },
   { label: 'Support', href: '/support' },
   { label: 'Contact', href: '#contact' },
 ];
