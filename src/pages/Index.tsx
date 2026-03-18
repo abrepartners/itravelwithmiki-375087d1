@@ -1,5 +1,6 @@
 import Navbar from '@/components/Navbar';
 import HeroSection from '@/components/HeroSection';
+import TripTypeSelector from '@/components/TripTypeSelector';
 import FeaturedTrips from '@/components/FeaturedTrips';
 import HowItWorks from '@/components/HowItWorks';
 import AboutMiki from '@/components/AboutMiki';
@@ -11,6 +12,7 @@ const Index = () => {
     <main className="min-h-screen">
       <Navbar />
       <HeroSection />
+      <TripTypeSelector />
       <FeaturedTrips />
       <HowItWorks />
       <AboutMiki />

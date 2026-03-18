@@ -7,6 +7,7 @@ import { AdminProvider } from "@/contexts/AdminContext";
 import Index from "./pages/Index";
 import Support from "./pages/Support";
 import Trips from "./pages/Trips";
+import TripTypeDetail from "./pages/TripTypeDetail";
 import LandTrips from "./pages/LandTrips";
 import Admin from "./pages/Admin";
 import AdminLogin from "./pages/AdminLogin";
