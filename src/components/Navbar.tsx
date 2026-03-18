@@ -1,33 +1,33 @@
-import { useState, useEffect } from 'react';
-import { motion } from 'framer-motion';
-import { Menu, X, ChevronDown } from 'lucide-react';
-import { Button } from '@/components/ui/button';
+import { useState, useEffect } from "react";
+import { motion } from "framer-motion";
+import { Menu, X, ChevronDown } from "lucide-react";
+import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
-} from '@/components/ui/dropdown-menu';
-import wordmarkLogo from '@/assets/logos/wordmark-logo.png';
+} from "@/components/ui/dropdown-menu";
+import wordmarkLogo from "@/assets/logos/wordmark-logo.png";
 
 const tripCategories = [
-  { label: 'All Trips', href: '/trips' },
-  { label: 'Land Trips', href: '/land-trips' },
-  { label: 'River Cruises', href: '/trips?category=river-cruise' },
-  { label: 'Ocean Cruises', href: '/trips?category=ocean-cruise' },
-  { label: 'Bus Trips', href: '/trips?category=bus' },
+  { label: "All Trips", href: "/trips" },
+  { label: "Land Trips", href: "/land-trips" },
+  { label: "River Cruises", href: "/trips?category=river-cruise" },
+  { label: "Ocean Cruises", href: "/trips?category=ocean-cruise" },
+  { label: "Bus Trips", href: "/trips?category=bus" },
 ];
 
 const insuranceOptions = [
-  { label: 'Allianz Insurance', subtitle: 'For International Trips', href: '/support#insurance-allianz' },
-  { label: 'Travel Confident', subtitle: 'For Diamond Tours', href: '/support#insurance-diamond' },
+  { label: "Allianz Insurance", subtitle: "For International Trips", href: "/support#insurance-allianz" },
+  { label: "Travel Confident", subtitle: "For Diamond Tours", href: "/support#insurance-diamond" },
 ];
 
 const navLinks = [
-  { label: 'About Miki', href: '#about' },
-  { label: 'The Experience', href: '/experience' },
-  { label: 'Support', href: '/support' },
-  { label: 'Contact', href: '#contact' },
+  { label: "About Miki", href: "#about" },
+  { label: "The Experience", href: "/experience" },
+  { label: "Support", href: "/support" },
+  { label: "Contact", href: "#contact" },
 ];
 
 const Navbar = () => {
@@ -39,19 +39,17 @@ const Navbar = () => {
       setIsScrolled(window.scrollY > 50);
     };
 
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
   return (
     <motion.header
       initial={{ y: -100 }}
       animate={{ y: 0 }}
-      transition={{ duration: 0.6, ease: 'easeOut' }}
+      transition={{ duration: 0.6, ease: "easeOut" }}
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
-        isScrolled
-          ? 'bg-background/95 backdrop-blur-md border-b border-border py-3'
-          : 'bg-transparent py-5'
+        isScrolled ? "bg-background/95 backdrop-blur-md border-b border-border py-3" : "bg-transparent py-5"
       }`}
     >
       <div className="container mx-auto px-6 lg:px-12">
@@ -63,9 +61,9 @@ const Navbar = () => {
             aria-label="Toggle menu"
           >
             {isMobileMenuOpen ? (
-              <X className={`w-6 h-6 ${isScrolled ? 'text-foreground' : 'text-white'}`} />
+              <X className={`w-6 h-6 ${isScrolled ? "text-foreground" : "text-white"}`} />
             ) : (
-              <Menu className={`w-6 h-6 ${isScrolled ? 'text-foreground' : 'text-white'}`} />
+              <Menu className={`w-6 h-6 ${isScrolled ? "text-foreground" : "text-white"}`} />
             )}
           </button>
 
@@ -76,9 +74,7 @@ const Navbar = () => {
               <DropdownMenuTrigger asChild>
                 <button
                   className={`flex items-center gap-1 text-base font-medium tracking-wide transition-colors duration-300 ${
-                    isScrolled
-                      ? 'text-foreground hover:text-primary'
-                      : 'text-white/90 hover:text-white'
+                    isScrolled ? "text-foreground hover:text-primary" : "text-white/90 hover:text-white"
                   }`}
                 >
                   Trips
@@ -99,23 +95,10 @@ const Navbar = () => {
             <a
               href="#about"
               className={`text-base font-medium tracking-wide transition-colors duration-300 ${
-                isScrolled
-                  ? 'text-foreground hover:text-primary'
-                  : 'text-white/90 hover:text-white'
+                isScrolled ? "text-foreground hover:text-primary" : "text-white/90 hover:text-white"
               }`}
             >
               About Miki
-            </a>
-
-            <a
-              href="/experience"
-              className={`text-base font-medium tracking-wide transition-colors duration-300 ${
-                isScrolled
-                  ? 'text-foreground hover:text-primary'
-                  : 'text-white/90 hover:text-white'
-              }`}
-            >
-              The Experience
             </a>
           </div>
 
@@ -124,9 +107,7 @@ const Navbar = () => {
             <img
               src={wordmarkLogo}
               alt="iTravelWithMiki"
-              className={`h-12 md:h-14 w-auto transition-all duration-300 ${
-                isScrolled ? '' : 'brightness-0 invert'
-              }`}
+              className={`h-12 md:h-14 w-auto transition-all duration-300 ${isScrolled ? "" : "brightness-0 invert"}`}
             />
           </a>
 
@@ -137,9 +118,7 @@ const Navbar = () => {
               <DropdownMenuTrigger asChild>
                 <button
                   className={`flex items-center gap-1 text-base font-medium tracking-wide transition-colors duration-300 ${
-                    isScrolled
-                      ? 'text-foreground hover:text-primary'
-                      : 'text-white/90 hover:text-white'
+                    isScrolled ? "text-foreground hover:text-primary" : "text-white/90 hover:text-white"
                   }`}
                 >
                   Travel Insurance
@@ -163,9 +142,7 @@ const Navbar = () => {
                 key={link.label}
                 href={link.href}
                 className={`text-base font-medium tracking-wide transition-colors duration-300 ${
-                  isScrolled
-                    ? 'text-foreground hover:text-primary'
-                    : 'text-white/90 hover:text-white'
+                  isScrolled ? "text-foreground hover:text-primary" : "text-white/90 hover:text-white"
                 }`}
               >
                 {link.label}
@@ -175,8 +152,8 @@ const Navbar = () => {
               size="lg"
               className={`rounded-full px-6 transition-all duration-300 ${
                 isScrolled
-                  ? 'bg-primary text-primary-foreground hover:bg-primary/90'
-                  : 'bg-white text-foreground hover:bg-white/90'
+                  ? "bg-primary text-primary-foreground hover:bg-primary/90"
+                  : "bg-white text-foreground hover:bg-white/90"
               }`}
               asChild
             >
@@ -199,9 +176,7 @@ const Navbar = () => {
             <div className="flex flex-col gap-4">
               {/* Trips Section */}
               <div className="border-b border-border pb-4">
-                <p className="text-sm font-semibold text-muted-foreground uppercase tracking-wide mb-3">
-                  Trips
-                </p>
+                <p className="text-sm font-semibold text-muted-foreground uppercase tracking-wide mb-3">Trips</p>
                 {tripCategories.map((category) => (
                   <a
                     key={category.label}
