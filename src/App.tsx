@@ -7,6 +7,7 @@ import { AdminProvider } from "@/contexts/AdminContext";
 import Index from "./pages/Index";
 import Support from "./pages/Support";
 import Trips from "./pages/Trips";
+import TripTypeDetail from "./pages/TripTypeDetail";
 import LandTrips from "./pages/LandTrips";
 import Admin from "./pages/Admin";
 import AdminLogin from "./pages/AdminLogin";
@@ -26,6 +27,7 @@ const App = () => (
             <Route path="/" element={<Index />} />
             <Route path="/support" element={<Support />} />
             <Route path="/trips" element={<Trips />} />
+            <Route path="/trips/:type" element={<TripTypeDetail />} />
             <Route path="/land-trips" element={<LandTrips />} />
             <Route path="/admin" element={<Admin />} />
             <Route path="/faq" element={<FAQ />} />
