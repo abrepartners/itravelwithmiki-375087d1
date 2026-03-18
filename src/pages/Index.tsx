@@ -6,10 +6,12 @@ import HowItWorks from '@/components/HowItWorks';
 import AboutMiki from '@/components/AboutMiki';
 import FAQSection from '@/components/FAQSection';
 import Footer from '@/components/Footer';
+import OrganizationSchema from '@/components/OrganizationSchema';
 
 const Index = () => {
   return (
     <main className="min-h-screen">
+      <OrganizationSchema />
       <Navbar />
       <HeroSection />
       <TripTypeSelector />

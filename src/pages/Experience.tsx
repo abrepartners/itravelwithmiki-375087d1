@@ -8,6 +8,8 @@ import {
 import { Button } from '@/components/ui/button';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
+import SEOHead from '@/components/SEOHead';
+import BreadcrumbNav from '@/components/BreadcrumbNav';
 import mikiPhoto from '@/assets/miki-photo.jpeg';
 
 /* ───────────────────── Data ───────────────────── */
@@ -58,6 +60,29 @@ const milestones = [
   { year: '2026', text: 'Over 2,000 travelers have joined the iTravel family' },
 ];
 
+const experienceFaqs = [
+  {
+    question: 'Who are these trips designed for?',
+    answer: 'Our trips are designed for travelers aged 50 and up who want stress-free, well-organized adventures with like-minded people. Whether you\'re a seasoned traveler or taking your first big trip, we plan everything so you can just relax and enjoy.',
+  },
+  {
+    question: "What's included in the trip price?",
+    answer: 'Most trips include transportation, hotel accommodations, many meals (breakfast is almost always included), admission to attractions, and the services of a professional tour guide. Specifics vary by trip and are listed on each trip page.',
+  },
+  {
+    question: 'Can I travel solo or do I need a companion?',
+    answer: 'You can absolutely come solo! Many of our travelers do. We foster a warm, family-like atmosphere where everyone feels welcome. Solo travelers can choose single-occupancy rooms or be matched with a roommate to share costs.',
+  },
+  {
+    question: 'What makes traveling with Miki different from other travel agencies?',
+    answer: 'We\'re a family, not a faceless agency. Miki personally plans and often leads every trip. Expect bus games, surprise stops, birthday celebrations, and someone who genuinely cares about your comfort and happiness.',
+  },
+  {
+    question: 'How physically demanding are the trips?',
+    answer: 'Our trips are designed with comfort in mind. We include frequent rest stops, accessible accommodations, and no rushed itineraries. If you have specific mobility needs, let us know at booking and we\'ll make accommodations.',
+  },
+];
+
 /* ───────────── Scroll-reveal hook ─────────────── */
 
 const useScrollReveal = (rootMargin = '0px 0px -60px 0px') => {
@@ -91,9 +116,15 @@ const Experience = () => {
   const diffCards = useScrollReveal();
   const processCards = useScrollReveal();
   const statsReveal = useScrollReveal();
+  const [openFaq, setOpenFaq] = useState<number | null>(null);
 
   return (
     <main className="min-h-screen bg-background">
+      <SEOHead
+        title="The Experience — iTravelWithMiki"
+        description="Discover what makes traveling with Miki different. Stress-free group adventures designed for travelers 50+ with a family atmosphere."
+        canonical="https://itravelwithmiki.lovable.app/experience"
+      />
       <Navbar />
 
       {/* ════════════ HERO — Full-Screen Cinematic ════════════ */}
@@ -412,6 +443,62 @@ const Experience = () => {
                 </div>
               ))}
             </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ════════════ EXPERIENCE FAQs ════════════ */}
+      <section className="py-24 lg:py-32 px-6 lg:px-12">
+        <div className="container mx-auto max-w-3xl">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="text-center mb-14"
+          >
+            <p className="uppercase tracking-[0.2em] text-sm font-medium text-primary mb-4">
+              Common Questions
+            </p>
+            <h2
+              className="text-heading-lg lg:text-heading-xl text-foreground font-bold"
+              style={{ fontFamily: 'var(--font-display)' }}
+            >
+              Questions About the Experience
+            </h2>
+          </motion.div>
+
+          <div className="space-y-3">
+            {experienceFaqs.map((faq, i) => (
+              <motion.div
+                key={i}
+                initial={{ opacity: 0, y: 10 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: i * 0.05 }}
+                className="bg-card border border-border rounded-xl overflow-hidden shadow-soft"
+              >
+                <button
+                  onClick={() => setOpenFaq(openFaq === i ? null : i)}
+                  className="w-full flex items-center justify-between p-5 text-left text-foreground hover:bg-muted/50 transition-colors duration-200"
+                >
+                  <span className="text-base font-medium pr-4">{faq.question}</span>
+                  <ChevronDown
+                    className={`w-5 h-5 flex-shrink-0 text-muted-foreground transition-transform duration-300 ${
+                      openFaq === i ? 'rotate-180' : ''
+                    }`}
+                  />
+                </button>
+                <div
+                  className={`overflow-hidden transition-all duration-300 ease-out ${
+                    openFaq === i ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0'
+                  }`}
+                >
+                  <p className="px-5 pb-5 text-muted-foreground text-base leading-relaxed">
+                    {faq.answer}
+                  </p>
+                </div>
+              </motion.div>
+            ))}
           </div>
         </div>
       </section>

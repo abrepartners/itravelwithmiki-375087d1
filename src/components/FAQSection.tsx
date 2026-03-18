@@ -1,6 +1,10 @@
 import { useEffect, useRef, useState } from 'react';
-import { ChevronDown } from 'lucide-react';
+import { ChevronDown, HelpCircle, CreditCard, Bus, Luggage } from 'lucide-react';
 import { faqCategories } from '@/data/faqs';
+
+const categoryIcons: Record<string, React.ComponentType<{ className?: string }>> = {
+  HelpCircle, CreditCard, Bus, Luggage,
+};
 
 interface FAQSectionProps {
   /** Show only a subset of FAQs (for homepage) */
@@ -95,12 +99,24 @@ const FAQSection = ({ compact = false, showHeader = true }: FAQSectionProps) => 
               }`}
               style={{ transitionDelay: `${catIndex * 100}ms` }}
             >
-              <h3
-                className="text-heading-sm text-foreground font-semibold mb-3 mt-8 first:mt-0"
-                style={{ fontFamily: 'var(--font-display)' }}
-              >
-                {category.title}
-              </h3>
+              {(() => {
+                const IconComp = categoryIcons[category.icon];
+                return (
+                  <div className="flex items-center gap-3 mb-3 mt-8 first:mt-0">
+                    {IconComp && (
+                      <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center">
+                        <IconComp className="w-5 h-5 text-primary" />
+                      </div>
+                    )}
+                    <h3
+                      className="text-heading-sm text-foreground font-semibold"
+                      style={{ fontFamily: 'var(--font-display)' }}
+                    >
+                      {category.title}
+                    </h3>
+                  </div>
+                );
+              })()}
 
               <div className="space-y-2">
                 {category.faqs.map((faq, faqIndex) => {

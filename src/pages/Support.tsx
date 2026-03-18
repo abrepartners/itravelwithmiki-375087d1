@@ -1,9 +1,11 @@
 import { useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { Phone, Mail, MapPin, Download, CreditCard, Luggage, Bus, Shield } from 'lucide-react';
+import { Phone, Mail, MapPin, Download, CreditCard, Luggage, Bus, Shield, HelpCircle } from 'lucide-react';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
+import SEOHead from '@/components/SEOHead';
+import BreadcrumbNav from '@/components/BreadcrumbNav';
 import {
   Accordion,
   AccordionContent,
@@ -19,6 +21,7 @@ const iconMap: Record<string, React.ComponentType<{ className?: string }>> = {
   Luggage,
   Bus,
   Shield,
+  HelpCircle,
 };
 
 const Support = () => {
@@ -39,6 +42,11 @@ const Support = () => {
 
   return (
     <main className="min-h-screen bg-background">
+      <SEOHead
+        title="Support & FAQ — iTravelWithMiki"
+        description="Get help with booking, travel insurance, packing tips, and more. Contact iTravelWithMiki by phone, email, or mail."
+        canonical="https://itravelwithmiki.lovable.app/support"
+      />
       <Navbar />
 
       {/* Hero Section */}
