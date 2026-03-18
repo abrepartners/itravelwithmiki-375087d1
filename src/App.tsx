@@ -10,6 +10,7 @@ import Trips from "./pages/Trips";
 import LandTrips from "./pages/LandTrips";
 import Admin from "./pages/Admin";
 import AdminLogin from "./pages/AdminLogin";
+import FAQ from "./pages/FAQ";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
