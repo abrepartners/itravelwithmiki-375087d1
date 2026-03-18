@@ -416,6 +416,62 @@ const Experience = () => {
         </div>
       </section>
 
+      {/* ════════════ EXPERIENCE FAQs ════════════ */}
+      <section className="py-24 lg:py-32 px-6 lg:px-12">
+        <div className="container mx-auto max-w-3xl">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="text-center mb-14"
+          >
+            <p className="uppercase tracking-[0.2em] text-sm font-medium text-primary mb-4">
+              Common Questions
+            </p>
+            <h2
+              className="text-heading-lg lg:text-heading-xl text-foreground font-bold"
+              style={{ fontFamily: 'var(--font-display)' }}
+            >
+              Questions About the Experience
+            </h2>
+          </motion.div>
+
+          <div className="space-y-3">
+            {experienceFaqs.map((faq, i) => (
+              <motion.div
+                key={i}
+                initial={{ opacity: 0, y: 10 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: i * 0.05 }}
+                className="bg-card border border-border rounded-xl overflow-hidden shadow-soft"
+              >
+                <button
+                  onClick={() => setOpenFaq(openFaq === i ? null : i)}
+                  className="w-full flex items-center justify-between p-5 text-left text-foreground hover:bg-muted/50 transition-colors duration-200"
+                >
+                  <span className="text-base font-medium pr-4">{faq.question}</span>
+                  <ChevronDown
+                    className={`w-5 h-5 flex-shrink-0 text-muted-foreground transition-transform duration-300 ${
+                      openFaq === i ? 'rotate-180' : ''
+                    }`}
+                  />
+                </button>
+                <div
+                  className={`overflow-hidden transition-all duration-300 ease-out ${
+                    openFaq === i ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0'
+                  }`}
+                >
+                  <p className="px-5 pb-5 text-muted-foreground text-base leading-relaxed">
+                    {faq.answer}
+                  </p>
+                </div>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </section>
+
       {/* ════════════ CTA ════════════ */}
       <section className="py-24 lg:py-32 px-6 lg:px-12 bg-secondary">
         <div className="container mx-auto text-center max-w-3xl">
