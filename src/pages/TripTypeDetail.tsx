@@ -1,7 +1,7 @@
 import { useState, useMemo } from 'react';
 import { useParams, Navigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { Globe, Ship, Anchor, Bus, Sparkles, ArrowLeft, Check, Calendar, Clock, Package } from 'lucide-react';
+import { Globe, Ship, Anchor, Bus, Sparkles, ArrowLeft, Check, Calendar, Clock, Package, HelpCircle, ChevronDown } from 'lucide-react';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import TripCard from '@/components/TripCard';
@@ -17,6 +17,7 @@ const tabs = [
   { id: 'upcoming', label: 'Upcoming Trips', icon: Calendar },
   { id: 'past', label: 'Past Trips', icon: Clock },
   { id: 'included', label: "What's Included", icon: Package },
+  { id: 'faq', label: 'FAQs', icon: HelpCircle },
 ] as const;
 
 type TabId = typeof tabs[number]['id'];
@@ -25,6 +26,7 @@ const TripTypeDetail = () => {
   const { type } = useParams<{ type: string }>();
   const allTrips = useTrips();
   const [activeTab, setActiveTab] = useState<TabId>('upcoming');
+  const [openFaqIndex, setOpenFaqIndex] = useState<number | null>(null);
 
   const tripType = tripTypes.find(t => t.slug === type);
 
@@ -249,6 +251,65 @@ const TripTypeDetail = () => {
                     Have questions about what's included? <a href="/support" className="text-primary font-medium hover:underline">Contact our team</a> — we're happy to help.
                   </p>
                 </div>
+              </div>
+            </motion.div>
+          )}
+
+          {/* FAQs */}
+          {activeTab === 'faq' && (
+            <motion.div
+              initial={{ opacity: 0, y: 16 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.4 }}
+              className="max-w-2xl mx-auto"
+            >
+              <h3
+                className="text-heading-md text-foreground font-semibold mb-6 text-center"
+                style={{ fontFamily: 'var(--font-display)' }}
+              >
+                {tripType.name} FAQs
+              </h3>
+              <div className="space-y-3">
+                {tripType.faqs.map((faq, i) => {
+                  const isOpen = openFaqIndex === i;
+                  return (
+                    <div
+                      key={i}
+                      className="bg-card border border-border rounded-xl overflow-hidden shadow-soft"
+                    >
+                      <button
+                        onClick={() => setOpenFaqIndex(isOpen ? null : i)}
+                        className="w-full flex items-center justify-between p-5 text-left text-foreground hover:bg-muted/50 transition-colors duration-200"
+                      >
+                        <span className="text-base font-medium pr-4">{faq.question}</span>
+                        <ChevronDown
+                          className={cn(
+                            'w-5 h-5 flex-shrink-0 text-muted-foreground transition-transform duration-300',
+                            isOpen && 'rotate-180'
+                          )}
+                        />
+                      </button>
+                      <div
+                        className={cn(
+                          'overflow-hidden transition-all duration-300 ease-out',
+                          isOpen ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0'
+                        )}
+                      >
+                        <p className="px-5 pb-5 text-muted-foreground text-base leading-relaxed">
+                          {faq.answer}
+                        </p>
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
+              <div className="text-center mt-8">
+                <a
+                  href="/faq"
+                  className="text-primary font-semibold text-lg hover:underline underline-offset-4"
+                >
+                  View All FAQs →
+                </a>
               </div>
             </motion.div>
           )}

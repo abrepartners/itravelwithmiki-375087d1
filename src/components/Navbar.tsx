@@ -25,6 +25,7 @@ const insuranceOptions = [
 
 const navLinks = [
   { label: 'About Miki', href: '#about' },
+  { label: 'The Experience', href: '/experience' },
   { label: 'Support', href: '/support' },
   { label: 'Contact', href: '#contact' },
 ];
@@ -104,6 +105,17 @@ const Navbar = () => {
               }`}
             >
               About Miki
+            </a>
+
+            <a
+              href="/experience"
+              className={`text-base font-medium tracking-wide transition-colors duration-300 ${
+                isScrolled
+                  ? 'text-foreground hover:text-primary'
+                  : 'text-white/90 hover:text-white'
+              }`}
+            >
+              The Experience
             </a>
           </div>
 
