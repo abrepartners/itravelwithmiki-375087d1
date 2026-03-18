@@ -126,8 +126,6 @@ const Experience = () => {
         canonical="https://itravelwithmiki.lovable.app/experience"
       />
       <Navbar />
-    <main className="min-h-screen bg-background">
-      <Navbar />
 
       {/* ════════════ HERO — Full-Screen Cinematic ════════════ */}
       <section className="relative h-screen w-full overflow-hidden flex items-center justify-center">
