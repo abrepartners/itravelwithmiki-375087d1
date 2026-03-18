@@ -8,6 +8,8 @@ import {
 import { Button } from '@/components/ui/button';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
+import SEOHead from '@/components/SEOHead';
+import BreadcrumbNav from '@/components/BreadcrumbNav';
 import mikiPhoto from '@/assets/miki-photo.jpeg';
 
 /* ───────────────────── Data ───────────────────── */
