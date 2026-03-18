@@ -116,8 +116,16 @@ const Experience = () => {
   const diffCards = useScrollReveal();
   const processCards = useScrollReveal();
   const statsReveal = useScrollReveal();
+  const [openFaq, setOpenFaq] = useState<number | null>(null);
 
   return (
+    <main className="min-h-screen bg-background">
+      <SEOHead
+        title="The Experience — iTravelWithMiki"
+        description="Discover what makes traveling with Miki different. Stress-free group adventures designed for travelers 50+ with a family atmosphere."
+        canonical="https://itravelwithmiki.lovable.app/experience"
+      />
+      <Navbar />
     <main className="min-h-screen bg-background">
       <Navbar />
 
