@@ -2,6 +2,8 @@ import { motion } from 'framer-motion';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import LandTripCard from '@/components/LandTripCard';
+import SEOHead from '@/components/SEOHead';
+import BreadcrumbNav from '@/components/BreadcrumbNav';
 import { landTrips } from '@/data/land-trips';
 
 const LandTrips = () => {
