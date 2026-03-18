@@ -1,20 +1,30 @@
-import { useMemo } from 'react';
+import { useState, useMemo } from 'react';
 import { useParams, Navigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { Globe, Ship, Anchor, Bus, Sparkles, ArrowLeft, Check } from 'lucide-react';
+import { Globe, Ship, Anchor, Bus, Sparkles, ArrowLeft, Check, Calendar, Clock, Package } from 'lucide-react';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import TripCard from '@/components/TripCard';
 import { tripTypes } from '@/data/trip-types';
 import { useTrips } from '@/stores/tripStore';
+import { cn } from '@/lib/utils';
 
 const iconMap: Record<string, React.ElementType> = {
   Globe, Ship, Anchor, Bus, Sparkles,
 };
 
+const tabs = [
+  { id: 'upcoming', label: 'Upcoming Trips', icon: Calendar },
+  { id: 'past', label: 'Past Trips', icon: Clock },
+  { id: 'included', label: "What's Included", icon: Package },
+] as const;
+
+type TabId = typeof tabs[number]['id'];
+
 const TripTypeDetail = () => {
   const { type } = useParams<{ type: string }>();
   const allTrips = useTrips();
+  const [activeTab, setActiveTab] = useState<TabId>('upcoming');
 
   const tripType = tripTypes.find(t => t.slug === type);
 
@@ -29,6 +39,9 @@ const TripTypeDetail = () => {
     }
     return allTrips.filter(t => t.category === tripType.category);
   }, [tripType, allTrips]);
+
+  const upcomingTrips = useMemo(() => filteredTrips.filter(t => !t.soldOut), [filteredTrips]);
+  const pastTrips = useMemo(() => filteredTrips.filter(t => t.soldOut), [filteredTrips]);
 
   if (!tripType) {
     return <Navigate to="/trips" replace />;
@@ -88,92 +101,156 @@ const TripTypeDetail = () => {
         </div>
       </section>
 
-      {/* Description + Highlights */}
-      <section className="py-16 lg:py-24 px-6 lg:px-12 bg-secondary">
+      {/* About */}
+      <section className="py-12 lg:py-16 px-6 lg:px-12 bg-secondary">
         <div className="container mx-auto max-w-4xl">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
-            className="grid grid-cols-1 lg:grid-cols-5 gap-10"
           >
-            <div className="lg:col-span-3">
-              <h2
-                className="text-heading-md text-foreground font-semibold mb-4"
-                style={{ fontFamily: 'var(--font-display)' }}
-              >
-                About {tripType.name}
-              </h2>
-              <p className="text-muted-foreground text-lg leading-relaxed">
-                {tripType.description}
-              </p>
-            </div>
-            <div className="lg:col-span-2">
-              <h3
-                className="text-heading-sm text-foreground font-semibold mb-4"
-                style={{ fontFamily: 'var(--font-display)' }}
-              >
-                What's Included
-              </h3>
-              <ul className="space-y-3">
-                {tripType.highlights.map((highlight, i) => (
-                  <li key={i} className="flex items-start gap-3">
-                    <Check className="w-5 h-5 text-primary mt-0.5 flex-shrink-0" />
-                    <span className="text-muted-foreground text-base">{highlight}</span>
-                  </li>
-                ))}
-              </ul>
-            </div>
+            <h2
+              className="text-heading-md text-foreground font-semibold mb-4"
+              style={{ fontFamily: 'var(--font-display)' }}
+            >
+              About {tripType.name}
+            </h2>
+            <p className="text-muted-foreground text-lg leading-relaxed">
+              {tripType.description}
+            </p>
           </motion.div>
         </div>
       </section>
 
-      {/* Trips Grid */}
+      {/* Tabbed Content */}
       <section className="py-16 lg:py-24 px-6 lg:px-12">
         <div className="container mx-auto">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-          >
-            <h2
-              className="text-heading-md lg:text-heading-lg text-foreground font-semibold mb-2 text-center"
-              style={{ fontFamily: 'var(--font-display)' }}
-            >
-              Available {tripType.name}
-            </h2>
-            <p className="text-muted-foreground text-center mb-10">
-              {filteredTrips.length} {filteredTrips.length === 1 ? 'trip' : 'trips'} available
-            </p>
-          </motion.div>
-
-          {filteredTrips.length > 0 ? (
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
-              {filteredTrips.map((trip, index) => (
-                <motion.div
-                  key={trip.id}
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.4, delay: index * 0.05 }}
+          {/* Tab Bar */}
+          <div className="flex flex-wrap justify-center gap-3 mb-12">
+            {tabs.map((tab) => {
+              const TabIcon = tab.icon;
+              return (
+                <button
+                  key={tab.id}
+                  onClick={() => setActiveTab(tab.id)}
+                  className={cn(
+                    'flex items-center gap-2 px-6 py-3 rounded-full text-base font-medium transition-all duration-300',
+                    activeTab === tab.id
+                      ? 'bg-primary text-primary-foreground shadow-md'
+                      : 'bg-secondary text-muted-foreground hover:bg-secondary/80'
+                  )}
                 >
-                  <TripCard trip={trip} />
-                </motion.div>
-              ))}
-            </div>
-          ) : (
-            <div className="text-center py-16 bg-card border border-border rounded-2xl">
-              <p className="text-muted-foreground text-lg mb-4">
-                No {tripType.name.toLowerCase()} are currently available.
+                  <TabIcon className="w-4 h-4" />
+                  {tab.label}
+                </button>
+              );
+            })}
+          </div>
+
+          {/* Upcoming Trips */}
+          {activeTab === 'upcoming' && (
+            <motion.div
+              initial={{ opacity: 0, y: 16 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.4 }}
+            >
+              <p className="text-muted-foreground text-center mb-8">
+                {upcomingTrips.length} upcoming {upcomingTrips.length === 1 ? 'trip' : 'trips'}
               </p>
-              <a
-                href="/trips"
-                className="text-primary font-semibold hover:underline underline-offset-4"
-              >
-                Browse all trips →
-              </a>
-            </div>
+              {upcomingTrips.length > 0 ? (
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
+                  {upcomingTrips.map((trip, index) => (
+                    <motion.div
+                      key={trip.id}
+                      initial={{ opacity: 0, y: 20 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ duration: 0.4, delay: index * 0.05 }}
+                    >
+                      <TripCard trip={trip} />
+                    </motion.div>
+                  ))}
+                </div>
+              ) : (
+                <div className="text-center py-16 bg-card border border-border rounded-2xl">
+                  <Calendar className="w-10 h-10 text-muted-foreground mx-auto mb-4" />
+                  <p className="text-muted-foreground text-lg mb-4">
+                    No upcoming {tripType.name.toLowerCase()} right now.
+                  </p>
+                  <a href="/trips" className="text-primary font-semibold hover:underline underline-offset-4">
+                    Browse all trips →
+                  </a>
+                </div>
+              )}
+            </motion.div>
+          )}
+
+          {/* Past Trips */}
+          {activeTab === 'past' && (
+            <motion.div
+              initial={{ opacity: 0, y: 16 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.4 }}
+            >
+              <p className="text-muted-foreground text-center mb-8">
+                {pastTrips.length} past {pastTrips.length === 1 ? 'trip' : 'trips'}
+              </p>
+              {pastTrips.length > 0 ? (
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8 opacity-80">
+                  {pastTrips.map((trip, index) => (
+                    <motion.div
+                      key={trip.id}
+                      initial={{ opacity: 0, y: 20 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ duration: 0.4, delay: index * 0.05 }}
+                    >
+                      <TripCard trip={trip} />
+                    </motion.div>
+                  ))}
+                </div>
+              ) : (
+                <div className="text-center py-16 bg-card border border-border rounded-2xl">
+                  <Clock className="w-10 h-10 text-muted-foreground mx-auto mb-4" />
+                  <p className="text-muted-foreground text-lg">
+                    No past {tripType.name.toLowerCase()} to show yet.
+                  </p>
+                </div>
+              )}
+            </motion.div>
+          )}
+
+          {/* What's Included */}
+          {activeTab === 'included' && (
+            <motion.div
+              initial={{ opacity: 0, y: 16 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.4 }}
+              className="max-w-2xl mx-auto"
+            >
+              <div className="bg-card border border-border rounded-2xl p-8 lg:p-10 shadow-soft">
+                <h3
+                  className="text-heading-md text-foreground font-semibold mb-6"
+                  style={{ fontFamily: 'var(--font-display)' }}
+                >
+                  What's Included with {tripType.name}
+                </h3>
+                <ul className="space-y-4">
+                  {tripType.highlights.map((highlight, i) => (
+                    <li key={i} className="flex items-start gap-4">
+                      <div className="w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0 mt-0.5">
+                        <Check className="w-4 h-4 text-primary" />
+                      </div>
+                      <span className="text-foreground text-lg">{highlight}</span>
+                    </li>
+                  ))}
+                </ul>
+                <div className="mt-8 pt-6 border-t border-border">
+                  <p className="text-muted-foreground text-base">
+                    Have questions about what's included? <a href="/support" className="text-primary font-medium hover:underline">Contact our team</a> — we're happy to help.
+                  </p>
+                </div>
+              </div>
+            </motion.div>
           )}
         </div>
       </section>
