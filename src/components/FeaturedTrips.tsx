@@ -4,14 +4,9 @@ import { useFeaturedTrips } from '@/stores/tripStore';
 
 const FeaturedTrips = () => {
   const featuredTrips = useFeaturedTrips();
-  // Get up to 4 featured trips for the layout
-  const displayTrips = featuredTrips.slice(0, 4);
-  const mainFeatured = displayTrips[0];
-  const otherTrips = displayTrips.slice(1);
+  const displayTrips = featuredTrips.slice(0, 6);
 
-  if (!mainFeatured) {
-    return null;
-  }
+  if (displayTrips.length === 0) return null;
 
   return (
     <section className="py-16 sm:py-20 lg:py-28 px-4 sm:px-6 lg:px-12 bg-secondary" id="trips">
@@ -38,15 +33,9 @@ const FeaturedTrips = () => {
           </p>
         </motion.div>
 
-        {/* Grid Layout */}
+        {/* Uniform 3-column grid */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
-          {/* Main Featured Trip - Full width on mobile, 2/3 on desktop */}
-          <div className="sm:col-span-2 lg:col-span-2 lg:row-span-2">
-            <TripCard trip={mainFeatured} featured className="h-full" />
-          </div>
-
-          {/* Other Trips */}
-          {otherTrips.map((trip) => (
+          {displayTrips.map((trip) => (
             <TripCard key={trip.id} trip={trip} />
           ))}
         </div>

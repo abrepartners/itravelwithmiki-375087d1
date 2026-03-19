@@ -13,8 +13,28 @@ const AboutMiki = () => {
   return (
     <section className="py-20 lg:py-28 px-6 lg:px-12 bg-background" id="about">
       <div className="container mx-auto">
+        {/* Eyebrow + heading — centered above the two-column layout */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
+          className="text-center mb-14 max-w-3xl mx-auto"
+        >
+          <p className="text-primary text-sm tracking-[0.2em] uppercase font-semibold mb-4">
+            Meet Your Guide
+          </p>
+          <h2
+            className="text-heading-lg md:text-heading-xl font-semibold text-foreground"
+            style={{ fontFamily: 'var(--font-display)' }}
+          >
+            Travel with Family,{' '}
+            <em className="text-primary not-italic">Not Strangers</em>
+          </h2>
+        </motion.div>
+
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
-          {/* Image/Video Side */}
+          {/* Image Side */}
           <motion.div
             initial={{ opacity: 0, x: -30 }}
             whileInView={{ opacity: 1, x: 0 }}
@@ -28,7 +48,6 @@ const AboutMiki = () => {
                 alt="Miki - Your Travel Guide"
                 className="w-full h-[350px] sm:h-[400px] md:h-[500px] object-cover"
               />
-              {/* Play Button Overlay */}
               <button
                 className="absolute inset-0 flex items-center justify-center group"
                 aria-label="Play video"
@@ -38,9 +57,9 @@ const AboutMiki = () => {
                 </div>
               </button>
             </div>
-
-            {/* Decorative Element */}
-            <div className="absolute -bottom-4 -right-4 sm:-bottom-6 sm:-right-6 w-32 sm:w-48 h-32 sm:h-48 bg-accent/10 rounded-2xl -z-10" />
+            {/* Decorative reticle corner */}
+            <div className="absolute -bottom-3 -right-3 w-16 h-16 border-b-2 border-r-2 border-primary/25 rounded-br-lg pointer-events-none" />
+            <div className="absolute -top-3 -left-3 w-16 h-16 border-t-2 border-l-2 border-primary/25 rounded-tl-lg pointer-events-none" />
           </motion.div>
 
           {/* Content Side */}
@@ -50,32 +69,21 @@ const AboutMiki = () => {
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
           >
-            <p className="text-primary text-sm tracking-[0.2em] uppercase font-semibold mb-4">
-              Meet Your Guide
-            </p>
-            <h2
-              className="text-heading-lg md:text-heading-xl font-semibold text-foreground mb-6"
-              style={{ fontFamily: 'var(--font-display)' }}
-            >
-              Travel with Family,
-              <br />
-              <span className="text-primary">Not Strangers</span>
-            </h2>
             <p className="text-muted-foreground text-body-lg mb-6 leading-relaxed">
-              Hi, I'm Miki! Based in Maumelle, Arkansas, I've been helping travelers aged 50 and up 
-              experience the joy of group travel for over 15 years. When you travel with us, you're 
+              Hi, I'm Miki! Based in Maumelle, Arkansas, I've been helping travelers aged 50 and up
+              experience the joy of group travel for over 15 years. When you travel with us, you're
               not just joining a tour—you're becoming part of our traveling family.
             </p>
             <p className="text-muted-foreground text-body-lg mb-8 leading-relaxed">
-              Our motorcoach trips include fun on-bus activities like games, snacks, and videos to keep 
-              everyone engaged. Whether it's a scenic U.S. bus tour or an international adventure, I take 
+              Our motorcoach trips include fun on-bus activities like games, snacks, and videos to keep
+              everyone engaged. Whether it's a scenic U.S. bus tour or an international adventure, I take
               care of everything so you can focus on making memories and meeting wonderful new friends.
             </p>
 
             {/* Stats */}
             <div className="grid grid-cols-3 gap-3 sm:gap-6 mb-8">
               {stats.map((stat) => (
-                <div key={stat.label} className="text-center">
+                <div key={stat.label} className="text-center p-4 rounded-xl bg-secondary/60 border border-border">
                   <stat.icon className="w-6 h-6 sm:w-8 sm:h-8 text-primary mx-auto mb-2" />
                   <div className="text-lg sm:text-2xl font-bold text-foreground">{stat.value}</div>
                   <div className="text-xs sm:text-sm text-muted-foreground">{stat.label}</div>
@@ -83,7 +91,6 @@ const AboutMiki = () => {
               ))}
             </div>
 
-            {/* CTA */}
             <Button className="btn-senior bg-primary hover:bg-primary/90" asChild>
               <a href="/support">Learn More About Miki</a>
             </Button>

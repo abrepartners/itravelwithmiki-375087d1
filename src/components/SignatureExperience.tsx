@@ -4,27 +4,27 @@ import { Camera, HeartHandshake, Sparkles, ShieldCheck } from 'lucide-react';
 const pillars = [
   {
     icon: Sparkles,
-    title: 'Brand-led experiences',
+    title: 'Curated Experiences',
     description:
-      'Every page now leans into a warmer, more premium feel focused on curated adventures instead of generic listings.',
+      'Every journey is handpicked and designed around comfort, connection, and unforgettable moments — never generic.',
   },
   {
     icon: Camera,
-    title: 'Photo-first storytelling',
+    title: 'Photo-First Storytelling',
     description:
-      'Trips are presented as immersive experiences with stronger visual rhythm, signature moments, and reasons to imagine yourself there.',
+      'Trips are presented as immersive visual experiences with signature moments and reasons to imagine yourself there.',
   },
   {
     icon: HeartHandshake,
-    title: 'Family-style hosting',
+    title: 'Family-Style Hosting',
     description:
-      'The message stays consistent: this is hosted travel with community, care, and real connection built into the journey.',
+      'This is hosted travel with community, care, and real connection built into every step of the journey.',
   },
   {
     icon: ShieldCheck,
-    title: 'Keep visitors onsite longer',
+    title: 'Worry-Free Planning',
     description:
-      'High-interest land trips now have internal detail pages so guests can browse, compare, and fall in love before any external booking handoff.',
+      'Browse, compare, and fall in love with your next trip — we handle every detail so you can focus on making memories.',
   },
 ];
 
@@ -40,16 +40,17 @@ const SignatureExperience = () => {
           className="mx-auto mb-14 max-w-3xl text-center"
         >
           <p className="mb-4 text-sm font-semibold uppercase tracking-[0.2em] text-primary">
-            Why this brand wins
+            The iTravel Difference
           </p>
           <h2
             className="mb-5 text-heading-lg md:text-heading-xl font-semibold text-foreground"
             style={{ fontFamily: 'var(--font-display)' }}
           >
-            Designed to feel like a hosted travel club, not a booking warehouse
+            A Hosted Travel Club,{' '}
+            <em className="text-primary not-italic">Not a Booking Site</em>
           </h2>
           <p className="text-body-lg text-muted-foreground">
-            We are turning the site into a richer destination of its own: more trust, more story, and more reasons to stay engaged before leaving for payment or final reservations.
+            More trust, more story, and more reasons to stay engaged — designed around you.
           </p>
         </motion.div>
 
@@ -63,13 +64,23 @@ const SignatureExperience = () => {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.5, delay: index * 0.08 }}
-                className="rounded-3xl border border-border bg-secondary/60 p-6 shadow-soft"
+                className="relative rounded-3xl border border-border bg-secondary/60 p-6 shadow-soft overflow-hidden"
               >
-                <div className="mb-5 flex h-14 w-14 items-center justify-center rounded-2xl bg-primary/10 text-primary">
-                  <Icon className="h-7 w-7" />
+                {/* Left accent border */}
+                <div className="absolute left-0 top-4 bottom-4 w-[3px] rounded-full bg-primary/30" />
+
+                <div className="pl-3">
+                  <div className="mb-5 flex h-14 w-14 items-center justify-center rounded-2xl bg-primary/10 text-primary">
+                    <Icon className="h-7 w-7" />
+                  </div>
+                  <h3
+                    className="mb-3 text-xl font-semibold text-foreground"
+                    style={{ fontFamily: 'var(--font-display)' }}
+                  >
+                    {pillar.title}
+                  </h3>
+                  <p className="text-base leading-relaxed text-muted-foreground">{pillar.description}</p>
                 </div>
-                <h3 className="mb-3 text-xl font-semibold text-foreground">{pillar.title}</h3>
-                <p className="text-base leading-relaxed text-muted-foreground">{pillar.description}</p>
               </motion.article>
             );
           })}
