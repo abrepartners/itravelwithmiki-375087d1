@@ -1,8 +1,14 @@
-import { Compass, BookOpen, Phone, Mail, MapPin } from 'lucide-react';
+import { Compass, BookOpen, Phone, Mail, MapPin, Facebook, Instagram, Youtube } from 'lucide-react';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import FooterGallery from '@/components/FooterGallery';
 import primaryLogo from '@/assets/logos/primary-logo.webp';
+
+const socialLinks = [
+  { icon: Facebook, href: 'https://www.facebook.com/itravelwithmiki', label: 'Facebook' },
+  { icon: Instagram, href: 'https://www.instagram.com/itravelwithmiki', label: 'Instagram' },
+  { icon: Youtube, href: 'https://www.youtube.com/@itravelwithmiki', label: 'YouTube' },
+];
 
 const Footer = () => {
   return (
