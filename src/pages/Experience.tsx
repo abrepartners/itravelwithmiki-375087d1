@@ -397,10 +397,7 @@ const Experience = () => {
       >
         <div className="container mx-auto max-w-3xl">
           <div className="text-center mb-14">
-            <p
-              className="uppercase tracking-[0.2em] text-sm font-medium mb-4"
-              style={{ color: 'hsl(40 80% 60%)' }}
-            >
+            <p className="uppercase tracking-[0.2em] text-sm font-medium mb-4 text-white/60">
               Our Journey
             </p>
             <h2
