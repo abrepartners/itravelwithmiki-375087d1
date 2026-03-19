@@ -101,7 +101,7 @@ const Navbar = () => {
               <DropdownMenuTrigger asChild>
                 <button
                   type="button"
-                  className={`flex items-center gap-1 ${navLinkClass} ${textClass}`}
+                  className={`inline-flex items-center gap-1 ${navLinkClass} ${textClass}`}
                 >
                   Trips
                   <ChevronDown className="w-3.5 h-3.5" />
