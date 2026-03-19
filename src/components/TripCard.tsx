@@ -24,7 +24,6 @@ const TripCard = ({ trip, featured = false, className }: TripCardProps) => {
     setCurrentImageIndex((prev) => (prev - 1 + trip.images.length) % trip.images.length);
   }, [trip.images.length]);
 
-  // Auto-rotate images
   useEffect(() => {
     if (isPaused || trip.images.length <= 1) return;
     const interval = setInterval(nextImage, 4000);
@@ -60,11 +59,8 @@ const TripCard = ({ trip, featured = false, className }: TripCardProps) => {
             )}
           />
         ))}
-        
-        {/* Gradient Overlay */}
         <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
 
-        {/* Carousel Controls */}
         {trip.images.length > 1 && (
           <>
             <button
@@ -81,8 +77,6 @@ const TripCard = ({ trip, featured = false, className }: TripCardProps) => {
             >
               <ChevronRight className="w-4 h-4 sm:w-5 sm:h-5 text-foreground" />
             </button>
-
-            {/* Dots Indicator */}
             <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-2">
               {trip.images.map((_, index) => (
                 <button
@@ -99,12 +93,11 @@ const TripCard = ({ trip, featured = false, className }: TripCardProps) => {
           </>
         )}
 
-        {/* Urgency Badge */}
         {trip.urgencyMessage && (
           <div className="absolute top-4 left-4">
-            <UrgencyBadge 
-              message={trip.urgencyMessage} 
-              variant={trip.soldOut ? 'default' : trip.spotsLeft ? 'spots' : 'discount'} 
+            <UrgencyBadge
+              message={trip.urgencyMessage}
+              variant={trip.soldOut ? 'default' : trip.spotsLeft ? 'spots' : 'discount'}
             />
           </div>
         )}
@@ -112,13 +105,12 @@ const TripCard = ({ trip, featured = false, className }: TripCardProps) => {
 
       {/* Content — flex-col + flex-grow so button always sits at the bottom */}
       <div className={cn('flex flex-col flex-grow p-6', featured && 'md:p-8')}>
-        {/* Destination */}
         <div className="flex items-center gap-2 text-muted-foreground mb-2">
           <MapPin className="w-4 h-4" />
           <span className="text-sm font-medium">{trip.destination}</span>
         </div>
 
-        {/* Title */}
+        {/* Title — line-clamp-2 ensures ALL cards have the same header height */}
         <h3
           className={cn(
             'font-semibold text-card-foreground mb-3 group-hover:text-primary transition-colors duration-300 line-clamp-2 leading-snug',
@@ -129,7 +121,6 @@ const TripCard = ({ trip, featured = false, className }: TripCardProps) => {
           {trip.name}
         </h3>
 
-        {/* Date */}
         <div className="flex items-center gap-2 text-muted-foreground mb-4">
           <Calendar className="w-4 h-4" />
           <span className="text-sm">{trip.departureDate}</span>
@@ -141,20 +132,20 @@ const TripCard = ({ trip, featured = false, className }: TripCardProps) => {
         {/* Price */}
         <div className="mb-4">
           <div className="flex items-baseline gap-3">
-          {hasDiscount ? (
-            <>
-              <span className="text-2xl font-bold text-accent">
-                ${trip.discountPrice?.toLocaleString()}
-              </span>
-              <span className="text-lg text-muted-foreground line-through">
+            {hasDiscount ? (
+              <>
+                <span className="text-2xl font-bold text-accent">
+                  ${trip.discountPrice?.toLocaleString()}
+                </span>
+                <span className="text-lg text-muted-foreground line-through">
+                  ${trip.price.toLocaleString()}
+                </span>
+              </>
+            ) : (
+              <span className="text-2xl font-bold text-foreground">
                 ${trip.price.toLocaleString()}
               </span>
-            </>
-          ) : (
-            <span className="text-2xl font-bold text-foreground">
-              ${trip.price.toLocaleString()}
-            </span>
-          )}
+            )}
             <span className="text-sm text-muted-foreground">
               {trip.singlePrice ? 'dbl' : 'per person'}
             </span>
@@ -166,7 +157,7 @@ const TripCard = ({ trip, featured = false, className }: TripCardProps) => {
           )}
         </div>
 
-        {/* CTA Button — smart: Book Now / Join Waitlist / Sold Out */}
+        {/* CTA — smart: Book Now / Join Waitlist / Sold Out / Contact to Book */}
         {trip.soldOut ? (
           trip.waitlistUrl ? (
             <Button
@@ -198,9 +189,13 @@ const TripCard = ({ trip, featured = false, className }: TripCardProps) => {
           </Button>
         ) : (
           <Button
-            className={cn('w-full btn-senior bg-primary hover:bg-primary/90', featured && 'md:w-auto')}
+            className={cn('w-full btn-senior bg-primary hover:bg-primary/90 group/btn', featured && 'md:w-auto')}
+            asChild
           >
-            Book Now
+            <a href="/support" className="flex items-center justify-center gap-2">
+              Contact to Book
+              <ArrowRight className="w-4 h-4 transition-transform duration-300 group-hover/btn:translate-x-1" />
+            </a>
           </Button>
         )}
       </div>

@@ -3,7 +3,7 @@ export interface Trip {
   name: string;
   destination: string;
   images: string[];
-  price: number;               // double/shared occupancy price (or base price for intl trips)
+  price: number;               // double/shared occupancy price (or base price for intl trips )
   singlePrice?: number;        // single occupancy price (bus trips — Diamond Tours)
   discountPrice?: number;
   spotsLeft?: number;
