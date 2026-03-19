@@ -1,193 +1,66 @@
 
 
-# Complete Feature Enhancement Plan
+# Content Studio — Build Plan
 
-This plan adds three interconnected features:
-1. **Insurance Sub-Dropdowns** - Split navigation into Allianz and Travel Confident
-2. **Media/Document Management** - Admin ability to upload/manage photos, videos, and PDFs
-3. **Scrolling Photo Gallery** - Infinite-loop image carousel in the footer
+## Overview
+Add a Content Studio tab to the admin panel that uses AI to generate marketing content (Instagram, Facebook, email, SMS, content calendar) for trips. Uses a Supabase Edge Function calling the Lovable AI Gateway.
 
----
+**Note on model**: The user requested "OpenAI gpt-4.1-mini" — this model isn't available on the Lovable AI Gateway. We'll use `google/gemini-3-flash-preview` (the default, fast and capable) which provides equivalent quality for content generation. No API key needed.
 
-## Feature 1: Insurance Navigation Sub-Dropdowns
+## Files to Create/Update
 
-### Navbar Changes
+### 1. `supabase/functions/generate-content/index.ts` — Edge Function
+- Accepts POST with `{ tripName, destination, departureDate, category, price, description, flyerUrl, flyerText, contentType }` where `contentType` is one of: `instagram`, `facebook`, `email`, `sms`, `calendar`, or `all`
+- Calls Lovable AI Gateway with a travel-marketing system prompt
+- For `all`: generates all 5 content types in one call using structured output (tool calling) returning `{ instagram, facebook, email: { subject, body }, sms, calendar }`
+- For individual types: returns `{ content: string }` (or `{ subject, body }` for email)
+- If `flyerUrl` is provided, includes it in the prompt context (text description, not vision — vision would require multimodal which adds complexity; we'll pass the URL as context)
+- If `flyerText` is provided, includes the pasted flyer text directly in the prompt
+- CORS headers included; `verify_jwt = false` in config.toml
+- Handles 429/402 errors from the gateway
 
-Convert "Travel Insurance" into a dropdown with two providers:
+### 2. `src/stores/contentStore.ts` — localStorage Store
+- Interface: `ContentItem { id, tripName, destination, contentType, content, subject?, createdAt }`
+- Methods: `getItems()`, `addItem()`, `updateItem()`, `deleteItem()`, `clearAll()`
+- Follows exact same pattern as `galleryStore`
 
-| Provider | Description | Link |
-|----------|-------------|------|
-| Allianz Insurance | For International Trips | `/support#insurance-allianz` |
-| Travel Confident | For Diamond Tours | `/support#insurance-diamond` |
+### 3. `src/components/admin/ContentCard.tsx` — Display Card
+- Shows content type as a colored badge (Instagram=pink, Facebook=blue, Email=orange, SMS=green, Calendar=purple)
+- Displays the generated text in a readable format
+- For email: shows subject line separately
+- Actions: Copy to clipboard (with toast), Edit inline (textarea toggle), Delete
+- Timestamp display
 
-**Files to Update:**
-- `src/components/Navbar.tsx` - Add dropdown for insurance options
-- `src/pages/Support.tsx` - Add anchor sections for each provider
-- `src/data/faqs.ts` - Add insurance provider data
+### 4. `src/components/admin/ContentStudio.tsx` — Main Component
+- **Trip Selection**: Dropdown of existing trips from `tripStore` OR manual entry fields (name, destination, date, description)
+- **Optional Inputs**: Flyer image URL field, flyer text paste area (textarea)
+- **Generate Controls**: "Generate All" button (generates all 5 types at once), or individual type buttons
+- **Loading State**: Spinner with "Generating..." text during API call
+- **Results Display**: Grid of `ContentCard` components for generated content
+- **History Section**: Previously saved content items from `contentStore`, filterable by trip name
+- Calls edge function via `supabase.functions.invoke('generate-content', { body: ... })`
 
----
+### 5. `src/pages/Admin.tsx` — Update
+- Import `ContentStudio` and `Pencil` icon from lucide-react
+- Add "Content" tab trigger between Trips and Gallery in TabsList
+- Add `TabsContent value="content"` rendering `<ContentStudio />`
 
-## Feature 2: Admin Media Management
+### 6. `supabase/config.toml` — Update
+- Add `[functions.generate-content]` with `verify_jwt = false`
 
-### New Admin Tabs
+## Technical Details
 
-Add tabbed navigation to the Admin dashboard:
+| File | Action |
+|------|--------|
+| `supabase/functions/generate-content/index.ts` | Create |
+| `src/stores/contentStore.ts` | Create |
+| `src/components/admin/ContentCard.tsx` | Create |
+| `src/components/admin/ContentStudio.tsx` | Create |
+| `src/pages/Admin.tsx` | Update — add Content tab + import |
+| `supabase/config.toml` | Update — register function |
 
-| Tab | Purpose |
-|-----|---------|
-| Trip Management | Existing functionality |
-| Gallery Photos | Manage scrolling footer photos |
-| Insurance Docs | Manage PDF links for each provider |
-
-### New Files to Create
-
-| File | Purpose |
-|------|---------|
-| `src/types/gallery.ts` | TypeScript types for gallery images |
-| `src/stores/galleryStore.ts` | localStorage-based gallery management |
-| `src/components/admin/GalleryManager.tsx` | Add/remove gallery photos |
-| `src/components/admin/InsuranceManager.tsx` | Manage insurance PDF links |
-
-### Gallery Image Type
-
-```typescript
-interface GalleryImage {
-  id: string;
-  url: string;           // Image URL (external or uploaded)
-  caption?: string;      // Optional caption
-  tripName?: string;     // Associated trip name
-  createdAt: string;
-}
-```
-
-### Insurance Document Type
-
-```typescript
-interface InsuranceProvider {
-  id: 'allianz' | 'diamond';
-  name: string;
-  subtitle: string;
-  description: string;
-  pdfUrl: string;        // Admin-editable PDF link
-}
-```
-
----
-
-## Feature 3: Scrolling Footer Photo Gallery
-
-### Visual Design
-
-A horizontal strip of photos above the main footer content that scrolls continuously left-to-right:
-
-```text
-┌─────────────────────────────────────────────────────────────┐
-│  [img] [img] [img] [img] [img] [img] [img] [img] →→→       │
-│            ← Continuous infinite scroll loop                │
-└─────────────────────────────────────────────────────────────┘
-┌─────────────────────────────────────────────────────────────┐
-│  FOOTER CONTENT (logo, links, contact, newsletter)         │
-└─────────────────────────────────────────────────────────────┘
-```
-
-### Technical Implementation
-
-**New Component:** `src/components/FooterGallery.tsx`
-- Uses CSS animation for smooth infinite scroll
-- Duplicates images to create seamless loop effect
-- Pauses on hover for accessibility
-- Responsive image sizing
-
-**Animation Keyframes (add to tailwind.config.ts):**
-
-```typescript
-keyframes: {
-  "scroll-left": {
-    "0%": { transform: "translateX(0)" },
-    "100%": { transform: "translateX(-50%)" }
-  }
-}
-```
-
-### Gallery Appearance
-
-- Image height: ~80px on mobile, ~120px on desktop
-- Subtle opacity overlay matching footer colors
-- Grayscale with color on hover (optional polish)
-- Seamless infinite loop animation (~30s per cycle)
-
----
-
-## Implementation Steps
-
-### Step 1: Create Types and Stores
-1. Create `src/types/gallery.ts`
-2. Create `src/stores/galleryStore.ts` (following tripStore pattern)
-3. Create `src/stores/insuranceStore.ts`
-
-### Step 2: Build Admin Components
-1. Create `src/components/admin/GalleryManager.tsx`
-2. Create `src/components/admin/InsuranceManager.tsx`
-3. Update `src/pages/Admin.tsx` with tab navigation
-
-### Step 3: Footer Gallery Component
-1. Create `src/components/FooterGallery.tsx`
-2. Add scroll animation keyframes to `tailwind.config.ts`
-3. Integrate FooterGallery into `src/components/Footer.tsx`
-
-### Step 4: Insurance Navigation
-1. Update `src/components/Navbar.tsx` with insurance dropdown
-2. Update `src/data/faqs.ts` with provider data
-3. Update `src/pages/Support.tsx` with anchor sections
-
----
-
-## Admin Dashboard Layout
-
-```text
-┌──────────────────────────────────────────────────────────────────┐
-│  iTravelWithMiki | Admin Dashboard                    [Logout]   │
-├──────────────────────────────────────────────────────────────────┤
-│  [Trip Management]  [Gallery Photos]  [Insurance Docs]           │
-├──────────────────────────────────────────────────────────────────┤
-│                                                                  │
-│  (Tab content here - trips list, gallery grid, or insurance)    │
-│                                                                  │
-└──────────────────────────────────────────────────────────────────┘
-```
-
-### Gallery Photos Tab
-
-- Grid of current gallery images with delete buttons
-- Form to add new image: URL input + optional caption/trip name
-- "Add from Trips" quick-add from existing trip images
-
-### Insurance Docs Tab
-
-- Two sections: Allianz and Travel Confident
-- Each has: Name, Subtitle, Description, PDF URL input
-- Save button to update localStorage
-
----
-
-## Default Gallery Images
-
-Initialize with sample travel photos so the gallery isn't empty:
-
-```typescript
-const defaultGalleryImages = [
-  { id: '1', url: 'https://images.unsplash.com/...', caption: 'Ireland 2024' },
-  { id: '2', url: 'https://images.unsplash.com/...', caption: 'New York Christmas' },
-  // ... more defaults
-];
-```
-
----
-
-## Technical Notes
-
-- All data stored in localStorage (consistent with existing tripStore pattern)
-- External image URLs supported (Unsplash, etc.)
-- No backend required - admin can paste image URLs directly
-- Gallery gracefully handles empty state (shows nothing or placeholder)
+- No database tables needed — localStorage matches existing admin pattern
+- `LOVABLE_API_KEY` is already configured
+- Edge function will be deployed immediately after creation
+- Uses `supabase.functions.invoke()` for the API call (non-streaming, since output is structured)
 
