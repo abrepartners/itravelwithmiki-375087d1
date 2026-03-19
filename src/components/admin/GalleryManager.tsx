@@ -6,6 +6,7 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { galleryStore } from '@/stores/galleryStore';
 import type { GalleryImage } from '@/types/gallery';
+import { isSafeUrl } from '@/lib/url-validation';
 
 interface GalleryManagerProps {
   images: GalleryImage[];

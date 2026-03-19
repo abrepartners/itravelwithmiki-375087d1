@@ -12,6 +12,7 @@ import {
   SelectValue,
 } from '@/components/ui/select';
 import type { Trip } from '@/types/trip';
+import { isSafeUrl } from '@/lib/url-validation';
 
 interface TripFormProps {
   trip?: Trip | null;

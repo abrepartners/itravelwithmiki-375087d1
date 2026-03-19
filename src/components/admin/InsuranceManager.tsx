@@ -8,6 +8,7 @@ import { Textarea } from '@/components/ui/textarea';
 import { insuranceStore } from '@/stores/insuranceStore';
 import type { InsuranceProvider } from '@/types/gallery';
 import { useToast } from '@/hooks/use-toast';
+import { isSafeUrl } from '@/lib/url-validation';
 
 interface InsuranceManagerProps {
   providers: InsuranceProvider[];
