@@ -1,193 +1,71 @@
 
 
-# Complete Feature Enhancement Plan
+# Replace Client-Side Admin Auth with Supabase Auth via Lovable Cloud
 
-This plan adds three interconnected features:
-1. **Insurance Sub-Dropdowns** - Split navigation into Allianz and Travel Confident
-2. **Media/Document Management** - Admin ability to upload/manage photos, videos, and PDFs
-3. **Scrolling Photo Gallery** - Infinite-loop image carousel in the footer
+## Overview
 
----
+Replace the insecure hardcoded passcode authentication (`ADMIN_PASSCODE = 'miki'` + sessionStorage) with proper Supabase Auth using Lovable Cloud. Admin access will be controlled by a `user_roles` table with RLS policies.
 
-## Feature 1: Insurance Navigation Sub-Dropdowns
+## Current State
 
-### Navbar Changes
+- No Supabase integration exists in the project
+- Admin auth uses a hardcoded passcode compared client-side
+- Auth state stored in sessionStorage (easily spoofed)
+- Admin panel at `/admin` manages trips, gallery, and insurance via localStorage
 
-Convert "Travel Insurance" into a dropdown with two providers:
+## Plan
 
-| Provider | Description | Link |
-|----------|-------------|------|
-| Allianz Insurance | For International Trips | `/support#insurance-allianz` |
-| Travel Confident | For Diamond Tours | `/support#insurance-diamond` |
+### Step 1: Enable Lovable Cloud and set up Supabase
 
-**Files to Update:**
-- `src/components/Navbar.tsx` - Add dropdown for insurance options
-- `src/pages/Support.tsx` - Add anchor sections for each provider
-- `src/data/faqs.ts` - Add insurance provider data
+- Enable Lovable Cloud to provision a Supabase backend
+- Install `@supabase/supabase-js` and create the Supabase client at `src/integrations/supabase/client.ts`
 
----
+### Step 2: Create database tables and RLS
 
-## Feature 2: Admin Media Management
+- **`profiles` table**: `id` (uuid, FK to auth.users), `display_name`, `avatar_url`, `created_at`
+  - Trigger to auto-create profile on signup
+  - RLS: users can read/update their own profile
+- **`user_roles` table**: `id`, `user_id` (FK to auth.users), `role` (enum: admin, user)
+  - RLS: admins can read roles; no public write access
+- **`has_role()` security definer function**: prevents RLS recursion when checking roles
+- Seed an initial admin user (you'll set the email/password after setup)
 
-### New Admin Tabs
+### Step 3: Rewrite AdminContext to use Supabase Auth
 
-Add tabbed navigation to the Admin dashboard:
+Replace the current `AdminContext` with:
+- `onAuthStateChange` listener for session management
+- `signInWithPassword` for login (email + password instead of passcode)
+- `signOut` for logout
+- Role check via `has_role(uid, 'admin')` to verify admin access
+- Loading state while session initializes
 
-| Tab | Purpose |
-|-----|---------|
-| Trip Management | Existing functionality |
-| Gallery Photos | Manage scrolling footer photos |
-| Insurance Docs | Manage PDF links for each provider |
+### Step 4: Update AdminLogin page
 
-### New Files to Create
+- Change from single passcode field to email + password form
+- Call `supabase.auth.signInWithPassword()` on submit
+- Keep existing visual design (logo, card layout, animation)
 
-| File | Purpose |
-|------|---------|
-| `src/types/gallery.ts` | TypeScript types for gallery images |
-| `src/stores/galleryStore.ts` | localStorage-based gallery management |
-| `src/components/admin/GalleryManager.tsx` | Add/remove gallery photos |
-| `src/components/admin/InsuranceManager.tsx` | Manage insurance PDF links |
+### Step 5: Update Admin page
 
-### Gallery Image Type
+- Replace `useAdmin()` hook calls with the new Supabase-backed context
+- Admin dashboard behavior unchanged otherwise
 
-```typescript
-interface GalleryImage {
-  id: string;
-  url: string;           // Image URL (external or uploaded)
-  caption?: string;      // Optional caption
-  tripName?: string;     // Associated trip name
-  createdAt: string;
-}
-```
+### Step 6: Clean up security findings
 
-### Insurance Document Type
+- Delete the `hardcoded_passcode` and `admin_client_auth` security findings since they'll be resolved
 
-```typescript
-interface InsuranceProvider {
-  id: 'allianz' | 'diamond';
-  name: string;
-  subtitle: string;
-  description: string;
-  pdfUrl: string;        // Admin-editable PDF link
-}
-```
+## What stays the same
 
----
+- All admin panel functionality (trips, gallery, insurance management)
+- Data still stored in localStorage (no migration to DB in this change)
+- Visual design and UX of login and admin pages
+- Route structure (`/admin/login`, `/admin`)
 
-## Feature 3: Scrolling Footer Photo Gallery
+## Technical Details
 
-### Visual Design
-
-A horizontal strip of photos above the main footer content that scrolls continuously left-to-right:
-
-```text
-┌─────────────────────────────────────────────────────────────┐
-│  [img] [img] [img] [img] [img] [img] [img] [img] →→→       │
-│            ← Continuous infinite scroll loop                │
-└─────────────────────────────────────────────────────────────┘
-┌─────────────────────────────────────────────────────────────┐
-│  FOOTER CONTENT (logo, links, contact, newsletter)         │
-└─────────────────────────────────────────────────────────────┘
-```
-
-### Technical Implementation
-
-**New Component:** `src/components/FooterGallery.tsx`
-- Uses CSS animation for smooth infinite scroll
-- Duplicates images to create seamless loop effect
-- Pauses on hover for accessibility
-- Responsive image sizing
-
-**Animation Keyframes (add to tailwind.config.ts):**
-
-```typescript
-keyframes: {
-  "scroll-left": {
-    "0%": { transform: "translateX(0)" },
-    "100%": { transform: "translateX(-50%)" }
-  }
-}
-```
-
-### Gallery Appearance
-
-- Image height: ~80px on mobile, ~120px on desktop
-- Subtle opacity overlay matching footer colors
-- Grayscale with color on hover (optional polish)
-- Seamless infinite loop animation (~30s per cycle)
-
----
-
-## Implementation Steps
-
-### Step 1: Create Types and Stores
-1. Create `src/types/gallery.ts`
-2. Create `src/stores/galleryStore.ts` (following tripStore pattern)
-3. Create `src/stores/insuranceStore.ts`
-
-### Step 2: Build Admin Components
-1. Create `src/components/admin/GalleryManager.tsx`
-2. Create `src/components/admin/InsuranceManager.tsx`
-3. Update `src/pages/Admin.tsx` with tab navigation
-
-### Step 3: Footer Gallery Component
-1. Create `src/components/FooterGallery.tsx`
-2. Add scroll animation keyframes to `tailwind.config.ts`
-3. Integrate FooterGallery into `src/components/Footer.tsx`
-
-### Step 4: Insurance Navigation
-1. Update `src/components/Navbar.tsx` with insurance dropdown
-2. Update `src/data/faqs.ts` with provider data
-3. Update `src/pages/Support.tsx` with anchor sections
-
----
-
-## Admin Dashboard Layout
-
-```text
-┌──────────────────────────────────────────────────────────────────┐
-│  iTravelWithMiki | Admin Dashboard                    [Logout]   │
-├──────────────────────────────────────────────────────────────────┤
-│  [Trip Management]  [Gallery Photos]  [Insurance Docs]           │
-├──────────────────────────────────────────────────────────────────┤
-│                                                                  │
-│  (Tab content here - trips list, gallery grid, or insurance)    │
-│                                                                  │
-└──────────────────────────────────────────────────────────────────┘
-```
-
-### Gallery Photos Tab
-
-- Grid of current gallery images with delete buttons
-- Form to add new image: URL input + optional caption/trip name
-- "Add from Trips" quick-add from existing trip images
-
-### Insurance Docs Tab
-
-- Two sections: Allianz and Travel Confident
-- Each has: Name, Subtitle, Description, PDF URL input
-- Save button to update localStorage
-
----
-
-## Default Gallery Images
-
-Initialize with sample travel photos so the gallery isn't empty:
-
-```typescript
-const defaultGalleryImages = [
-  { id: '1', url: 'https://images.unsplash.com/...', caption: 'Ireland 2024' },
-  { id: '2', url: 'https://images.unsplash.com/...', caption: 'New York Christmas' },
-  // ... more defaults
-];
-```
-
----
-
-## Technical Notes
-
-- All data stored in localStorage (consistent with existing tripStore pattern)
-- External image URLs supported (Unsplash, etc.)
-- No backend required - admin can paste image URLs directly
-- Gallery gracefully handles empty state (shows nothing or placeholder)
+- Auth uses Supabase's built-in `auth.users` table
+- Roles stored in separate `user_roles` table (not on profiles) per security best practices
+- `has_role()` is `SECURITY DEFINER` to avoid RLS recursion
+- JWT verified client-side via `onAuthStateChange`; role checked via DB query
+- After setup, you'll create your admin account by signing up, then the seed migration assigns the admin role
 
