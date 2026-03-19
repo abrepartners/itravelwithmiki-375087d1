@@ -315,8 +315,8 @@ const Experience = () => {
                 style={{ transitionDelay: `${i * 100}ms` }}
               >
                 <p
-                  className="text-4xl lg:text-5xl font-bold mb-2"
-                  style={{ color: 'hsl(40 80% 60%)', fontFamily: 'var(--font-display)' }}
+                  className="text-4xl lg:text-5xl font-bold mb-2 text-primary"
+                  style={{ fontFamily: 'var(--font-display)' }}
                 >
                   {s.value}
                 </p>
