@@ -408,7 +408,7 @@ const Experience = () => {
             </h2>
           </div>
           <div ref={timeline.ref} className="relative">
-            <div className="absolute left-6 top-0 bottom-0 w-px" style={{ background: 'hsl(40 80% 55% / 0.2)' }} />
+            <div className="absolute left-6 top-0 bottom-0 w-px bg-primary/20" />
             <div className="space-y-10">
               {milestones.map((m, i) => (
                 <div
