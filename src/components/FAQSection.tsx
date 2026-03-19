@@ -7,9 +7,7 @@ const categoryIcons: Record<string, React.ComponentType<{ className?: string }>>
 };
 
 interface FAQSectionProps {
-  /** Show only a subset of FAQs (for homepage) */
   compact?: boolean;
-  /** Show the section header */
   showHeader?: boolean;
 }
 
@@ -18,12 +16,10 @@ const FAQSection = ({ compact = false, showHeader = true }: FAQSectionProps) => 
   const [visible, setVisible] = useState(false);
   const [openItems, setOpenItems] = useState<Set<string>>(new Set());
 
-  // For homepage compact mode, show first 2 categories with 2 questions each
   const displayCategories = compact
     ? faqCategories.slice(0, 2).map((cat) => ({ ...cat, faqs: cat.faqs.slice(0, 2) }))
     : faqCategories;
 
-  // Build flat list for schema markup
   const allFaqs = displayCategories.flatMap((cat) => cat.faqs);
 
   useEffect(() => {
@@ -46,7 +42,6 @@ const FAQSection = ({ compact = false, showHeader = true }: FAQSectionProps) => 
     });
   };
 
-  // JSON-LD FAQ Schema
   const faqSchema = {
     '@context': 'https://schema.org',
     '@type': 'FAQPage',
@@ -62,7 +57,6 @@ const FAQSection = ({ compact = false, showHeader = true }: FAQSectionProps) => 
 
   return (
     <section ref={sectionRef} className="py-20 lg:py-28 bg-secondary" id="faq">
-      {/* Schema Markup */}
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
@@ -76,16 +70,16 @@ const FAQSection = ({ compact = false, showHeader = true }: FAQSectionProps) => 
             }`}
           >
             <p className="uppercase tracking-[0.2em] text-sm font-medium text-primary mb-4">
-              Got Questions?
+              We're Here to Help
             </p>
             <h2
               className="text-heading-lg lg:text-heading-xl text-foreground mb-4"
               style={{ fontFamily: 'var(--font-display)' }}
             >
-              Frequently Asked Questions
+              Got Questions? We've Got Answers!
             </h2>
             <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
-              Everything you need to know about traveling with Miki and the family.
+              Everything you need to know about traveling with Miki and the family — no question is too small!
             </p>
           </div>
         )}
