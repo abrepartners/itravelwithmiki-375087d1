@@ -32,7 +32,7 @@ const HeroSection = () => {
         </motion.div>
 
         <motion.p initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, delay: 0.3 }} className="text-xl md:text-2xl lg:text-3xl text-white/90 font-light mb-4 max-w-3xl">
-          Travel with Family, Not Strangers
+          Let's Travel Together!
         </motion.p>
 
         {/* Subtitle */}
@@ -42,7 +42,7 @@ const HeroSection = () => {
           transition={{ duration: 0.8, delay: 0.5 }}
           className="text-lg md:text-xl text-white/70 mb-12 max-w-2xl"
         >
-          Curated group journeys with warm hosting, premium touches, and enough story on the site to help you fall in love before you ever book.
+          Curated group trips with warm hosting and premium touches for travelers who love good company.
         </motion.p>
 
         {/* CTA Buttons */}
@@ -54,11 +54,11 @@ const HeroSection = () => {
         >
           <Button 
             size="lg" 
-            className="btn-senior bg-accent hover:bg-accent/90 text-accent-foreground px-10"
+            className="btn-senior bg-primary hover:bg-primary/90 text-primary-foreground px-10"
             asChild
           >
             <a href="/land-trips">
-              Explore Signature Trips
+              Join the Family
               <ArrowRight className="w-5 h-5 ml-2" />
             </a>
           </Button>

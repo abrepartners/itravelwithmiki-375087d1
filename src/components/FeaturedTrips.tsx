@@ -20,16 +20,16 @@ const FeaturedTrips = () => {
           className="text-center mb-16"
         >
           <p className="text-primary text-sm tracking-[0.2em] uppercase font-semibold mb-4">
-            Don't Miss Out
+            Coming Up Next
           </p>
           <h2
             className="text-heading-lg md:text-heading-xl lg:text-hero font-semibold text-foreground mb-4"
             style={{ fontFamily: 'var(--font-display)' }}
           >
-            Featured Adventures
+            Trips You'll Love
           </h2>
           <p className="text-muted-foreground text-body-lg max-w-2xl mx-auto">
-            These popular trips are selling fast. Book now to secure your spot on these unforgettable journeys.
+            These popular adventures are filling up fast — grab your spot and come make memories with us!
           </p>
         </motion.div>
 
@@ -52,7 +52,7 @@ const FeaturedTrips = () => {
             href="/trips"
             className="inline-flex items-center gap-2 text-primary font-semibold text-lg hover:underline underline-offset-4"
           >
-            View All Trips →
+            See All Our Trips →
           </a>
         </motion.div>
       </div>

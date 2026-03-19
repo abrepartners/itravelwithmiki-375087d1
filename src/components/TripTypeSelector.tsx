@@ -16,7 +16,6 @@ const TripTypeSelector = () => {
   // Count trips per category
   const getTripCount = (category: string) => {
     if (category === 'holiday') {
-      // Holiday specials could be any trip with holiday-related names
       return allTrips.filter(t => 
         t.name.toLowerCase().includes('christmas') || 
         t.name.toLowerCase().includes('holiday') || 
@@ -66,16 +65,16 @@ const TripTypeSelector = () => {
           }`}
         >
           <p className="uppercase tracking-[0.2em] text-sm font-medium text-primary mb-4">
-            Choose Your Adventure
+            Pick Your Style
           </p>
           <h2
             className="text-heading-lg lg:text-heading-xl text-foreground mb-3"
             style={{ fontFamily: 'var(--font-display)' }}
           >
-            Find the Perfect Trip
+            What Kind of Trip Sounds Fun?
           </h2>
           <p className="text-muted-foreground text-lg max-w-xl mx-auto">
-            for your travel style
+            Whether it's a bus ride through the countryside or an ocean cruise — we've got you covered.
           </p>
         </div>
 
@@ -104,15 +103,10 @@ const TripTypeSelector = () => {
 
                   {/* Reticle corners */}
                   <div className="absolute inset-6 sm:inset-10 pointer-events-none">
-                    {/* Top-left */}
                     <div className="absolute top-0 left-0 w-8 h-8 border-t-2 border-l-2 border-white/40" />
-                    {/* Top-right */}
                     <div className="absolute top-0 right-0 w-8 h-8 border-t-2 border-r-2 border-white/40" />
-                    {/* Bottom-left */}
                     <div className="absolute bottom-0 left-0 w-8 h-8 border-b-2 border-l-2 border-white/40" />
-                    {/* Bottom-right */}
                     <div className="absolute bottom-0 right-0 w-8 h-8 border-b-2 border-r-2 border-white/40" />
-                    {/* Center crosshair */}
                     <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-10 h-10">
                       <div className="absolute top-1/2 left-0 w-full h-px bg-white/20" />
                       <div className="absolute left-1/2 top-0 h-full w-px bg-white/20" />

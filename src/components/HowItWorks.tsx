@@ -6,20 +6,20 @@ const steps = [
   {
     number: '01',
     icon: Search,
-    title: 'Browse Our Upcoming Trips',
-    description: 'Explore our handpicked collection of guided group adventures — from scenic bus tours to international voyages.',
+    title: 'See What\'s Coming Up',
+    description: 'Browse our upcoming trips — from scenic bus tours to ocean cruises. There\'s something for every kind of traveler.',
   },
   {
     number: '02',
     icon: MapPin,
-    title: 'Pick Your Perfect Adventure',
-    description: 'Choose the trip that speaks to your soul. Every journey is designed for comfort, connection, and unforgettable moments.',
+    title: 'Find Your Perfect Fit',
+    description: 'Pick the trip that feels right for you. Every journey is designed with your comfort and joy in mind.',
   },
   {
     number: '03',
     icon: Luggage,
-    title: 'Pack Your Bags — We Handle the Rest',
-    description: 'From hotels to meals to activities, everything is taken care of. Just show up with a smile and your suitcase.',
+    title: 'Just Show Up & Enjoy',
+    description: 'We handle hotels, meals, and activities — all you need is your suitcase and a smile. Easy as that!',
   },
 ];
 
@@ -52,10 +52,10 @@ const HowItWorks = () => {
       className="relative py-24 lg:py-32 overflow-hidden"
       style={{ background: 'linear-gradient(135deg, hsl(220 15% 10%), hsl(220 15% 15%), hsl(220 15% 10%))' }}
     >
-      {/* Subtle blue accent glow */}
+      {/* Subtle warm accent glow */}
       <div
         className="absolute top-0 left-1/2 -translate-x-1/2 w-[600px] h-[600px] rounded-full opacity-[0.07] blur-[120px] pointer-events-none"
-        style={{ background: 'radial-gradient(circle, hsl(221 83% 33%), transparent)' }}
+        style={{ background: 'radial-gradient(circle, hsl(1 76% 55%), transparent)' }}
       />
 
       <div className="container mx-auto px-6 lg:px-12 relative z-10">
@@ -67,18 +67,18 @@ const HowItWorks = () => {
           }`}
         >
           <p className="uppercase tracking-[0.2em] text-sm font-medium mb-4 text-white/60">
-            How It Works
+            It's This Easy
           </p>
           <h2
             className="text-heading-lg lg:text-hero text-white mb-6"
             style={{ fontFamily: 'var(--font-display)' }}
           >
-            Make Memories That Last
+            Your Next Adventure
             <br />
-            <span className="text-primary-foreground/80">a Lifetime</span>
+            <span className="text-primary-foreground/80">Starts Right Here</span>
           </h2>
           <p className="text-lg max-w-2xl mx-auto text-white/50">
-            Three simple steps to your next unforgettable adventure with the iTravel family.
+            Three simple steps — and you're on your way with the iTravel family.
           </p>
         </div>
 
@@ -139,19 +139,19 @@ const HowItWorks = () => {
         >
           <div className="inline-flex items-center gap-2 mb-6 px-5 py-2 rounded-full text-sm bg-primary/10 border border-primary/20 text-primary-foreground/80">
             <Heart className="w-4 h-4" />
-            Ready to Join the Family?
+            Come Travel With Us!
           </div>
           <h3
             className="text-heading-md lg:text-heading-lg text-white mb-8"
             style={{ fontFamily: 'var(--font-display)' }}
           >
-            Your Next Adventure Awaits
+            Ready to Make Some Memories?
           </h3>
           <a href="/trips">
             <Button
               className="btn-senior text-lg px-10 py-5 font-semibold rounded-xl shadow-lg transition-all duration-300 hover:scale-105 bg-primary hover:bg-primary/90 text-primary-foreground border-none"
             >
-              Book Your Next Trip
+              Let's Go!
             </Button>
           </a>
         </div>

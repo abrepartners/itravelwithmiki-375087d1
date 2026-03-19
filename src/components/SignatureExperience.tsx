@@ -4,27 +4,27 @@ import { Camera, HeartHandshake, Sparkles, ShieldCheck } from 'lucide-react';
 const pillars = [
   {
     icon: Sparkles,
-    title: 'Curated Experiences',
+    title: 'Handpicked Adventures',
     description:
-      'Every journey is handpicked and designed around comfort, connection, and unforgettable moments — never generic.',
+      'Every trip is personally chosen by Miki — designed around comfort, fun, and making real connections with your travel family.',
   },
   {
     icon: Camera,
-    title: 'Photo-First Storytelling',
+    title: 'Stories Worth Sharing',
     description:
-      'Trips are presented as immersive visual experiences with signature moments and reasons to imagine yourself there.',
+      'We capture every trip in photos and stories so vivid, you\'ll feel the excitement before you even pack your bags.',
   },
   {
     icon: HeartHandshake,
-    title: 'Family-Style Hosting',
+    title: 'You\'re Family Here',
     description:
-      'This is hosted travel with community, care, and real connection built into every step of the journey.',
+      'This isn\'t a tour group — it\'s a traveling family. Miki hosts every trip with love, laughter, and genuine care.',
   },
   {
     icon: ShieldCheck,
-    title: 'Worry-Free Planning',
+    title: 'We Handle Everything',
     description:
-      'Browse, compare, and fall in love with your next trip — we handle every detail so you can focus on making memories.',
+      'No stress, no guesswork. You just show up and enjoy — we take care of every single detail for you.',
   },
 ];
 
@@ -40,17 +40,17 @@ const SignatureExperience = () => {
           className="mx-auto mb-14 max-w-3xl text-center"
         >
           <p className="mb-4 text-sm font-semibold uppercase tracking-[0.2em] text-primary">
-            The iTravel Difference
+            What Makes Us Different
           </p>
           <h2
             className="mb-5 text-heading-lg md:text-heading-xl font-semibold text-foreground"
             style={{ fontFamily: 'var(--font-display)' }}
           >
-            A Hosted Travel Club,{' '}
-            <em className="text-primary not-italic">Not a Booking Site</em>
+            A Travel Family,{' '}
+            <em className="text-primary not-italic">Not a Tour Company</em>
           </h2>
           <p className="text-body-lg text-muted-foreground">
-            More trust, more story, and more reasons to stay engaged — designed around you.
+            When you travel with Miki, you're not a customer — you're family. Here's why thousands keep coming back.
           </p>
         </motion.div>
 
