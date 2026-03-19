@@ -6,6 +6,7 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { galleryStore } from '@/stores/galleryStore';
 import type { GalleryImage } from '@/types/gallery';
+import { isSafeUrl } from '@/lib/url-validation';
 
 interface GalleryManagerProps {
   images: GalleryImage[];
@@ -16,8 +17,16 @@ const GalleryManager = ({ images, onRefresh }: GalleryManagerProps) => {
   const [showAddForm, setShowAddForm] = useState(false);
   const [newImage, setNewImage] = useState({ url: '', caption: '', tripName: '' });
 
+  const [urlError, setUrlError] = useState('');
+
   const handleAdd = () => {
     if (!newImage.url.trim()) return;
+    
+    if (!isSafeUrl(newImage.url)) {
+      setUrlError('Image URL must start with http:// or https://');
+      return;
+    }
+    setUrlError('');
     
     galleryStore.addImage({
       url: newImage.url.trim(),
@@ -115,6 +124,7 @@ const GalleryManager = ({ images, onRefresh }: GalleryManagerProps) => {
             <Button variant="outline" onClick={() => setShowAddForm(false)}>
               Cancel
             </Button>
+            {urlError && <p className="text-sm text-destructive">{urlError}</p>}
             <Button onClick={handleAdd} disabled={!newImage.url.trim()}>
               Add Image
             </Button>

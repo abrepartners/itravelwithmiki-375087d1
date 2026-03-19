@@ -8,6 +8,7 @@ import { Textarea } from '@/components/ui/textarea';
 import { insuranceStore } from '@/stores/insuranceStore';
 import type { InsuranceProvider } from '@/types/gallery';
 import { useToast } from '@/hooks/use-toast';
+import { isSafeUrl } from '@/lib/url-validation';
 
 interface InsuranceManagerProps {
   providers: InsuranceProvider[];
@@ -35,6 +36,15 @@ const InsuranceManager = ({ providers, onRefresh }: InsuranceManagerProps) => {
 
   const handleSave = (id: 'allianz' | 'diamond') => {
     if (formData[id]) {
+      const pdfUrl = formData[id].pdfUrl || '';
+      if (pdfUrl.trim() !== '' && pdfUrl.trim() !== '#' && !isSafeUrl(pdfUrl)) {
+        toast({
+          title: 'Invalid URL',
+          description: 'PDF URL must start with http:// or https://',
+          variant: 'destructive',
+        });
+        return;
+      }
       insuranceStore.updateProvider(id, formData[id]);
       onRefresh();
       toast({

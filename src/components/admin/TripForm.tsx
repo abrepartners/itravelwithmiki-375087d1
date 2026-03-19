@@ -13,6 +13,7 @@ import {
   SelectValue,
 } from '@/components/ui/select';
 import type { Trip } from '@/types/trip';
+import { isSafeUrl } from '@/lib/url-validation';
 
 interface TripFormProps {
   trip?: Trip | null;
@@ -72,6 +73,8 @@ const TripForm = ({ trip, onSave, onCancel }: TripFormProps) => {
       }
     }
   }, [trip]);
+
+  const [urlError, setUrlError] = useState('');
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
