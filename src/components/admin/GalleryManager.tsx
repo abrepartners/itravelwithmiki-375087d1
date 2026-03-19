@@ -124,6 +124,7 @@ const GalleryManager = ({ images, onRefresh }: GalleryManagerProps) => {
             <Button variant="outline" onClick={() => setShowAddForm(false)}>
               Cancel
             </Button>
+            {urlError && <p className="text-sm text-destructive">{urlError}</p>}
             <Button onClick={handleAdd} disabled={!newImage.url.trim()}>
               Add Image
             </Button>

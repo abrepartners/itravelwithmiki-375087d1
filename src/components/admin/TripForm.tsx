@@ -287,6 +287,11 @@ const TripForm = ({ trip, onSave, onCancel }: TripFormProps) => {
         ))}
       </div>
 
+      {/* URL Validation Error */}
+      {urlError && (
+        <p className="text-sm text-destructive">{urlError}</p>
+      )}
+
       {/* Buttons */}
       <div className="flex justify-end gap-4 pt-4 border-t border-border">
         <Button type="button" variant="outline" onClick={onCancel} className="h-12 px-6">
