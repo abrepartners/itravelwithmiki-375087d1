@@ -4,16 +4,16 @@ import { Button } from '@/components/ui/button';
 import mikiPhoto from '@/assets/miki-photo.jpeg';
 
 const stats = [
-  { icon: Calendar, value: '15+', label: 'Years of Experience' },
-  { icon: Users, value: '10,000+', label: 'Happy Travelers' },
-  { icon: Award, value: '500+', label: 'Trips Completed' },
+  { icon: Calendar, value: '15+', label: 'Years Together' },
+  { icon: Users, value: '10,000+', label: 'Travel Family Members' },
+  { icon: Award, value: '500+', label: 'Amazing Trips' },
 ];
 
 const AboutMiki = () => {
   return (
     <section className="py-20 lg:py-28 px-6 lg:px-12 bg-background" id="about">
       <div className="container mx-auto">
-        {/* Eyebrow + heading — centered above the two-column layout */}
+        {/* Eyebrow + heading */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -22,14 +22,14 @@ const AboutMiki = () => {
           className="text-center mb-14 max-w-3xl mx-auto"
         >
           <p className="text-primary text-sm tracking-[0.2em] uppercase font-semibold mb-4">
-            Meet Your Guide
+            Meet Your Host
           </p>
           <h2
             className="text-heading-lg md:text-heading-xl font-semibold text-foreground"
             style={{ fontFamily: 'var(--font-display)' }}
           >
-            Travel with Family,{' '}
-            <em className="text-primary not-italic">Not Strangers</em>
+            Hey There, I'm{' '}
+            <em className="text-primary not-italic">Miki!</em>
           </h2>
         </motion.div>
 
@@ -45,7 +45,7 @@ const AboutMiki = () => {
             <div className="relative rounded-2xl overflow-hidden shadow-elevated">
               <img
                 src={mikiPhoto}
-                alt="Miki - Your Travel Guide"
+                alt="Miki - Your Travel Host"
                 className="w-full h-[350px] sm:h-[400px] md:h-[500px] object-cover"
               />
               <button
@@ -70,14 +70,14 @@ const AboutMiki = () => {
             transition={{ duration: 0.6 }}
           >
             <p className="text-muted-foreground text-body-lg mb-6 leading-relaxed">
-              Hi, I'm Miki! Based in Maumelle, Arkansas, I've been helping travelers aged 50 and up
-              experience the joy of group travel for over 15 years. When you travel with us, you're
-              not just joining a tour—you're becoming part of our traveling family.
+              I'm based in Maumelle, Arkansas, and for over 15 years I've been doing what I love most — 
+              bringing people together through travel. When you come on one of my trips, you're not signing 
+              up for a tour. You're joining a family. ❤️
             </p>
             <p className="text-muted-foreground text-body-lg mb-8 leading-relaxed">
-              Our motorcoach trips include fun on-bus activities like games, snacks, and videos to keep
-              everyone engaged. Whether it's a scenic U.S. bus tour or an international adventure, I take
-              care of everything so you can focus on making memories and meeting wonderful new friends.
+              On our bus trips, we have games, snacks, music, and plenty of laughs along the way. Whether 
+              we're road-tripping across the U.S. or exploring somewhere new overseas, I take care of 
+              everything — so all you have to do is show up, relax, and have the time of your life.
             </p>
 
             {/* Stats */}
@@ -92,7 +92,7 @@ const AboutMiki = () => {
             </div>
 
             <Button className="btn-senior bg-primary hover:bg-primary/90" asChild>
-              <a href="/support">Learn More About Miki</a>
+              <a href="/support">Get to Know Me</a>
             </Button>
           </motion.div>
         </div>
