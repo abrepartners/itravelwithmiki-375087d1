@@ -325,7 +325,7 @@ const Support = () => {
               We're just a phone call or email away. Don't hesitate to reach out!
             </p>
             <Button className="btn-senior bg-primary hover:bg-primary/90" asChild>
-              <a href="tel:+15019511749">Call Now — We'd Love to Chat!</a>
+              <a href="tel:+15016912152">Call Now — We'd Love to Chat!</a>
             </Button>
           </motion.div>
         </div>
