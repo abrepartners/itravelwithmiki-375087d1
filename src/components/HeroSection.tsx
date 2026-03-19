@@ -58,8 +58,7 @@ const HeroSection = () => {
           transition={{ duration: 0.8, delay: 0.5 }}
           className="text-lg md:text-xl text-white/70 mb-12 max-w-2xl"
         >
-          Unforgettable group adventures designed for those who love to explore, 
-          connect, and create lasting memories together.
+          Curated group journeys with warm hosting, premium touches, and enough story on the site to help you fall in love before you ever book.
         </motion.p>
 
         {/* CTA Buttons */}
@@ -74,8 +73,8 @@ const HeroSection = () => {
             className="btn-senior bg-accent hover:bg-accent/90 text-accent-foreground px-10"
             asChild
           >
-            <a href="/trips">
-              Explore Trips
+            <a href="/land-trips">
+              Explore Signature Trips
               <ArrowRight className="w-5 h-5 ml-2" />
             </a>
           </Button>
@@ -85,7 +84,7 @@ const HeroSection = () => {
             className="btn-senior border-white/30 text-white hover:bg-white hover:text-foreground bg-transparent"
             asChild
           >
-            <a href="#about">Meet Miki</a>
+            <a href="/experience">See The Experience</a>
           </Button>
         </motion.div>
       </div>
