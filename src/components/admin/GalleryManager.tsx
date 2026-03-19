@@ -17,8 +17,16 @@ const GalleryManager = ({ images, onRefresh }: GalleryManagerProps) => {
   const [showAddForm, setShowAddForm] = useState(false);
   const [newImage, setNewImage] = useState({ url: '', caption: '', tripName: '' });
 
+  const [urlError, setUrlError] = useState('');
+
   const handleAdd = () => {
     if (!newImage.url.trim()) return;
+    
+    if (!isSafeUrl(newImage.url)) {
+      setUrlError('Image URL must start with http:// or https://');
+      return;
+    }
+    setUrlError('');
     
     galleryStore.addImage({
       url: newImage.url.trim(),
