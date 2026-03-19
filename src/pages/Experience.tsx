@@ -148,7 +148,7 @@ const Experience = () => {
             >
               We Don't Just Plan Trips —
               <br />
-              <span style={{ color: 'hsl(40 80% 60%)' }}>We Create Memories</span>
+              <span className="text-primary-foreground">We Create Memories</span>
             </h1>
             <p className="text-white/70 text-lg lg:text-xl max-w-2xl mx-auto mb-12">
               Made by travelers, for travelers
