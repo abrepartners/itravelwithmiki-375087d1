@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { Plus, LogOut, RotateCcw, Map, Image, Shield, Loader2 } from 'lucide-react';
+import { Plus, LogOut, RotateCcw, Map, Image, Shield, Sparkles, Loader2 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { useAdmin } from '@/contexts/AdminContext';
@@ -12,6 +12,7 @@ import TripForm from '@/components/admin/TripForm';
 import TripList from '@/components/admin/TripList';
 import GalleryManager from '@/components/admin/GalleryManager';
 import InsuranceManager from '@/components/admin/InsuranceManager';
+import ContentStudio from '@/components/admin/ContentStudio';
 import type { Trip } from '@/types/trip';
 import type { GalleryImage, InsuranceProvider } from '@/types/gallery';
 import wordmarkLogo from '@/assets/logos/wordmark-logo.webp';
@@ -121,6 +122,10 @@ const Admin = () => {
                   <Map className="w-4 h-4" />
                   <span className="hidden sm:inline">Trips</span>
                 </TabsTrigger>
+                <TabsTrigger value="content" className="gap-2 text-sm px-4">
+                  <Sparkles className="w-4 h-4" />
+                  <span className="hidden sm:inline">Content</span>
+                </TabsTrigger>
                 <TabsTrigger value="gallery" className="gap-2 text-sm px-4">
                   <Image className="w-4 h-4" />
                   <span className="hidden sm:inline">Gallery</span>
@@ -215,6 +220,11 @@ const Admin = () => {
                   />
                 </div>
               )}
+            </TabsContent>
+
+            {/* Content Studio Tab */}
+            <TabsContent value="content">
+              <ContentStudio trips={trips} />
             </TabsContent>
 
             {/* Gallery Tab */}
