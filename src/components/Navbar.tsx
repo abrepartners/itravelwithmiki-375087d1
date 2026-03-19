@@ -8,7 +8,7 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import wordmarkLogo from "@/assets/logos/wordmark-logo.png";
+import wordmarkLogo from "@/assets/logos/wordmark-logo.webp";
 
 const tripCategories = [
   { label: "All Trips", href: "/trips" },
@@ -65,7 +65,7 @@ const Navbar = () => {
     ? "text-foreground hover:text-primary"
     : "text-white/90 hover:text-white";
 
-  const navLinkClass = `relative text-xs font-semibold uppercase tracking-[0.12em] transition-colors duration-300 whitespace-nowrap after:absolute after:bottom-[-3px] after:left-0 after:w-full after:h-[1.5px] after:bg-primary after:origin-left after:scale-x-0 hover:after:scale-x-100 after:transition-transform after:duration-300 ${focusClass}`;
+  const navLinkClass = `relative text-sm font-medium uppercase tracking-wide transition-colors duration-300 whitespace-nowrap after:absolute after:bottom-0 after:left-0 after:w-full after:h-[2px] after:bg-primary after:origin-left after:scale-x-0 hover:after:scale-x-100 after:transition-transform after:duration-300 ${focusClass}`;
 
   return (
     <motion.header
@@ -74,7 +74,7 @@ const Navbar = () => {
       transition={{ duration: 0.6, ease: "easeOut" }}
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 will-change-transform ${
         isScrolled
-          ? "bg-background/96 backdrop-blur-lg border-b border-border/60 py-2 shadow-soft"
+          ? "bg-background/95 backdrop-blur-md border-b border-border py-2"
           : "bg-transparent py-3"
       }`}
     >
@@ -82,7 +82,7 @@ const Navbar = () => {
         {/* Desktop Nav */}
         <nav className="hidden md:flex items-center justify-between">
           {/* Left: Logo + Primary Nav */}
-          <div className="flex items-center gap-7">
+          <div className="flex items-center gap-8">
             <a
               href="/"
               aria-label="Home"
@@ -92,7 +92,7 @@ const Navbar = () => {
                 src={wordmarkLogo}
                 alt="iTravelWithMiki"
                 className={`transition-all duration-300 ${
-                  isScrolled ? "h-9" : "h-11 brightness-0 invert"
+                  isScrolled ? "h-10" : "h-12 brightness-0 invert"
                 }`}
               />
             </a>
@@ -104,13 +104,13 @@ const Navbar = () => {
                   className={`flex items-center gap-1 ${navLinkClass} ${textClass}`}
                 >
                   Trips
-                  <ChevronDown className="w-3 h-3 opacity-70" />
+                  <ChevronDown className="w-3.5 h-3.5" />
                 </button>
               </DropdownMenuTrigger>
-              <DropdownMenuContent align="start" className="w-52 rounded-xl shadow-elevated border-border/60">
+              <DropdownMenuContent align="start" className="w-52">
                 {tripCategories.map((c) => (
                   <DropdownMenuItem key={c.label} asChild>
-                    <a href={c.href} className="text-sm py-2.5 cursor-pointer">
+                    <a href={c.href} className="text-sm py-3 cursor-pointer">
                       {c.label}
                     </a>
                   </DropdownMenuItem>
@@ -118,17 +118,23 @@ const Navbar = () => {
               </DropdownMenuContent>
             </DropdownMenu>
 
-            <a href={navLinks[0].href} className={`${navLinkClass} ${textClass}`}>
+            <a
+              href={navLinks[0].href}
+              className={`${navLinkClass} ${textClass}`}
+            >
               {navLinks[0].label}
             </a>
 
-            <a href={navLinks[1].href} className={`${navLinkClass} ${textClass}`}>
+            <a
+              href={navLinks[1].href}
+              className={`${navLinkClass} ${textClass}`}
+            >
               {navLinks[1].label}
             </a>
           </div>
 
           {/* Right: Secondary Nav + CTA */}
-          <div className="flex items-center gap-6">
+          <div className="flex items-center gap-7">
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
                 <button
@@ -136,14 +142,14 @@ const Navbar = () => {
                   className={`flex items-center gap-1 ${navLinkClass} ${textClass}`}
                 >
                   Travel Insurance
-                  <ChevronDown className="w-3 h-3 opacity-70" />
+                  <ChevronDown className="w-3.5 h-3.5" />
                 </button>
               </DropdownMenuTrigger>
-              <DropdownMenuContent align="end" className="w-60 rounded-xl shadow-elevated border-border/60">
+              <DropdownMenuContent align="end" className="w-60">
                 {insuranceOptions.map((o) => (
                   <DropdownMenuItem key={o.label} asChild>
-                    <a href={o.href} className="flex flex-col items-start py-2.5 cursor-pointer">
-                      <span className="font-medium text-sm">{o.label}</span>
+                    <a href={o.href} className="flex flex-col items-start py-3 cursor-pointer">
+                      <span className="font-medium">{o.label}</span>
                       <span className="text-xs text-muted-foreground">{o.subtitle}</span>
                     </a>
                   </DropdownMenuItem>
@@ -163,10 +169,10 @@ const Navbar = () => {
 
             <Button
               size="default"
-              className={`rounded-full px-5 py-2 text-xs font-semibold tracking-wide whitespace-nowrap transition-all duration-300 ${focusClass} ${
+              className={`rounded-full px-5 py-2 whitespace-nowrap transition-all duration-300 ${focusClass} ${
                 isScrolled
-                  ? "bg-primary text-primary-foreground hover:bg-primary/90 shadow-sm"
-                  : "bg-white text-foreground hover:bg-white/90 shadow-md"
+                  ? "bg-primary text-primary-foreground hover:bg-primary/90"
+                  : "bg-white text-foreground hover:bg-white/90"
               }`}
               asChild
             >
@@ -185,9 +191,9 @@ const Navbar = () => {
             aria-expanded={isMobileMenuOpen}
           >
             {isMobileMenuOpen ? (
-              <X className={`w-5 h-5 ${isScrolled ? "text-foreground" : "text-white"}`} />
+              <X className={`w-6 h-6 ${isScrolled ? "text-foreground" : "text-white"}`} />
             ) : (
-              <Menu className={`w-5 h-5 ${isScrolled ? "text-foreground" : "text-white"}`} />
+              <Menu className={`w-6 h-6 ${isScrolled ? "text-foreground" : "text-white"}`} />
             )}
           </button>
 
@@ -200,7 +206,7 @@ const Navbar = () => {
               src={wordmarkLogo}
               alt="iTravelWithMiki"
               className={`transition-all duration-300 ${
-                isScrolled ? "h-7" : "h-8 brightness-0 invert"
+                isScrolled ? "h-8" : "h-9 brightness-0 invert"
               }`}
             />
           </a>
@@ -220,41 +226,41 @@ const Navbar = () => {
                 onClick={closeMobileMenu}
               />
               <motion.div
-                initial={{ opacity: 0, y: -16 }}
+                initial={{ opacity: 0, y: -20 }}
                 animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -16 }}
-                transition={{ duration: 0.22 }}
-                className="md:hidden absolute top-full left-0 right-0 bg-background border-b border-border py-6 px-6 shadow-elevated rounded-b-2xl"
+                exit={{ opacity: 0, y: -20 }}
+                transition={{ duration: 0.25 }}
+                className="md:hidden absolute top-full left-0 right-0 bg-background border-b border-border py-6 px-6 shadow-lg"
               >
                 <div className="flex flex-col gap-4">
                   <div className="border-b border-border pb-4">
-                    <p className="text-[10px] font-semibold text-muted-foreground uppercase tracking-[0.2em] mb-3">Trips</p>
+                    <p className="text-sm font-semibold text-muted-foreground uppercase tracking-wide mb-3">Trips</p>
                     {tripCategories.map((c) => (
-                      <a key={c.label} href={c.href} className={`block text-foreground text-base py-2 ${focusClass}`} onClick={closeMobileMenu}>
+                      <a key={c.label} href={c.href} className={`block text-foreground text-lg py-2 ${focusClass}`} onClick={closeMobileMenu}>
                         {c.label}
                       </a>
                     ))}
                   </div>
 
                   <div className="border-b border-border pb-4">
-                    <p className="text-[10px] font-semibold text-muted-foreground uppercase tracking-[0.2em] mb-3">Travel Insurance</p>
+                    <p className="text-sm font-semibold text-muted-foreground uppercase tracking-wide mb-3">Travel Insurance</p>
                     {insuranceOptions.map((o) => (
-                      <a key={o.label} href={o.href} className={`block text-foreground text-base py-2 ${focusClass}`} onClick={closeMobileMenu}>
+                      <a key={o.label} href={o.href} className={`block text-foreground text-lg py-2 ${focusClass}`} onClick={closeMobileMenu}>
                         {o.label}
-                        <span className="block text-xs text-muted-foreground">{o.subtitle}</span>
+                        <span className="block text-sm text-muted-foreground">{o.subtitle}</span>
                       </a>
                     ))}
                   </div>
 
                   <div className="border-b border-border pb-4">
                     {navLinks.map((link) => (
-                      <a key={link.label} href={link.href} className={`block text-foreground text-base py-2 ${focusClass}`} onClick={closeMobileMenu}>
+                      <a key={link.label} href={link.href} className={`block text-foreground text-lg py-2 ${focusClass}`} onClick={closeMobileMenu}>
                         {link.label}
                       </a>
                     ))}
                   </div>
 
-                  <Button className={`w-full mt-1 btn-senior bg-primary hover:bg-primary/90 ${focusClass}`} asChild>
+                  <Button className={`w-full mt-2 btn-senior bg-primary hover:bg-primary/90 ${focusClass}`} asChild>
                     <a href="/trips" onClick={closeMobileMenu}>Book a Trip</a>
                   </Button>
                 </div>

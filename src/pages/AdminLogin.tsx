@@ -6,7 +6,7 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { useAdmin } from '@/contexts/AdminContext';
-import wordmarkLogo from '@/assets/logos/wordmark-logo.png';
+import wordmarkLogo from '@/assets/logos/wordmark-logo.webp';
 
 const AdminLogin = () => {
   const [passcode, setPasscode] = useState('');

@@ -3,7 +3,7 @@ import { motion } from 'framer-motion';
 import {
   Users, Heart, Shield, MapPin, Bus, Camera, Star,
   Luggage, Search, Smile, Mouse, ChevronDown,
-  Globe, Phone, Compass,
+  Globe, Phone,
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import Navbar from '@/components/Navbar';
@@ -130,19 +130,11 @@ const Experience = () => {
       {/* ════════════ HERO — Full-Screen Cinematic ════════════ */}
       <section className="relative h-screen w-full overflow-hidden flex items-center justify-center">
         <img
-          src="https://images.unsplash.com/photo-1527631746610-bca00a040d60?w=1920&q=80"
+          src="https://images.unsplash.com/photo-1527631746610-bca00a040d60?w=1400&q=75&fm=webp"
           alt="Happy travelers together"
           className="absolute inset-0 w-full h-full object-cover"
         />
-        <div className="absolute inset-0 bg-gradient-to-b from-black/55 via-black/40 to-black/75" />
-
-        {/* Reticle corners */}
-        <div className="absolute inset-10 pointer-events-none hidden lg:block">
-          <div className="absolute top-0 left-0 w-12 h-12 border-t-2 border-l-2 border-white/20" />
-          <div className="absolute top-0 right-0 w-12 h-12 border-t-2 border-r-2 border-white/20" />
-          <div className="absolute bottom-0 left-0 w-12 h-12 border-b-2 border-l-2 border-white/20" />
-          <div className="absolute bottom-0 right-0 w-12 h-12 border-b-2 border-r-2 border-white/20" />
-        </div>
+        <div className="absolute inset-0 bg-gradient-to-b from-black/50 via-black/40 to-black/70" />
 
         <div className="relative z-10 text-center px-6 max-w-4xl">
           <motion.div
@@ -150,20 +142,16 @@ const Experience = () => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 1, ease: 'easeOut' }}
           >
-            <div className="inline-flex items-center gap-2 mb-6 px-4 py-1.5 rounded-full bg-white/10 border border-white/20 text-white/70 text-xs tracking-[0.2em] uppercase">
-              <Globe className="w-3.5 h-3.5" />
-              The iTravelWithMiki Experience
-            </div>
             <h1
-              className="text-heading-xl sm:text-hero lg:text-[5rem] text-white font-bold leading-[1.1] mb-4"
+              className="text-heading-xl sm:text-hero lg:text-[5rem] text-white font-bold leading-[1.1] mb-6"
               style={{ fontFamily: 'var(--font-display)' }}
             >
               We Don't Just Plan Trips —
               <br />
-              <span className="italic font-normal text-white/70">We Create Memories</span>
+              <span className="text-primary-foreground">We Create Memories</span>
             </h1>
-            <p className="text-white/60 text-base lg:text-lg max-w-xl mx-auto mb-12">
-              Made by travelers, for travelers aged 50 and up
+            <p className="text-white/70 text-lg lg:text-xl max-w-2xl mx-auto mb-12">
+              Made by travelers, for travelers
             </p>
           </motion.div>
 

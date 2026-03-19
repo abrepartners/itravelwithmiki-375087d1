@@ -1,13 +1,11 @@
 import { useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import {
-  Phone, Mail, MapPin, Download, CreditCard, Luggage,
-  Bus, Shield, HelpCircle, MessageCircle, ArrowRight,
-} from 'lucide-react';
+import { Phone, Mail, MapPin, Download, CreditCard, Luggage, Bus, Shield, HelpCircle } from 'lucide-react';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import SEOHead from '@/components/SEOHead';
+import BreadcrumbNav from '@/components/BreadcrumbNav';
 import {
   Accordion,
   AccordionContent,
@@ -19,43 +17,18 @@ import { faqCategories, downloadableResources } from '@/data/faqs';
 import { useInsuranceProviders } from '@/stores/insuranceStore';
 
 const iconMap: Record<string, React.ComponentType<{ className?: string }>> = {
-  CreditCard, Luggage, Bus, Shield, HelpCircle,
+  CreditCard,
+  Luggage,
+  Bus,
+  Shield,
+  HelpCircle,
 };
-
-const contactMethods = [
-  {
-    icon: Phone,
-    title: 'Call Us',
-    detail: '(501) 951-1749',
-    sub: 'Mon–Fri, 9am–5pm CST',
-    href: 'tel:+15019511749',
-    cta: 'Call now',
-    color: 'bg-primary/8 text-primary',
-  },
-  {
-    icon: Mail,
-    title: 'Email Us',
-    detail: 'info@itravelwithmiki.com',
-    sub: 'We reply within 24 hours',
-    href: 'mailto:info@itravelwithmiki.com',
-    cta: 'Send email',
-    color: 'bg-accent/8 text-accent',
-  },
-  {
-    icon: MapPin,
-    title: 'Write to Us',
-    detail: 'P.O. Box 13993',
-    sub: 'Little Rock, AR 72113',
-    href: null,
-    cta: null,
-    color: 'bg-emerald-500/8 text-emerald-600',
-  },
-];
 
 const Support = () => {
   const location = useLocation();
   const insuranceProviders = useInsuranceProviders();
 
+  // Handle anchor scroll on page load
   useEffect(() => {
     if (location.hash) {
       const element = document.getElementById(location.hash.slice(1));
@@ -76,81 +49,28 @@ const Support = () => {
       />
       <Navbar />
 
-      {/* Hero */}
-      <section
-        className="relative pt-28 pb-20 px-6 lg:px-12 overflow-hidden"
-        style={{ background: 'linear-gradient(150deg, hsl(221 83% 28%) 0%, hsl(221 83% 38%) 100%)' }}
-      >
-        <div className="absolute top-0 right-0 w-[500px] h-[500px] rounded-full opacity-[0.10] blur-[120px] pointer-events-none"
-          style={{ background: 'hsl(0 0% 100%)' }} />
-        <div className="absolute inset-0 opacity-[0.04] pointer-events-none"
-          style={{
-            backgroundImage: 'linear-gradient(hsl(0 0% 100% / 1) 1px, transparent 1px), linear-gradient(90deg, hsl(0 0% 100% / 1) 1px, transparent 1px)',
-            backgroundSize: '50px 50px',
-          }} />
-
-        <div className="container mx-auto text-center relative z-10">
+      {/* Hero Section */}
+      <section className="pt-32 pb-16 px-6 lg:px-12 bg-primary text-primary-foreground">
+        <div className="container mx-auto text-center">
           <motion.div
-            initial={{ opacity: 0, y: 24 }}
+            initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
+            transition={{ duration: 0.6 }}
           >
-            <div className="inline-flex items-center gap-2 mb-5 px-4 py-1.5 rounded-full bg-white/10 border border-white/20 text-white/70 text-xs tracking-[0.2em] uppercase">
-              <MessageCircle className="w-3.5 h-3.5" />
+            <p className="text-primary-foreground/80 text-sm tracking-[0.2em] uppercase font-semibold mb-4">
               Support Center
-            </div>
+            </p>
             <h1
-              className="text-heading-lg md:text-heading-xl lg:text-hero font-semibold mb-5 text-white leading-tight"
+              className="text-heading-lg md:text-heading-xl lg:text-hero font-semibold mb-4"
               style={{ fontFamily: 'var(--font-display)' }}
             >
               We're Here to Help
             </h1>
-            <p className="text-white/60 text-base max-w-xl mx-auto leading-relaxed">
+            <p className="text-primary-foreground/80 text-body-lg max-w-2xl mx-auto">
               Find answers to common questions, download helpful resources, or contact us directly.
               We want your travel experience to be worry-free!
             </p>
           </motion.div>
-        </div>
-      </section>
-
-      {/* Quick Contact Cards */}
-      <section className="py-12 px-6 lg:px-12 bg-secondary border-b border-border">
-        <div className="container mx-auto max-w-4xl">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
-            {contactMethods.map((method, index) => (
-              <motion.div
-                key={method.title}
-                initial={{ opacity: 0, y: 16 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5, delay: index * 0.08 }}
-                className="bg-background rounded-2xl p-6 border border-border shadow-soft text-center"
-              >
-                <div className={`w-12 h-12 rounded-2xl flex items-center justify-center mx-auto mb-4 ${method.color}`}>
-                  <method.icon className="w-5 h-5" />
-                </div>
-                <h3 className="font-semibold text-foreground mb-1 text-base">{method.title}</h3>
-                {method.href ? (
-                  <a
-                    href={method.href}
-                    className="text-primary font-medium text-sm hover:underline underline-offset-2 block mb-1"
-                  >
-                    {method.detail}
-                  </a>
-                ) : (
-                  <p className="text-foreground font-medium text-sm mb-1">{method.detail}</p>
-                )}
-                <p className="text-muted-foreground text-xs">{method.sub}</p>
-                {method.cta && method.href && (
-                  <a
-                    href={method.href}
-                    className="inline-flex items-center gap-1 mt-3 text-xs text-primary font-semibold hover:underline underline-offset-2"
-                  >
-                    {method.cta} <ArrowRight className="w-3 h-3" />
-                  </a>
-                )}
-              </motion.div>
-            ))}
-          </div>
         </div>
       </section>
 
@@ -164,19 +84,18 @@ const Support = () => {
             transition={{ duration: 0.6 }}
             className="text-center mb-12"
           >
-            <p className="text-primary text-xs tracking-[0.25em] uppercase font-semibold mb-4">FAQ</p>
             <h2
-              className="text-heading-lg md:text-heading-xl font-semibold text-foreground mb-4 leading-tight"
+              className="text-heading-lg md:text-heading-xl font-semibold text-foreground mb-4"
               style={{ fontFamily: 'var(--font-display)' }}
             >
               Frequently Asked Questions
             </h2>
-            <p className="text-muted-foreground text-base">
+            <p className="text-muted-foreground text-body-lg">
               Click on any question to see the answer.
             </p>
           </motion.div>
 
-          <div className="space-y-6">
+          <div className="space-y-8">
             {faqCategories.map((category, categoryIndex) => {
               const IconComponent = iconMap[category.icon];
               return (
@@ -185,42 +104,39 @@ const Support = () => {
                   initial={{ opacity: 0, y: 20 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
-                  transition={{ duration: 0.5, delay: categoryIndex * 0.08 }}
-                  className="rounded-3xl border border-border bg-card overflow-hidden shadow-soft"
+                  transition={{ duration: 0.6, delay: categoryIndex * 0.1 }}
+                  className="bg-secondary rounded-2xl p-6 lg:p-8"
                 >
-                  {/* Category Header */}
-                  <div className="flex items-center gap-3 px-7 py-5 border-b border-border bg-secondary/40">
+                  <div className="flex items-center gap-3 mb-6">
                     {IconComponent && (
-                      <div className="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center flex-shrink-0">
-                        <IconComponent className="w-5 h-5 text-primary" />
+                      <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center">
+                        <IconComponent className="w-6 h-6 text-primary" />
                       </div>
                     )}
                     <h3
-                      className="text-lg font-semibold text-foreground"
+                      className="text-xl font-semibold text-foreground"
                       style={{ fontFamily: 'var(--font-display)' }}
                     >
                       {category.title}
                     </h3>
                   </div>
 
-                  <div className="px-7 py-2">
-                    <Accordion type="single" collapsible className="w-full">
-                      {category.faqs.map((faq, faqIndex) => (
-                        <AccordionItem
-                          key={faqIndex}
-                          value={`${category.title}-${faqIndex}`}
-                          className="border-border/60"
-                        >
-                          <AccordionTrigger className="text-left text-base font-medium text-foreground hover:no-underline py-5 hover:text-primary transition-colors duration-200">
-                            {faq.question}
-                          </AccordionTrigger>
-                          <AccordionContent className="text-muted-foreground text-sm leading-relaxed pb-5">
-                            {faq.answer}
-                          </AccordionContent>
-                        </AccordionItem>
-                      ))}
-                    </Accordion>
-                  </div>
+                  <Accordion type="single" collapsible className="w-full">
+                    {category.faqs.map((faq, faqIndex) => (
+                      <AccordionItem
+                        key={faqIndex}
+                        value={`${category.title}-${faqIndex}`}
+                        className="border-border"
+                      >
+                        <AccordionTrigger className="text-left text-base lg:text-lg font-medium text-foreground hover:no-underline py-5">
+                          {faq.question}
+                        </AccordionTrigger>
+                        <AccordionContent className="text-muted-foreground text-base leading-relaxed pb-5">
+                          {faq.answer}
+                        </AccordionContent>
+                      </AccordionItem>
+                    ))}
+                  </Accordion>
                 </motion.div>
               );
             })}
@@ -228,7 +144,7 @@ const Support = () => {
         </div>
       </section>
 
-      {/* Insurance Section */}
+      {/* Insurance Providers Section */}
       <section className="py-16 lg:py-24 px-6 lg:px-12 bg-secondary" id="insurance">
         <div className="container mx-auto max-w-4xl">
           <motion.div
@@ -238,14 +154,13 @@ const Support = () => {
             transition={{ duration: 0.6 }}
             className="text-center mb-12"
           >
-            <p className="text-primary text-xs tracking-[0.25em] uppercase font-semibold mb-4">Protect Your Investment</p>
             <h2
-              className="text-heading-lg md:text-heading-xl font-semibold text-foreground mb-4 leading-tight"
+              className="text-heading-lg md:text-heading-xl font-semibold text-foreground mb-4"
               style={{ fontFamily: 'var(--font-display)' }}
             >
               Travel Insurance
             </h2>
-            <p className="text-muted-foreground text-base max-w-md mx-auto">
+            <p className="text-muted-foreground text-body-lg">
               Protect your trip investment with comprehensive travel insurance.
             </p>
           </motion.div>
@@ -258,11 +173,11 @@ const Support = () => {
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: index * 0.1 }}
-                className="bg-background rounded-3xl p-8 text-center scroll-mt-32 border border-border shadow-soft hover:shadow-elevated transition-all duration-300 hover:-translate-y-1"
+                transition={{ duration: 0.6, delay: index * 0.1 }}
+                className="bg-background rounded-2xl p-6 lg:p-8 text-center scroll-mt-32"
               >
-                <div className="w-14 h-14 rounded-2xl bg-primary/10 flex items-center justify-center mx-auto mb-5">
-                  <Shield className="w-7 h-7 text-primary" />
+                <div className="w-16 h-16 rounded-full bg-primary/10 flex items-center justify-center mx-auto mb-4">
+                  <Shield className="w-8 h-8 text-primary" />
                 </div>
                 <h3
                   className="text-xl font-semibold text-foreground mb-1"
@@ -271,9 +186,9 @@ const Support = () => {
                   {provider.name}
                 </h3>
                 <p className="text-primary font-medium text-sm mb-3">{provider.subtitle}</p>
-                <p className="text-muted-foreground text-sm mb-6 leading-relaxed">{provider.description}</p>
+                <p className="text-muted-foreground text-sm mb-6">{provider.description}</p>
                 {provider.pdfUrl && provider.pdfUrl !== '#' ? (
-                  <Button asChild className="gap-2 rounded-full">
+                  <Button asChild className="gap-2">
                     <a href={provider.pdfUrl} target="_blank" rel="noopener noreferrer">
                       <Download className="w-4 h-4" />
                       Download PDF
@@ -298,19 +213,18 @@ const Support = () => {
             transition={{ duration: 0.6 }}
             className="text-center mb-12"
           >
-            <p className="text-primary text-xs tracking-[0.25em] uppercase font-semibold mb-4">Resources</p>
             <h2
-              className="text-heading-lg md:text-heading-xl font-semibold text-foreground mb-4 leading-tight"
+              className="text-heading-lg md:text-heading-xl font-semibold text-foreground mb-4"
               style={{ fontFamily: 'var(--font-display)' }}
             >
-              Helpful Downloads
+              Helpful Resources
             </h2>
-            <p className="text-muted-foreground text-base">
+            <p className="text-muted-foreground text-body-lg">
               Download these documents to help prepare for your trip.
             </p>
           </motion.div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {downloadableResources.map((resource, index) => (
               <motion.a
                 key={resource.title}
@@ -318,17 +232,16 @@ const Support = () => {
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: index * 0.08 }}
-                className="bg-secondary rounded-3xl p-7 text-center hover:shadow-elevated transition-all duration-300 group border border-border hover:-translate-y-1"
+                transition={{ duration: 0.6, delay: index * 0.1 }}
+                className="bg-secondary rounded-2xl p-6 text-center hover:shadow-lg transition-shadow duration-300 group"
               >
-                <div className="w-14 h-14 rounded-2xl bg-primary/10 flex items-center justify-center mx-auto mb-5 group-hover:bg-primary/20 transition-colors duration-200">
-                  <Download className="w-6 h-6 text-primary" />
+                <div className="w-16 h-16 rounded-full bg-primary/10 flex items-center justify-center mx-auto mb-4 group-hover:bg-primary/20 transition-colors">
+                  <Download className="w-8 h-8 text-primary" />
                 </div>
-                <h3 className="font-semibold text-foreground mb-2 text-base">{resource.title}</h3>
-                <p className="text-muted-foreground text-sm mb-4 leading-relaxed">{resource.description}</p>
-                <span className="inline-flex items-center gap-1.5 text-primary font-semibold text-sm group-hover:gap-2.5 transition-all duration-200">
+                <h3 className="font-semibold text-foreground mb-2">{resource.title}</h3>
+                <p className="text-muted-foreground text-sm mb-4">{resource.description}</p>
+                <span className="inline-flex items-center gap-1 text-primary font-medium text-sm">
                   Download {resource.type}
-                  <ArrowRight className="w-3.5 h-3.5" />
                 </span>
               </motion.a>
             ))}
@@ -336,40 +249,101 @@ const Support = () => {
         </div>
       </section>
 
-      {/* Still Have Questions CTA */}
+      {/* Contact Section */}
       <section className="py-16 lg:py-24 px-6 lg:px-12 bg-secondary">
-        <div className="container mx-auto max-w-3xl">
+        <div className="container mx-auto max-w-4xl">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
-            className="text-center"
+            className="text-center mb-12"
           >
-            <p className="text-primary text-xs tracking-[0.25em] uppercase font-semibold mb-4">Still have questions?</p>
             <h2
-              className="text-heading-lg md:text-heading-xl font-semibold text-foreground mb-4 leading-tight"
+              className="text-heading-lg md:text-heading-xl font-semibold text-foreground mb-4"
               style={{ fontFamily: 'var(--font-display)' }}
             >
-              We're Just a Call Away
+              Still Have Questions?
             </h2>
-            <p className="text-muted-foreground text-base mb-8 max-w-md mx-auto leading-relaxed">
-              Don't hesitate to reach out. We're real people who genuinely care about making your trip perfect.
+            <p className="text-muted-foreground text-body-lg">
+              We're just a phone call or email away. Don't hesitate to reach out!
             </p>
-            <div className="flex flex-wrap justify-center gap-3">
-              <Button size="lg" className="rounded-full px-8 font-semibold" asChild>
-                <a href="tel:+15019511749" className="flex items-center gap-2">
-                  <Phone className="w-4 h-4" />
-                  (501) 951-1749
-                </a>
-              </Button>
-              <Button size="lg" variant="outline" className="rounded-full px-8" asChild>
-                <a href="mailto:info@itravelwithmiki.com" className="flex items-center gap-2">
-                  <Mail className="w-4 h-4" />
-                  Email Us
-                </a>
-              </Button>
-            </div>
+          </motion.div>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            {/* Phone */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6 }}
+              className="bg-secondary rounded-2xl p-6 text-center"
+            >
+              <div className="w-14 h-14 rounded-full bg-primary/10 flex items-center justify-center mx-auto mb-4">
+                <Phone className="w-7 h-7 text-primary" />
+              </div>
+              <h3 className="font-semibold text-foreground mb-2">Call Us</h3>
+              <a
+                href="tel:+15019511749"
+                className="text-primary text-xl font-bold hover:underline"
+              >
+                (501) 951-1749
+              </a>
+              <p className="text-muted-foreground text-sm mt-2">Mon-Fri 9am-5pm CST</p>
+            </motion.div>
+
+            {/* Email */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6, delay: 0.1 }}
+              className="bg-secondary rounded-2xl p-6 text-center"
+            >
+              <div className="w-14 h-14 rounded-full bg-primary/10 flex items-center justify-center mx-auto mb-4">
+                <Mail className="w-7 h-7 text-primary" />
+              </div>
+              <h3 className="font-semibold text-foreground mb-2">Email Us</h3>
+              <a
+                href="mailto:info@itravelwithmiki.com"
+                className="text-primary font-medium hover:underline break-all"
+              >
+                info@itravelwithmiki.com
+              </a>
+              <p className="text-muted-foreground text-sm mt-2">We respond within 24 hours</p>
+            </motion.div>
+
+            {/* Address */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6, delay: 0.2 }}
+              className="bg-secondary rounded-2xl p-6 text-center"
+            >
+              <div className="w-14 h-14 rounded-full bg-primary/10 flex items-center justify-center mx-auto mb-4">
+                <MapPin className="w-7 h-7 text-primary" />
+              </div>
+              <h3 className="font-semibold text-foreground mb-2">Mail Us</h3>
+              <p className="text-muted-foreground">
+                P.O. Box 13993
+                <br />
+                Little Rock, AR 72113
+              </p>
+            </motion.div>
+          </div>
+
+          {/* CTA */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6, delay: 0.3 }}
+            className="text-center mt-12"
+          >
+            <Button className="btn-senior bg-primary hover:bg-primary/90" asChild>
+              <a href="tel:+15019511749">Call Now — We'd Love to Chat!</a>
+            </Button>
           </motion.div>
         </div>
       </section>
