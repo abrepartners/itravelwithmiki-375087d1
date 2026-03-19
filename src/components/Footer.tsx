@@ -1,4 +1,4 @@
-import { Facebook, Instagram, Youtube, Mail, Phone, MapPin } from 'lucide-react';
+import { Compass, BookOpen, Phone, Mail, MapPin } from 'lucide-react';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import FooterGallery from '@/components/FooterGallery';
@@ -23,12 +23,16 @@ const Footer = () => {
               Your trusted travel family since 2009. Creating unforgettable memories, one trip at a time.
             </p>
             <div className="flex gap-3">
-              {[Facebook, Instagram, Youtube].map((Icon, index) => (
+              {[
+                { icon: Compass, href: '/experience', label: 'The Experience' },
+                { icon: BookOpen, href: '/land-trips', label: 'Land Trips' },
+                { icon: Phone, href: '/support', label: 'Support' },
+              ].map(({ icon: Icon, href, label }) => (
                 <a
-                  key={index}
-                  href="#"
+                  key={label}
+                  href={href}
                   className="w-11 h-11 rounded-full bg-primary-foreground/10 flex items-center justify-center hover:bg-primary-foreground hover:text-primary transition-all duration-300"
-                  aria-label={`Social media link ${index + 1}`}
+                  aria-label={label}
                 >
                   <Icon className="w-5 h-5" />
                 </a>
@@ -91,7 +95,7 @@ const Footer = () => {
           <div>
             <h3 className="text-base font-semibold uppercase tracking-wider mb-5">Stay Updated</h3>
             <p className="text-primary-foreground/80 text-base mb-4">
-              Get exclusive deals and trip announcements.
+              Get first access to new departures, waitlist openings, and curated travel updates from the iTravel family.
             </p>
             <div className="flex flex-col gap-3">
               <Input

@@ -1,3 +1,17 @@
+export interface LandTripHighlightSection {
+  title: string;
+  items: string[];
+}
+
+export interface LandTripDetail {
+  overview: string;
+  signatureMoments: string[];
+  perfectFor: string[];
+  included: string[];
+  itineraryPreview: LandTripHighlightSection[];
+  planningNotes: string[];
+}
+
 export interface LandTrip {
   id: string;
   title: string;
@@ -9,4 +23,5 @@ export interface LandTrip {
   learn_more_link: string;
   booking_link: string | null;
   images: string[];
+  detail: LandTripDetail;
 }
