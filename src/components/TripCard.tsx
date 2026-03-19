@@ -40,7 +40,7 @@ const TripCard = ({ trip, featured = false, className }: TripCardProps) => {
       viewport={{ once: true }}
       transition={{ duration: 0.5 }}
       className={cn(
-        'group relative overflow-hidden rounded-2xl bg-card hover-lift shadow-elevated flex flex-col',
+        'group relative overflow-hidden rounded-2xl bg-card hover-lift shadow-elevated',
         featured && 'md:col-span-2 lg:col-span-3',
         className
       )}
@@ -48,7 +48,7 @@ const TripCard = ({ trip, featured = false, className }: TripCardProps) => {
       onMouseLeave={() => setIsPaused(false)}
     >
       {/* Image Carousel */}
-      <div className={cn('relative overflow-hidden flex-shrink-0', featured ? 'h-80 md:h-96' : 'h-64')}>
+      <div className={cn('relative overflow-hidden', featured ? 'h-80 md:h-96' : 'h-64')}>
         {trip.images.map((image, index) => (
           <img
             key={index}
@@ -102,16 +102,16 @@ const TripCard = ({ trip, featured = false, className }: TripCardProps) => {
         {/* Urgency Badge */}
         {trip.urgencyMessage && (
           <div className="absolute top-4 left-4">
-            <UrgencyBadge
-              message={trip.urgencyMessage}
-              variant={trip.soldOut ? 'default' : trip.spotsLeft ? 'spots' : 'discount'}
+            <UrgencyBadge 
+              message={trip.urgencyMessage} 
+              variant={trip.soldOut ? 'default' : trip.spotsLeft ? 'spots' : 'discount'} 
             />
           </div>
         )}
       </div>
 
-      {/* Content — flex-col + flex-grow so button always sits at the bottom */}
-      <div className={cn('flex flex-col flex-grow p-6', featured && 'md:p-8')}>
+      {/* Content */}
+      <div className={cn('p-6', featured && 'md:p-8')}>
         {/* Destination */}
         <div className="flex items-center gap-2 text-muted-foreground mb-2">
           <MapPin className="w-4 h-4" />
@@ -121,7 +121,7 @@ const TripCard = ({ trip, featured = false, className }: TripCardProps) => {
         {/* Title */}
         <h3
           className={cn(
-            'font-semibold text-card-foreground mb-3 group-hover:text-primary transition-colors duration-300 line-clamp-2 leading-snug',
+            'font-semibold text-card-foreground mb-3 group-hover:text-primary transition-colors duration-300',
             featured ? 'text-2xl md:text-3xl' : 'text-xl'
           )}
           style={{ fontFamily: 'var(--font-display)' }}
@@ -135,71 +135,52 @@ const TripCard = ({ trip, featured = false, className }: TripCardProps) => {
           <span className="text-sm">{trip.departureDate}</span>
         </div>
 
-        {/* Spacer — pushes price + CTA to the bottom */}
-        <div className="flex-grow" />
-
         {/* Price */}
-        <div className="mb-4">
-          <div className="flex items-baseline gap-3">
-            {hasDiscount ? (
-              <>
-                <span className="text-2xl font-bold text-accent">
-                  ${trip.discountPrice?.toLocaleString()}
-                </span>
-                <span className="text-lg text-muted-foreground line-through">
-                  ${trip.price.toLocaleString()}
-                </span>
-              </>
-            ) : (
-              <span className="text-2xl font-bold text-foreground">
+        <div className="flex items-baseline gap-3 mb-6">
+          {hasDiscount ? (
+            <>
+              <span className="text-2xl font-bold text-accent">
+                ${trip.discountPrice?.toLocaleString()}
+              </span>
+              <span className="text-lg text-muted-foreground line-through">
                 ${trip.price.toLocaleString()}
               </span>
-            )}
-            <span className="text-sm text-muted-foreground">
-              {trip.singlePrice ? 'dbl' : 'per person'}
+            </>
+          ) : (
+            <span className="text-2xl font-bold text-foreground">
+              ${trip.price.toLocaleString()}
             </span>
-          </div>
-          {/* Single occupancy price for bus trips */}
-          {trip.singlePrice && (
-            <p className="text-xs text-muted-foreground mt-0.5">
-              ${trip.singlePrice.toLocaleString()} single occupancy
-            </p>
           )}
+          <span className="text-sm text-muted-foreground">per person</span>
         </div>
 
-        {/* CTA Button — smart: Book Now / Join Waitlist / Sold Out */}
-        {trip.soldOut ? (
-          trip.waitlistUrl ? (
-            <Button
-              className={cn('w-full btn-senior bg-amber-600 hover:bg-amber-700 text-white group/btn', featured && 'md:w-auto')}
-              asChild
-            >
-              <a href={trip.waitlistUrl} target="_blank" rel="noopener noreferrer" className="flex items-center justify-center gap-2">
-                Join Waitlist
-                <ArrowRight className="w-4 h-4 transition-transform duration-300 group-hover/btn:translate-x-1" />
-              </a>
-            </Button>
-          ) : (
-            <Button
-              className={cn('w-full btn-senior bg-muted text-muted-foreground cursor-not-allowed', featured && 'md:w-auto')}
-              disabled
-            >
-              Sold Out
-            </Button>
-          )
-        ) : trip.bookingUrl ? (
-          <Button
-            className={cn('w-full btn-senior bg-primary hover:bg-primary/90 group/btn', featured && 'md:w-auto')}
-            asChild
+        {/* CTA Button */}
+        {trip.bookingUrl ? (
+          <Button 
+            className={cn(
+              'w-full btn-senior',
+              trip.soldOut 
+                ? 'bg-muted text-muted-foreground cursor-not-allowed' 
+                : 'bg-primary hover:bg-primary/90',
+              featured && 'md:w-auto'
+            )}
+            disabled={trip.soldOut}
+            asChild={!trip.soldOut}
           >
-            <a href={trip.bookingUrl} target="_blank" rel="noopener noreferrer" className="flex items-center justify-center gap-2">
-              Book Now
-              <ArrowRight className="w-4 h-4 transition-transform duration-300 group-hover/btn:translate-x-1" />
-            </a>
+            {trip.soldOut ? (
+              <span>Sold Out</span>
+            ) : (
+              <a href={trip.bookingUrl} target="_blank" rel="noopener noreferrer">
+                Book Now
+              </a>
+            )}
           </Button>
         ) : (
-          <Button
-            className={cn('w-full btn-senior bg-primary hover:bg-primary/90', featured && 'md:w-auto')}
+          <Button 
+            className={cn(
+              'w-full btn-senior bg-primary hover:bg-primary/90',
+              featured && 'md:w-auto'
+            )}
           >
             Book Now
           </Button>

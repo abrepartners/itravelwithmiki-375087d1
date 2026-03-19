@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { Lock } from 'lucide-react';
+import { Lock, Loader2 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
@@ -9,28 +9,40 @@ import { useAdmin } from '@/contexts/AdminContext';
 import wordmarkLogo from '@/assets/logos/wordmark-logo.webp';
 
 const AdminLogin = () => {
-  const [passcode, setPasscode] = useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
   const [error, setError] = useState('');
-  const { login, isAuthenticated } = useAdmin();
+  const [submitting, setSubmitting] = useState(false);
+  const { login, isAuthenticated, isAdmin, isLoading } = useAdmin();
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (isAuthenticated) {
+    if (!isLoading && isAuthenticated && isAdmin) {
       navigate('/admin');
     }
-  }, [isAuthenticated, navigate]);
+  }, [isAuthenticated, isAdmin, isLoading, navigate]);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setError('');
-    
-    if (login(passcode)) {
-      navigate('/admin');
-    } else {
-      setError('Invalid passcode. Please try again.');
-      setPasscode('');
+    setSubmitting(true);
+
+    const result = await login(email, password);
+
+    if (result.error) {
+      setError(result.error);
+      setSubmitting(false);
     }
+    // Navigation handled by useEffect when auth state changes
   };
+
+  if (isLoading) {
+    return (
+      <main className="min-h-screen bg-background flex items-center justify-center">
+        <Loader2 className="w-8 h-8 animate-spin text-primary" />
+      </main>
+    );
+  }
 
   return (
     <main className="min-h-screen bg-background flex items-center justify-center p-6">
@@ -51,37 +63,63 @@ const AdminLogin = () => {
             <div className="inline-flex items-center justify-center w-14 h-14 rounded-full bg-primary/10 mb-4">
               <Lock className="w-7 h-7 text-primary" />
             </div>
-            <h1 
+            <h1
               className="text-heading-md font-semibold text-foreground"
               style={{ fontFamily: 'var(--font-display)' }}
             >
               Admin Access
             </h1>
             <p className="text-muted-foreground mt-2">
-              Enter your passcode to continue
+              Sign in with your admin credentials
             </p>
           </div>
 
           {/* Form */}
           <form onSubmit={handleSubmit} className="space-y-6">
             <div className="space-y-2">
-              <Label htmlFor="passcode" className="text-base">Passcode</Label>
+              <Label htmlFor="email" className="text-base">Email</Label>
               <Input
-                id="passcode"
-                type="password"
-                value={passcode}
-                onChange={(e) => setPasscode(e.target.value)}
-                placeholder="Enter passcode"
+                id="email"
+                type="email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                placeholder="admin@example.com"
                 className="h-12 text-base"
                 autoFocus
+                required
               />
-              {error && (
-                <p className="text-sm text-destructive">{error}</p>
-              )}
             </div>
 
-            <Button type="submit" className="w-full h-12 text-base font-semibold">
-              Access Admin
+            <div className="space-y-2">
+              <Label htmlFor="password" className="text-base">Password</Label>
+              <Input
+                id="password"
+                type="password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                placeholder="Enter password"
+                className="h-12 text-base"
+                required
+              />
+            </div>
+
+            {error && (
+              <p className="text-sm text-destructive">{error}</p>
+            )}
+
+            <Button
+              type="submit"
+              className="w-full h-12 text-base font-semibold"
+              disabled={submitting}
+            >
+              {submitting ? (
+                <>
+                  <Loader2 className="w-4 h-4 mr-2 animate-spin" />
+                  Signing in...
+                </>
+              ) : (
+                'Sign In'
+              )}
             </Button>
           </form>
 
