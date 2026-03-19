@@ -33,12 +33,15 @@ const TripForm = ({ trip, onSave, onCancel }: TripFormProps) => {
     destination: '',
     departureDate: '',
     price: 0,
+    singlePrice: undefined,
     discountPrice: undefined,
     category: 'land',
     operator: '',
     subheading: '',
     description: '',
     bookingUrl: '',
+    waitlistUrl: '',
+    flyerUrl: '',
     featured: false,
     soldOut: false,
     urgencyMessage: '',
@@ -67,6 +70,8 @@ const TripForm = ({ trip, onSave, onCancel }: TripFormProps) => {
     // Validate all URL fields
     const urlsToCheck = [
       { value: formData.bookingUrl || '', label: 'Booking URL' },
+      { value: formData.waitlistUrl || '', label: 'Waitlist URL' },
+      { value: formData.flyerUrl || '', label: 'Flyer URL' },
       ...formData.images.filter(img => img.trim() !== '').map((img, i) => ({ value: img, label: `Image ${i + 1} URL` })),
     ];
     const unsafeUrl = urlsToCheck.find(u => u.value.trim() !== '' && !isSafeUrl(u.value));
@@ -89,6 +94,9 @@ const TripForm = ({ trip, onSave, onCancel }: TripFormProps) => {
       id,
       images: images.length > 0 ? images : ['https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?w=800&q=80'],
       discountPrice: formData.discountPrice || undefined,
+      singlePrice: formData.singlePrice || undefined,
+      waitlistUrl: formData.waitlistUrl || undefined,
+      flyerUrl: formData.flyerUrl || undefined,
       urgencyMessage: formData.urgencyMessage || undefined,
     } as Trip);
   };
@@ -161,9 +169,11 @@ const TripForm = ({ trip, onSave, onCancel }: TripFormProps) => {
           </Select>
         </div>
 
-        {/* Price */}
+        {/* Price — Double/Shared Occupancy */}
         <div className="space-y-2">
-          <Label htmlFor="price" className="text-base">Price ($) *</Label>
+          <Label htmlFor="price" className="text-base">
+            {formData.category === 'bus' ? 'Double/Shared Price ($) *' : 'Price ($) *'}
+          </Label>
           <Input
             id="price"
             type="number"
@@ -227,17 +237,63 @@ const TripForm = ({ trip, onSave, onCancel }: TripFormProps) => {
         />
       </div>
 
+      {/* Single Occupancy Price — Bus trips only */}
+      {formData.category === 'bus' && (
+        <div className="space-y-2">
+          <Label htmlFor="singlePrice" className="text-base">Single Occupancy Price ($)</Label>
+          <Input
+            id="singlePrice"
+            type="number"
+            value={formData.singlePrice || ''}
+            onChange={(e) => setFormData({ ...formData, singlePrice: e.target.value ? Number(e.target.value) : undefined })}
+            placeholder="e.g., 2495"
+            min={0}
+            className="h-12"
+          />
+          <p className="text-xs text-muted-foreground">Diamond Tours single supplement price. Leave blank if not applicable.</p>
+        </div>
+      )}
+
       {/* Booking URL */}
       <div className="space-y-2">
-        <Label htmlFor="bookingUrl" className="text-base">Booking URL</Label>
+        <Label htmlFor="bookingUrl" className="text-base">TravelJoy Booking URL</Label>
         <Input
           id="bookingUrl"
           type="url"
           value={formData.bookingUrl || ''}
           onChange={(e) => setFormData({ ...formData, bookingUrl: e.target.value })}
+          placeholder="https://traveljoy.com/..."
+          className="h-12"
+        />
+        <p className="text-xs text-muted-foreground">Direct TravelJoy link where travelers register and pay.</p>
+      </div>
+
+      {/* Waitlist URL */}
+      <div className="space-y-2">
+        <Label htmlFor="waitlistUrl" className="text-base">Waitlist URL</Label>
+        <Input
+          id="waitlistUrl"
+          type="url"
+          value={formData.waitlistUrl || ''}
+          onChange={(e) => setFormData({ ...formData, waitlistUrl: e.target.value })}
           placeholder="https://..."
           className="h-12"
         />
+        <p className="text-xs text-muted-foreground">If this trip is sold out, provide a waitlist link. The card will show an amber \"Join Waitlist\" button instead of grey \"Sold Out\".</p>
+      </div>
+
+      {/* Flyer URL */}
+      <div className="space-y-2">
+        <Label htmlFor="flyerUrl" className="text-base">Trip Flyer URL</Label>
+        <Input
+          id="flyerUrl"
+          type="url"
+          value={formData.flyerUrl || ''}
+          onChange={(e) => setFormData({ ...formData, flyerUrl: e.target.value })}
+          placeholder="https://... (PDF or image URL)"
+          className="h-12"
+        />
+        <p className="text-xs text-muted-foreground">Upload the Diamond Tours flyer to your storage and paste the URL here. Used for AI content generation (Wave 2).</p>
       </div>
 
       {/* Checkboxes */}
