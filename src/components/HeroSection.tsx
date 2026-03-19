@@ -1,7 +1,7 @@
 import { motion } from 'framer-motion';
 import { ArrowRight } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-import stackedLogo from '@/assets/logos/stacked-logo.png';
+import stackedLogo from '@/assets/logos/stacked-logo.webp';
 
 const HeroSection = () => {
   return (

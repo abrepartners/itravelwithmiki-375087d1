@@ -14,7 +14,7 @@ import GalleryManager from '@/components/admin/GalleryManager';
 import InsuranceManager from '@/components/admin/InsuranceManager';
 import type { Trip } from '@/types/trip';
 import type { GalleryImage, InsuranceProvider } from '@/types/gallery';
-import wordmarkLogo from '@/assets/logos/wordmark-logo.png';
+import wordmarkLogo from '@/assets/logos/wordmark-logo.webp';
 
 const Admin = () => {
   const { isAuthenticated, logout } = useAdmin();

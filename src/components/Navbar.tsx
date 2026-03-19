@@ -8,7 +8,7 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import wordmarkLogo from "@/assets/logos/wordmark-logo.png";
+import wordmarkLogo from "@/assets/logos/wordmark-logo.webp";
 
 const tripCategories = [
   { label: "All Trips", href: "/trips" },

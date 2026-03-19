@@ -2,7 +2,7 @@ import { Compass, BookOpen, Phone, Mail, MapPin } from 'lucide-react';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import FooterGallery from '@/components/FooterGallery';
-import primaryLogo from '@/assets/logos/primary-logo.png';
+import primaryLogo from '@/assets/logos/primary-logo.webp';
 
 const Footer = () => {
   return (
