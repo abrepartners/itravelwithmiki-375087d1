@@ -20,8 +20,20 @@ export interface LandTrip {
   date_display: string;
   sub_description: string;
   status: "Active" | "Sold out, waitlist only";
-  learn_more_link: string;
   booking_link: string | null;
   images: string[];
   detail: LandTripDetail;
+}
+
+export interface LandTripStorySection {
+  title: string;
+  items: string[];
+}
+
+export interface LandTripStory {
+  overview: string;
+  highlights: string[];
+  included: string[];
+  travelNotes: string[];
+  preview: LandTripStorySection[];
 }
