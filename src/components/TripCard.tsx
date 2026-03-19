@@ -101,14 +101,16 @@ const TripCard = ({ trip, featured = false, className }: TripCardProps) => {
             />
           </div>
         )}
+
+        {/* Destination glassmorphism pill */}
+        <div className="absolute bottom-4 left-4 flex items-center gap-1.5 px-3 py-1.5 rounded-full backdrop-blur-md bg-white/20 border border-white/30 text-white text-sm font-medium">
+          <MapPin className="w-3.5 h-3.5" />
+          {trip.destination}
+        </div>
       </div>
 
       {/* Content — flex-col + flex-grow so button always sits at the bottom */}
       <div className={cn('flex flex-col flex-grow p-6', featured && 'md:p-8')}>
-        <div className="flex items-center gap-2 text-muted-foreground mb-2">
-          <MapPin className="w-4 h-4" />
-          <span className="text-sm font-medium">{trip.destination}</span>
-        </div>
 
         {/* Title — line-clamp-2 ensures ALL cards have the same header height */}
         <h3

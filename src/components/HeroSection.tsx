@@ -72,15 +72,27 @@ const HeroSection = () => {
           </Button>
         </motion.div>
 
-        {/* Social Proof */}
-        <motion.p
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
+        {/* Trust Stats Bar */}
+        <motion.div
+          initial={{ opacity: 0, y: 10 }}
+          animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 1 }}
-          className="text-white/60 text-base md:text-lg mt-8 tracking-wide"
+          className="flex items-center gap-6 md:gap-10 mt-10"
         >
-          10,000+ Travelers&nbsp; · &nbsp;500+ Trips
-        </motion.p>
+          {[
+            { value: '15+', label: 'Years' },
+            { value: '10,000+', label: 'Travelers' },
+            { value: '500+', label: 'Trips' },
+          ].map((stat, i) => (
+            <div key={stat.label} className="flex items-center gap-6 md:gap-10">
+              {i > 0 && <span className="text-white/30 text-2xl font-light">·</span>}
+              <div className="text-center">
+                <span className="block text-2xl md:text-3xl font-bold text-white" style={{ fontFamily: 'var(--font-display)' }}>{stat.value}</span>
+                <span className="text-xs md:text-sm uppercase tracking-widest text-white/60">{stat.label}</span>
+              </div>
+            </div>
+          ))}
+        </motion.div>
       </div>
 
       <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 1.5, duration: 0.8 }} className="absolute bottom-8 left-1/2 -translate-x-1/2">
