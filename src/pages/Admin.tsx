@@ -222,6 +222,11 @@ const Admin = () => {
               )}
             </TabsContent>
 
+            {/* Content Studio Tab */}
+            <TabsContent value="content">
+              <ContentStudio />
+            </TabsContent>
+
             {/* Gallery Tab */}
             <TabsContent value="gallery">
               <div className="bg-card border border-border rounded-xl p-6">
