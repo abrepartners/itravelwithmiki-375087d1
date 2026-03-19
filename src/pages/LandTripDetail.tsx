@@ -1,15 +1,28 @@
+import { useState, useCallback } from 'react';
 import { Navigate, useParams } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { ArrowLeft, Calendar, CheckCircle2, Compass, Heart, Map, Phone } from 'lucide-react';
+import { ArrowLeft, Calendar, CheckCircle2, Compass, Heart, Map, Phone, ChevronLeft, ChevronRight, User } from 'lucide-react';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import SEOHead from '@/components/SEOHead';
 import { Button } from '@/components/ui/button';
 import { getLandTripById } from '@/data/land-trips';
+import { cn } from '@/lib/utils';
 
 const LandTripDetail = () => {
   const { tripId } = useParams<{ tripId: string }>();
   const trip = tripId ? getLandTripById(tripId) : undefined;
+  const [heroIndex, setHeroIndex] = useState(0);
+
+  const nextHero = useCallback(() => {
+    if (!trip) return;
+    setHeroIndex((prev) => (prev + 1) % trip.images.length);
+  }, [trip]);
+
+  const prevHero = useCallback(() => {
+    if (!trip) return;
+    setHeroIndex((prev) => (prev - 1 + trip.images.length) % trip.images.length);
+  }, [trip]);
 
   if (!trip) {
     return <Navigate to="/land-trips" replace />;
@@ -26,10 +39,55 @@ const LandTripDetail = () => {
       />
       <Navbar />
 
+      {/* Multi-Image Hero */}
       <section className="relative min-h-[72vh] overflow-hidden">
-        <img src={trip.images[0]} alt={trip.title} className="absolute inset-0 h-full w-full object-cover" />
+        {trip.images.map((img, i) => (
+          <img
+            key={i}
+            src={img}
+            alt={`${trip.title} - ${i + 1}`}
+            className={cn(
+              'absolute inset-0 h-full w-full object-cover transition-opacity duration-700',
+              i === heroIndex ? 'opacity-100' : 'opacity-0'
+            )}
+          />
+        ))}
         <div className="absolute inset-0 bg-gradient-to-r from-black/80 via-black/55 to-black/35" />
-        <div className="relative container mx-auto flex min-h-[72vh] items-end px-6 pb-14 pt-32 lg:px-12 lg:pb-20">
+
+        {/* Hero arrows */}
+        {trip.images.length > 1 && (
+          <>
+            <button
+              onClick={prevHero}
+              className="absolute left-4 lg:left-8 top-1/2 -translate-y-1/2 z-20 w-12 h-12 rounded-full bg-white/10 backdrop-blur-md border border-white/20 flex items-center justify-center hover:bg-white/20 transition-colors"
+              aria-label="Previous image"
+            >
+              <ChevronLeft className="w-6 h-6 text-white" />
+            </button>
+            <button
+              onClick={nextHero}
+              className="absolute right-4 lg:right-8 top-1/2 -translate-y-1/2 z-20 w-12 h-12 rounded-full bg-white/10 backdrop-blur-md border border-white/20 flex items-center justify-center hover:bg-white/20 transition-colors"
+              aria-label="Next image"
+            >
+              <ChevronRight className="w-6 h-6 text-white" />
+            </button>
+            <div className="absolute bottom-6 left-1/2 -translate-x-1/2 z-20 flex gap-2">
+              {trip.images.map((_, i) => (
+                <button
+                  key={i}
+                  onClick={() => setHeroIndex(i)}
+                  className={cn(
+                    'w-2.5 h-2.5 rounded-full transition-all duration-300',
+                    i === heroIndex ? 'bg-white w-8' : 'bg-white/40'
+                  )}
+                  aria-label={`Image ${i + 1}`}
+                />
+              ))}
+            </div>
+          </>
+        )}
+
+        <div className="relative z-10 container mx-auto flex min-h-[72vh] items-end px-6 pb-14 pt-32 lg:px-12 lg:pb-20">
           <motion.div
             initial={{ opacity: 0, y: 24 }}
             animate={{ opacity: 1, y: 0 }}
@@ -40,25 +98,35 @@ const LandTripDetail = () => {
               <ArrowLeft className="h-4 w-4" />
               Back to land trips
             </a>
-            <div className="mb-4 inline-flex rounded-full border border-white/15 bg-white/10 px-4 py-2 text-sm font-medium backdrop-blur">
-              {trip.status}
-            </div>
+
             <h1
               className="mb-5 text-heading-lg md:text-heading-xl lg:text-hero font-semibold"
               style={{ fontFamily: 'var(--font-display)' }}
             >
               {trip.title}
             </h1>
-            <div className="mb-5 flex flex-wrap items-center gap-4 text-white/80">
-              <span className="inline-flex items-center gap-2">
+
+            {/* Status / Date / Host pills */}
+            <div className="mb-5 flex flex-wrap items-center gap-3">
+              <span className={cn(
+                'inline-flex items-center gap-2 px-4 py-2 rounded-full text-sm font-medium backdrop-blur-md border',
+                isActive
+                  ? 'bg-green-500/20 text-white border-green-400/30'
+                  : 'bg-amber-500/20 text-white border-amber-400/30'
+              )}>
+                <span className={cn('w-2 h-2 rounded-full', isActive ? 'bg-green-400' : 'bg-amber-400')} />
+                {trip.status}
+              </span>
+              <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/10 backdrop-blur-md border border-white/20 text-sm text-white/90">
                 <Calendar className="h-4 w-4" />
                 {trip.date_display}
               </span>
-              <span className="inline-flex items-center gap-2">
-                <Compass className="h-4 w-4" />
-                Hosted group experience with Miki
+              <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/10 backdrop-blur-md border border-white/20 text-sm text-white/90">
+                <User className="h-4 w-4" />
+                Hosted by Miki
               </span>
             </div>
+
             <p className="max-w-2xl text-lg leading-relaxed text-white/85">{trip.detail.overview}</p>
             <div className="mt-8 flex flex-wrap gap-4">
               {trip.booking_link && isActive ? (
@@ -78,6 +146,7 @@ const LandTripDetail = () => {
         </div>
       </section>
 
+      {/* Signature Moments + Perfect For */}
       <section className="px-6 py-16 lg:px-12 lg:py-24">
         <div className="container mx-auto grid gap-8 lg:grid-cols-[1.35fr_0.9fr]">
           <motion.div
@@ -122,6 +191,7 @@ const LandTripDetail = () => {
         </div>
       </section>
 
+      {/* Included + Planning Notes */}
       <section id="included" className="bg-secondary px-6 py-16 lg:px-12 lg:py-24">
         <div className="container mx-auto grid gap-8 lg:grid-cols-2">
           <motion.div
@@ -166,6 +236,7 @@ const LandTripDetail = () => {
         </div>
       </section>
 
+      {/* Itinerary Preview with Numbered Badges */}
       <section className="px-6 py-16 lg:px-12 lg:py-24">
         <div className="container mx-auto">
           <motion.div
@@ -188,9 +259,15 @@ const LandTripDetail = () => {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.5, delay: index * 0.08 }}
-                className="rounded-3xl border border-border bg-card p-8 shadow-soft"
+                className="rounded-3xl border border-border bg-card p-8 shadow-soft hover-lift"
               >
-                <h3 className="mb-4 text-xl font-semibold text-foreground">{section.title}</h3>
+                {/* Numbered badge */}
+                <div className="w-10 h-10 rounded-full bg-primary text-primary-foreground flex items-center justify-center text-sm font-bold mb-4">
+                  {String(index + 1).padStart(2, '0')}
+                </div>
+                <h3 className="mb-4 text-xl font-semibold text-foreground" style={{ fontFamily: 'var(--font-display)' }}>
+                  {section.title}
+                </h3>
                 <ul className="space-y-3">
                   {section.items.map((item) => (
                     <li key={item} className="text-sm leading-relaxed text-muted-foreground">
@@ -204,6 +281,7 @@ const LandTripDetail = () => {
         </div>
       </section>
 
+      {/* Contact CTA */}
       <section className="bg-secondary px-6 py-16 lg:px-12 lg:py-24">
         <div className="container mx-auto max-w-4xl rounded-3xl bg-card p-8 text-center shadow-soft lg:p-12">
           <Phone className="mx-auto mb-5 h-10 w-10 text-primary" />

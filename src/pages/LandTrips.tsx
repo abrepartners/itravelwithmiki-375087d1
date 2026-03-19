@@ -1,9 +1,9 @@
 import { motion } from 'framer-motion';
+import { Globe } from 'lucide-react';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import LandTripCard from '@/components/LandTripCard';
 import SEOHead from '@/components/SEOHead';
-import BreadcrumbNav from '@/components/BreadcrumbNav';
 import { landTrips } from '@/data/land-trips';
 
 const LandTrips = () => {
@@ -15,9 +15,9 @@ const LandTrips = () => {
         canonical="https://itravelwithmiki.lovable.app/land-trips"
       />
       <Navbar />
-      
-      {/* Hero Section */}
-      <section className="relative pt-32 pb-16 md:pt-40 md:pb-24 bg-gradient-to-b from-secondary/50 to-background">
+
+      {/* Gradient Hero */}
+      <section className="pt-32 pb-20 md:pt-40 md:pb-24 bg-gradient-to-b from-primary via-primary to-primary/90 text-primary-foreground">
         <div className="container mx-auto px-6 lg:px-12">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
@@ -25,12 +25,19 @@ const LandTrips = () => {
             transition={{ duration: 0.8 }}
             className="text-center max-w-4xl mx-auto"
           >
-            <h1 className="font-playfair text-4xl md:text-5xl lg:text-6xl font-bold text-foreground mb-6">
+            <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary-foreground/10 border border-primary-foreground/20 text-sm font-semibold tracking-widest uppercase mb-6">
+              <Globe className="w-4 h-4" />
+              Signature Land Trips
+            </span>
+            <h1
+              className="text-heading-lg md:text-heading-xl lg:text-hero font-bold mb-6"
+              style={{ fontFamily: 'var(--font-display)' }}
+            >
               Current Land Trips
             </h1>
-            <p className="text-lg md:text-xl text-muted-foreground leading-relaxed">
-              Discover our handpicked collection of immersive land-based adventures. 
-              From the romantic villages of Alpine Europe to the stunning landscapes 
+            <p className="text-primary-foreground/80 text-lg md:text-xl leading-relaxed max-w-3xl mx-auto">
+              Discover our handpicked collection of immersive land-based adventures.
+              From the romantic villages of Alpine Europe to the stunning landscapes
               of Australia and New Zealand, each journey is crafted for unforgettable experiences.
             </p>
           </motion.div>
