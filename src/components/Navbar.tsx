@@ -65,7 +65,7 @@ const Navbar = () => {
     ? "text-foreground hover:text-primary"
     : "text-white/90 hover:text-white";
 
-  const navLinkClass = `relative text-sm font-medium uppercase tracking-wide transition-colors duration-300 whitespace-nowrap after:absolute after:bottom-0 after:left-0 after:w-full after:h-[2px] after:bg-primary after:origin-left after:scale-x-0 hover:after:scale-x-100 after:transition-transform after:duration-300 ${focusClass}`;
+  const navLinkClass = `relative text-sm font-medium uppercase tracking-wide leading-none py-1 transition-colors duration-300 whitespace-nowrap after:absolute after:bottom-0 after:left-0 after:w-full after:h-[2px] after:bg-primary after:origin-left after:scale-x-0 hover:after:scale-x-100 after:transition-transform after:duration-300 ${focusClass}`;
 
   return (
     <motion.header
@@ -101,7 +101,7 @@ const Navbar = () => {
               <DropdownMenuTrigger asChild>
                 <button
                   type="button"
-                  className={`flex items-center gap-1 ${navLinkClass} ${textClass}`}
+                  className={`inline-flex items-center gap-1 ${navLinkClass} ${textClass}`}
                 >
                   Trips
                   <ChevronDown className="w-3.5 h-3.5" />
@@ -139,7 +139,7 @@ const Navbar = () => {
               <DropdownMenuTrigger asChild>
                 <button
                   type="button"
-                  className={`flex items-center gap-1 ${navLinkClass} ${textClass}`}
+                  className={`inline-flex items-center gap-1 ${navLinkClass} ${textClass}`}
                 >
                   Travel Insurance
                   <ChevronDown className="w-3.5 h-3.5" />
