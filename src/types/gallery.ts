@@ -12,4 +12,5 @@ export interface InsuranceProvider {
   subtitle: string;
   description: string;
   pdfUrl: string;
+  websiteUrl?: string;
 }
