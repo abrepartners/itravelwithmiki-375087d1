@@ -52,10 +52,10 @@ const HowItWorks = () => {
       className="relative py-24 lg:py-32 overflow-hidden"
       style={{ background: 'linear-gradient(135deg, hsl(220 15% 10%), hsl(220 15% 15%), hsl(220 15% 10%))' }}
     >
-      {/* Subtle gold accent glow */}
+      {/* Subtle blue accent glow */}
       <div
         className="absolute top-0 left-1/2 -translate-x-1/2 w-[600px] h-[600px] rounded-full opacity-[0.07] blur-[120px] pointer-events-none"
-        style={{ background: 'radial-gradient(circle, hsl(40 80% 55%), transparent)' }}
+        style={{ background: 'radial-gradient(circle, hsl(221 83% 33%), transparent)' }}
       />
 
       <div className="container mx-auto px-6 lg:px-12 relative z-10">
@@ -66,10 +66,7 @@ const HowItWorks = () => {
             visibleItems.has(-1) ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
           }`}
         >
-          <p
-            className="uppercase tracking-[0.2em] text-sm font-medium mb-4"
-            style={{ color: 'hsl(40 80% 60%)' }}
-          >
+          <p className="uppercase tracking-[0.2em] text-sm font-medium mb-4 text-white/60">
             How It Works
           </p>
           <h2
@@ -78,9 +75,9 @@ const HowItWorks = () => {
           >
             Make Memories That Last
             <br />
-            <span style={{ color: 'hsl(40 80% 60%)' }}>a Lifetime</span>
+            <span className="text-primary-foreground/80">a Lifetime</span>
           </h2>
-          <p className="text-lg max-w-2xl mx-auto" style={{ color: 'hsl(220 10% 70%)' }}>
+          <p className="text-lg max-w-2xl mx-auto text-white/50">
             Three simple steps to your next unforgettable adventure with the iTravel family.
           </p>
         </div>
@@ -100,21 +97,15 @@ const HowItWorks = () => {
               >
                 {/* Step number */}
                 <span
-                  className="block text-6xl lg:text-7xl font-bold mb-6 opacity-10"
-                  style={{ fontFamily: 'var(--font-display)', color: 'hsl(40 80% 55%)' }}
+                  className="block text-6xl lg:text-7xl font-bold mb-6 opacity-10 text-primary"
+                  style={{ fontFamily: 'var(--font-display)' }}
                 >
                   {step.number}
                 </span>
 
                 {/* Icon */}
-                <div
-                  className="w-16 h-16 mx-auto mb-6 rounded-2xl flex items-center justify-center transition-transform duration-500 group-hover:scale-110"
-                  style={{
-                    background: 'linear-gradient(135deg, hsl(40 80% 55% / 0.15), hsl(40 80% 55% / 0.05))',
-                    border: '1px solid hsl(40 80% 55% / 0.2)',
-                  }}
-                >
-                  <Icon className="w-7 h-7" style={{ color: 'hsl(40 80% 60%)' }} />
+                <div className="w-16 h-16 mx-auto mb-6 rounded-2xl flex items-center justify-center transition-transform duration-500 group-hover:scale-110 bg-primary/15 border border-primary/20">
+                  <Icon className="w-7 h-7 text-primary" />
                 </div>
 
                 {/* Content */}
@@ -124,15 +115,14 @@ const HowItWorks = () => {
                 >
                   {step.title}
                 </h3>
-                <p className="text-base leading-relaxed max-w-sm mx-auto" style={{ color: 'hsl(220 10% 65%)' }}>
+                <p className="text-base leading-relaxed max-w-sm mx-auto text-white/50">
                   {step.description}
                 </p>
 
                 {/* Connector line (between steps on desktop) */}
                 {index < steps.length - 1 && (
                   <div
-                    className="hidden md:block absolute top-[4.5rem] -right-6 lg:-right-8 w-12 lg:w-16 h-px"
-                    style={{ background: 'linear-gradient(to right, hsl(40 80% 55% / 0.3), hsl(40 80% 55% / 0.05))' }}
+                    className="hidden md:block absolute top-[4.5rem] -right-6 lg:-right-8 w-12 lg:w-16 h-px bg-primary/20"
                   />
                 )}
               </div>
@@ -147,14 +137,7 @@ const HowItWorks = () => {
             visibleItems.has(10) ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
           }`}
         >
-          <div
-            className="inline-flex items-center gap-2 mb-6 px-5 py-2 rounded-full text-sm"
-            style={{
-              background: 'hsl(40 80% 55% / 0.1)',
-              border: '1px solid hsl(40 80% 55% / 0.2)',
-              color: 'hsl(40 80% 60%)',
-            }}
-          >
+          <div className="inline-flex items-center gap-2 mb-6 px-5 py-2 rounded-full text-sm bg-primary/10 border border-primary/20 text-primary-foreground/80">
             <Heart className="w-4 h-4" />
             Ready to Join the Family?
           </div>
@@ -166,12 +149,7 @@ const HowItWorks = () => {
           </h3>
           <a href="/trips">
             <Button
-              className="btn-senior text-lg px-10 py-5 font-semibold rounded-xl shadow-lg transition-all duration-300 hover:scale-105"
-              style={{
-                background: 'linear-gradient(135deg, hsl(40 80% 50%), hsl(35 85% 45%))',
-                color: 'hsl(220 15% 10%)',
-                border: 'none',
-              }}
+              className="btn-senior text-lg px-10 py-5 font-semibold rounded-xl shadow-lg transition-all duration-300 hover:scale-105 bg-primary hover:bg-primary/90 text-primary-foreground border-none"
             >
               Book Your Next Trip
             </Button>

@@ -420,14 +420,11 @@ const Experience = () => {
                   style={{ transitionDelay: `${i * 80}ms` }}
                 >
                   <div
-                    className="absolute left-4 top-1 w-5 h-5 rounded-full border-2"
-                    style={{
-                      borderColor: 'hsl(40 80% 55%)',
-                      background: timeline.visible.has(i) ? 'hsl(40 80% 55%)' : 'transparent',
-                      transition: 'background 0.4s ease',
-                    }}
+                    className={`absolute left-4 top-1 w-5 h-5 rounded-full border-2 border-primary transition-colors duration-400 ${
+                      timeline.visible.has(i) ? 'bg-primary' : 'bg-transparent'
+                    }`}
                   />
-                  <span className="block text-sm font-bold mb-1" style={{ color: 'hsl(40 80% 60%)' }}>
+                  <span className="block text-sm font-bold mb-1 text-primary">
                     {m.year}
                   </span>
                   <p className="text-white/80 text-lg">{m.text}</p>
