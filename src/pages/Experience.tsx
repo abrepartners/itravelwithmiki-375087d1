@@ -148,7 +148,7 @@ const Experience = () => {
             >
               We Don't Just Plan Trips —
               <br />
-              <span style={{ color: 'hsl(40 80% 60%)' }}>We Create Memories</span>
+              <span className="text-primary-foreground">We Create Memories</span>
             </h1>
             <p className="text-white/70 text-lg lg:text-xl max-w-2xl mx-auto mb-12">
               Made by travelers, for travelers
@@ -184,10 +184,7 @@ const Experience = () => {
               viewport={{ once: true, margin: '-100px' }}
               transition={{ duration: 0.8 }}
             >
-              <p
-                className="uppercase tracking-[0.2em] text-sm font-medium mb-4"
-                style={{ color: 'hsl(40 80% 55%)' }}
-              >
+              <p className="uppercase tracking-[0.2em] text-sm font-medium mb-4 text-primary">
                 Our Story
               </p>
               <h2
@@ -297,10 +294,7 @@ const Experience = () => {
       >
         <div ref={statsReveal.ref} className="container mx-auto max-w-4xl">
           <div className="text-center mb-12">
-            <p
-              className="uppercase tracking-[0.2em] text-sm font-medium mb-4"
-              style={{ color: 'hsl(40 80% 60%)' }}
-            >
+            <p className="uppercase tracking-[0.2em] text-sm font-medium mb-4 text-white/60">
               By the Numbers
             </p>
             <h2
@@ -321,8 +315,8 @@ const Experience = () => {
                 style={{ transitionDelay: `${i * 100}ms` }}
               >
                 <p
-                  className="text-4xl lg:text-5xl font-bold mb-2"
-                  style={{ color: 'hsl(40 80% 60%)', fontFamily: 'var(--font-display)' }}
+                  className="text-4xl lg:text-5xl font-bold mb-2 text-primary"
+                  style={{ fontFamily: 'var(--font-display)' }}
                 >
                   {s.value}
                 </p>
@@ -403,10 +397,7 @@ const Experience = () => {
       >
         <div className="container mx-auto max-w-3xl">
           <div className="text-center mb-14">
-            <p
-              className="uppercase tracking-[0.2em] text-sm font-medium mb-4"
-              style={{ color: 'hsl(40 80% 60%)' }}
-            >
+            <p className="uppercase tracking-[0.2em] text-sm font-medium mb-4 text-white/60">
               Our Journey
             </p>
             <h2
@@ -417,7 +408,7 @@ const Experience = () => {
             </h2>
           </div>
           <div ref={timeline.ref} className="relative">
-            <div className="absolute left-6 top-0 bottom-0 w-px" style={{ background: 'hsl(40 80% 55% / 0.2)' }} />
+            <div className="absolute left-6 top-0 bottom-0 w-px bg-primary/20" />
             <div className="space-y-10">
               {milestones.map((m, i) => (
                 <div
@@ -429,14 +420,11 @@ const Experience = () => {
                   style={{ transitionDelay: `${i * 80}ms` }}
                 >
                   <div
-                    className="absolute left-4 top-1 w-5 h-5 rounded-full border-2"
-                    style={{
-                      borderColor: 'hsl(40 80% 55%)',
-                      background: timeline.visible.has(i) ? 'hsl(40 80% 55%)' : 'transparent',
-                      transition: 'background 0.4s ease',
-                    }}
+                    className={`absolute left-4 top-1 w-5 h-5 rounded-full border-2 border-primary transition-colors duration-400 ${
+                      timeline.visible.has(i) ? 'bg-primary' : 'bg-transparent'
+                    }`}
                   />
-                  <span className="block text-sm font-bold mb-1" style={{ color: 'hsl(40 80% 60%)' }}>
+                  <span className="block text-sm font-bold mb-1 text-primary">
                     {m.year}
                   </span>
                   <p className="text-white/80 text-lg">{m.text}</p>

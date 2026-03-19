@@ -52,7 +52,6 @@ const Navbar = () => {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  // Close mobile menu on scroll
   useEffect(() => {
     if (!isMobileMenuOpen) return;
     const close = () => setIsMobileMenuOpen(false);
@@ -75,30 +74,29 @@ const Navbar = () => {
       transition={{ duration: 0.6, ease: "easeOut" }}
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 will-change-transform ${
         isScrolled
-          ? "bg-background/95 backdrop-blur-md border-b border-border py-1.5"
-          : "bg-transparent py-2"
+          ? "bg-background/95 backdrop-blur-md border-b border-border py-2"
+          : "bg-transparent py-3"
       }`}
     >
       <div className="container mx-auto px-6 lg:px-12">
         {/* Desktop Nav */}
         <nav className="hidden md:flex items-center justify-between">
-          {/* Left: Logo */}
-          <a
-            href="/"
-            aria-label="Home"
-            className={`transition-all duration-300 ${focusClass}`}
-          >
-            <img
-              src={wordmarkLogo}
-              alt="iTravelWithMiki"
-              className={`transition-all duration-300 ${
-                isScrolled ? "h-7" : "h-8 brightness-0 invert"
-              }`}
-            />
-          </a>
+          {/* Left: Logo + Primary Nav */}
+          <div className="flex items-center gap-8">
+            <a
+              href="/"
+              aria-label="Home"
+              className={`transition-all duration-300 ${focusClass}`}
+            >
+              <img
+                src={wordmarkLogo}
+                alt="iTravelWithMiki"
+                className={`transition-all duration-300 ${
+                  isScrolled ? "h-10" : "h-12 brightness-0 invert"
+                }`}
+              />
+            </a>
 
-          {/* Right: Links */}
-          <div className="flex items-center gap-7">
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
                 <button
@@ -133,7 +131,10 @@ const Navbar = () => {
             >
               {navLinks[1].label}
             </a>
+          </div>
 
+          {/* Right: Secondary Nav + CTA */}
+          <div className="flex items-center gap-7">
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
                 <button
@@ -205,7 +206,7 @@ const Navbar = () => {
               src={wordmarkLogo}
               alt="iTravelWithMiki"
               className={`transition-all duration-300 ${
-                isScrolled ? "h-6" : "h-7 brightness-0 invert"
+                isScrolled ? "h-8" : "h-9 brightness-0 invert"
               }`}
             />
           </a>
@@ -217,7 +218,6 @@ const Navbar = () => {
         <AnimatePresence>
           {isMobileMenuOpen && (
             <>
-              {/* Backdrop */}
               <motion.div
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
@@ -225,7 +225,6 @@ const Navbar = () => {
                 className="fixed inset-0 top-full bg-foreground/40 backdrop-blur-sm md:hidden"
                 onClick={closeMobileMenu}
               />
-              {/* Menu Panel */}
               <motion.div
                 initial={{ opacity: 0, y: -20 }}
                 animate={{ opacity: 1, y: 0 }}

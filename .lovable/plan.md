@@ -1,48 +1,193 @@
 
 
-## Navbar Fix + Site-wide Branding Standardization
+# Complete Feature Enhancement Plan
 
-### 1. Navbar — Logo Size & Layout Fix (`src/components/Navbar.tsx`)
+This plan adds three interconnected features:
+1. **Insurance Sub-Dropdowns** - Split navigation into Allianz and Travel Confident
+2. **Media/Document Management** - Admin ability to upload/manage photos, videos, and PDFs
+3. **Scrolling Photo Gallery** - Infinite-loop image carousel in the footer
 
-**Issues**: Logo is tiny (h-7/h-8), and the nav link order doesn't match the reference image layout.
+---
 
-**Changes**:
-- Increase logo size: `h-12` unscrolled, `h-10` scrolled (per brand spec of h-12 to h-14)
-- Mobile logo: `h-9` unscrolled, `h-8` scrolled
-- Reorder desktop nav to match the reference image: Logo (left) → Trips dropdown, About Miki, The Experience → (gap/spacer) → Travel Insurance dropdown, Support, Contact, Book a Trip CTA (right)
-- Reduce vertical padding slightly so the bigger logo doesn't make the bar too tall (`py-3` unscrolled, `py-2` scrolled)
-- Use `items-center` properly so links vertically center with the taller logo
+## Feature 1: Insurance Navigation Sub-Dropdowns
 
-### 2. Remove Amber/Gold from Experience Page (`src/pages/Experience.tsx`)
+### Navbar Changes
 
-Replace all `hsl(40 80% ...)` amber/gold inline styles with brand-consistent colors:
-- Section labels ("Our Story", "By the Numbers", "Our Journey") → `text-primary` (Royal Blue) or `text-white/60` on dark backgrounds
-- Hero highlight "We Create Memories" → `text-primary-foreground` or `text-white` with no amber
-- Stats numbers → `text-primary` (blue) on dark sections, or `text-white`
-- Timeline dots/lines → `border-primary` / `bg-primary` instead of gold
-- Year labels → `text-primary` on dark bg
+Convert "Travel Insurance" into a dropdown with two providers:
 
-### 3. Remove Amber/Gold from HowItWorks Component (`src/components/HowItWorks.tsx`)
+| Provider | Description | Link |
+|----------|-------------|------|
+| Allianz Insurance | For International Trips | `/support#insurance-allianz` |
+| Travel Confident | For Diamond Tours | `/support#insurance-diamond` |
 
-Same treatment — replace all `hsl(40 80% ...)` with brand colors:
-- Section label → white/60 or a light blue
-- Highlight text "a Lifetime" → `text-white` or light blue
-- Step numbers, icon containers, connector lines → use `primary` (blue) tones
-- CTA button → standard `bg-primary hover:bg-primary/90` instead of gold gradient
-- Remove the gold glow radial gradient
+**Files to Update:**
+- `src/components/Navbar.tsx` - Add dropdown for insurance options
+- `src/pages/Support.tsx` - Add anchor sections for each provider
+- `src/data/faqs.ts` - Add insurance provider data
 
-### 4. Standardize CTA Button Styling
+---
 
-Ensure all CTAs across the site use the same pattern:
-- Primary CTA: `bg-primary hover:bg-primary/90 text-primary-foreground` (Royal Blue)
-- On dark backgrounds: `bg-white text-foreground hover:bg-white/90` or keep primary blue
-- Remove the gold gradient button in HowItWorks
-- Hero CTA already uses `bg-accent` (red) which is fine for the main hero
+## Feature 2: Admin Media Management
 
-### Technical Details
+### New Admin Tabs
 
-**Files to edit**:
-1. `src/components/Navbar.tsx` — logo size increase, nav reorder, padding adjustment
-2. `src/pages/Experience.tsx` — replace ~10 instances of `hsl(40 80% ...)` with brand colors
-3. `src/components/HowItWorks.tsx` — replace ~12 instances of `hsl(40 80% ...)` with brand colors
+Add tabbed navigation to the Admin dashboard:
+
+| Tab | Purpose |
+|-----|---------|
+| Trip Management | Existing functionality |
+| Gallery Photos | Manage scrolling footer photos |
+| Insurance Docs | Manage PDF links for each provider |
+
+### New Files to Create
+
+| File | Purpose |
+|------|---------|
+| `src/types/gallery.ts` | TypeScript types for gallery images |
+| `src/stores/galleryStore.ts` | localStorage-based gallery management |
+| `src/components/admin/GalleryManager.tsx` | Add/remove gallery photos |
+| `src/components/admin/InsuranceManager.tsx` | Manage insurance PDF links |
+
+### Gallery Image Type
+
+```typescript
+interface GalleryImage {
+  id: string;
+  url: string;           // Image URL (external or uploaded)
+  caption?: string;      // Optional caption
+  tripName?: string;     // Associated trip name
+  createdAt: string;
+}
+```
+
+### Insurance Document Type
+
+```typescript
+interface InsuranceProvider {
+  id: 'allianz' | 'diamond';
+  name: string;
+  subtitle: string;
+  description: string;
+  pdfUrl: string;        // Admin-editable PDF link
+}
+```
+
+---
+
+## Feature 3: Scrolling Footer Photo Gallery
+
+### Visual Design
+
+A horizontal strip of photos above the main footer content that scrolls continuously left-to-right:
+
+```text
+┌─────────────────────────────────────────────────────────────┐
+│  [img] [img] [img] [img] [img] [img] [img] [img] →→→       │
+│            ← Continuous infinite scroll loop                │
+└─────────────────────────────────────────────────────────────┘
+┌─────────────────────────────────────────────────────────────┐
+│  FOOTER CONTENT (logo, links, contact, newsletter)         │
+└─────────────────────────────────────────────────────────────┘
+```
+
+### Technical Implementation
+
+**New Component:** `src/components/FooterGallery.tsx`
+- Uses CSS animation for smooth infinite scroll
+- Duplicates images to create seamless loop effect
+- Pauses on hover for accessibility
+- Responsive image sizing
+
+**Animation Keyframes (add to tailwind.config.ts):**
+
+```typescript
+keyframes: {
+  "scroll-left": {
+    "0%": { transform: "translateX(0)" },
+    "100%": { transform: "translateX(-50%)" }
+  }
+}
+```
+
+### Gallery Appearance
+
+- Image height: ~80px on mobile, ~120px on desktop
+- Subtle opacity overlay matching footer colors
+- Grayscale with color on hover (optional polish)
+- Seamless infinite loop animation (~30s per cycle)
+
+---
+
+## Implementation Steps
+
+### Step 1: Create Types and Stores
+1. Create `src/types/gallery.ts`
+2. Create `src/stores/galleryStore.ts` (following tripStore pattern)
+3. Create `src/stores/insuranceStore.ts`
+
+### Step 2: Build Admin Components
+1. Create `src/components/admin/GalleryManager.tsx`
+2. Create `src/components/admin/InsuranceManager.tsx`
+3. Update `src/pages/Admin.tsx` with tab navigation
+
+### Step 3: Footer Gallery Component
+1. Create `src/components/FooterGallery.tsx`
+2. Add scroll animation keyframes to `tailwind.config.ts`
+3. Integrate FooterGallery into `src/components/Footer.tsx`
+
+### Step 4: Insurance Navigation
+1. Update `src/components/Navbar.tsx` with insurance dropdown
+2. Update `src/data/faqs.ts` with provider data
+3. Update `src/pages/Support.tsx` with anchor sections
+
+---
+
+## Admin Dashboard Layout
+
+```text
+┌──────────────────────────────────────────────────────────────────┐
+│  iTravelWithMiki | Admin Dashboard                    [Logout]   │
+├──────────────────────────────────────────────────────────────────┤
+│  [Trip Management]  [Gallery Photos]  [Insurance Docs]           │
+├──────────────────────────────────────────────────────────────────┤
+│                                                                  │
+│  (Tab content here - trips list, gallery grid, or insurance)    │
+│                                                                  │
+└──────────────────────────────────────────────────────────────────┘
+```
+
+### Gallery Photos Tab
+
+- Grid of current gallery images with delete buttons
+- Form to add new image: URL input + optional caption/trip name
+- "Add from Trips" quick-add from existing trip images
+
+### Insurance Docs Tab
+
+- Two sections: Allianz and Travel Confident
+- Each has: Name, Subtitle, Description, PDF URL input
+- Save button to update localStorage
+
+---
+
+## Default Gallery Images
+
+Initialize with sample travel photos so the gallery isn't empty:
+
+```typescript
+const defaultGalleryImages = [
+  { id: '1', url: 'https://images.unsplash.com/...', caption: 'Ireland 2024' },
+  { id: '2', url: 'https://images.unsplash.com/...', caption: 'New York Christmas' },
+  // ... more defaults
+];
+```
+
+---
+
+## Technical Notes
+
+- All data stored in localStorage (consistent with existing tripStore pattern)
+- External image URLs supported (Unsplash, etc.)
+- No backend required - admin can paste image URLs directly
+- Gallery gracefully handles empty state (shows nothing or placeholder)
 
