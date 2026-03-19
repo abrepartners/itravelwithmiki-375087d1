@@ -14,7 +14,7 @@ const HeroSection = () => {
           loop
           playsInline
           className="w-full h-full object-cover"
-          poster="https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?w=1920&q=80"
+          poster="https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?w=1400&q=75&fm=webp"
         >
           <source
             src="https://videos.pexels.com/video-files/3015510/3015510-uhd_2560_1440_24fps.mp4"

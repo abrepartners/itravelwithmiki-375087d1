@@ -130,7 +130,7 @@ const Experience = () => {
       {/* ════════════ HERO — Full-Screen Cinematic ════════════ */}
       <section className="relative h-screen w-full overflow-hidden flex items-center justify-center">
         <img
-          src="https://images.unsplash.com/photo-1527631746610-bca00a040d60?w=1920&q=80"
+          src="https://images.unsplash.com/photo-1527631746610-bca00a040d60?w=1400&q=75&fm=webp"
           alt="Happy travelers together"
           className="absolute inset-0 w-full h-full object-cover"
         />

@@ -11,8 +11,8 @@ export const landTrips: LandTrip[] = [
     status: 'Active',
     booking_link: null,
     images: [
-      'https://images.unsplash.com/photo-1531366936337-7c912a4589a7?w=800&auto=format&fit=crop',
-      'https://images.unsplash.com/photo-1527668752968-14dc70a27c95?w=800&auto=format&fit=crop',
+      'https://images.unsplash.com/photo-1531366936337-7c912a4589a7?w=600&q=75&fm=webp&fit=crop',
+      'https://images.unsplash.com/photo-1527668752968-14dc70a27c95?w=600&q=75&fm=webp&fit=crop',
     ],
     detail: {
       overview:
@@ -73,8 +73,8 @@ export const landTrips: LandTrip[] = [
     status: 'Active',
     booking_link: null,
     images: [
-      'https://images.unsplash.com/photo-1590089415225-401ed6f9db8e?w=800&auto=format&fit=crop',
-      'https://images.unsplash.com/photo-1564959130747-897a8e5e5765?w=800&auto=format&fit=crop',
+      'https://images.unsplash.com/photo-1590089415225-401ed6f9db8e?w=600&q=75&fm=webp&fit=crop',
+      'https://images.unsplash.com/photo-1564959130747-897a8e5e5765?w=600&q=75&fm=webp&fit=crop',
     ],
     detail: {
       overview:
@@ -135,8 +135,8 @@ export const landTrips: LandTrip[] = [
     status: 'Active',
     booking_link: null,
     images: [
-      'https://images.unsplash.com/photo-1523482580672-f109ba8cb9be?w=800&auto=format&fit=crop',
-      'https://images.unsplash.com/photo-1507699622108-4be3abd695ad?w=800&auto=format&fit=crop',
+      'https://images.unsplash.com/photo-1523482580672-f109ba8cb9be?w=600&q=75&fm=webp&fit=crop',
+      'https://images.unsplash.com/photo-1507699622108-4be3abd695ad?w=600&q=75&fm=webp&fit=crop',
     ],
     detail: {
       overview:
@@ -197,8 +197,8 @@ export const landTrips: LandTrip[] = [
     status: 'Sold out, waitlist only',
     booking_link: null,
     images: [
-      'https://images.unsplash.com/photo-1523906834658-6e24ef2386f9?w=800&auto=format&fit=crop',
-      'https://images.unsplash.com/photo-1534445867742-43195f401b6c?w=800&auto=format&fit=crop',
+      'https://images.unsplash.com/photo-1523906834658-6e24ef2386f9?w=600&q=75&fm=webp&fit=crop',
+      'https://images.unsplash.com/photo-1534445867742-43195f401b6c?w=600&q=75&fm=webp&fit=crop',
     ],
     detail: {
       overview:
@@ -242,8 +242,8 @@ export const landTrips: LandTrip[] = [
     status: 'Sold out, waitlist only',
     booking_link: 'https://traveljoy.com/bookings/NBjnABZJC7pH1jTWCYjW9B3X',
     images: [
-      'https://images.unsplash.com/photo-1509840841025-9088ba78a826?w=800&auto=format&fit=crop',
-      'https://images.unsplash.com/photo-1555881400-74d7acaacd8b?w=800&auto=format&fit=crop',
+      'https://images.unsplash.com/photo-1509840841025-9088ba78a826?w=600&q=75&fm=webp&fit=crop',
+      'https://images.unsplash.com/photo-1555881400-74d7acaacd8b?w=600&q=75&fm=webp&fit=crop',
     ],
     detail: {
       overview:
