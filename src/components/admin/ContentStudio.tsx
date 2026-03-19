@@ -1,454 +1,252 @@
 import { useState } from 'react';
-import {
-  Instagram,
-  Facebook,
-  Mail,
-  MessageSquare,
-  CalendarDays,
-  Sparkles,
-  Upload,
-  FileText,
-  Loader2,
-  ChevronDown,
-  ChevronUp,
-  Image as ImageIcon,
-} from 'lucide-react';
+import { Loader2, Sparkles, Instagram, Facebook, Mail, MessageSquare, CalendarDays } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from '@/components/ui/select';
-import ContentCard from './ContentCard';
-import type { Trip } from '@/types/trip';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { supabase } from '@/integrations/supabase/client';
-import { cn } from '@/lib/utils';
+import { tripStore } from '@/stores/tripStore';
+import { contentStore, type ContentItem } from '@/stores/contentStore';
+import ContentCard from './ContentCard';
+import { toast } from 'sonner';
 
-interface CalendarEntry {
-  week: number;
-  day: string;
-  platform: string;
-  contentType: string;
-  suggestion: string;
-}
+type ContentType = 'instagram' | 'facebook' | 'email' | 'sms' | 'calendar' | 'all';
 
-interface GeneratedContent {
-  instagram: string;
-  facebook: string;
-  emailSubject: string;
-  emailBody: string;
-  sms: string;
-  calendar: CalendarEntry[];
-}
+const CONTENT_TYPES: { value: ContentType; label: string; icon: React.ReactNode }[] = [
+  { value: 'all', label: 'Generate All', icon: <Sparkles className="w-4 h-4" /> },
+  { value: 'instagram', label: 'Instagram', icon: <Instagram className="w-4 h-4" /> },
+  { value: 'facebook', label: 'Facebook', icon: <Facebook className="w-4 h-4" /> },
+  { value: 'email', label: 'Email Blast', icon: <Mail className="w-4 h-4" /> },
+  { value: 'sms', label: 'SMS', icon: <MessageSquare className="w-4 h-4" /> },
+  { value: 'calendar', label: 'Content Calendar', icon: <CalendarDays className="w-4 h-4" /> },
+];
 
-interface ContentStudioProps {
-  trips: Trip[];
-}
-
-const ContentStudio = ({ trips }: ContentStudioProps) => {
-  const [mode, setMode] = useState<'trip' | 'manual'>('trip');
-  const [selectedTripId, setSelectedTripId] = useState<string>('');
-  const [flyerUrl, setFlyerUrl] = useState('');
-  const [flyerText, setFlyerText] = useState('');
-  const [isGenerating, setIsGenerating] = useState(false);
-  const [generatedContent, setGeneratedContent] = useState<GeneratedContent | null>(null);
-  const [error, setError] = useState('');
-  const [showCalendar, setShowCalendar] = useState(false);
-
-  // Manual mode fields
+const ContentStudio = () => {
+  const trips = tripStore.getTrips();
+  const [selectedTripId, setSelectedTripId] = useState<string>('manual');
   const [manualName, setManualName] = useState('');
   const [manualDestination, setManualDestination] = useState('');
   const [manualDate, setManualDate] = useState('');
-  const [manualPrice, setManualPrice] = useState('');
   const [manualDescription, setManualDescription] = useState('');
+  const [flyerUrl, setFlyerUrl] = useState('');
+  const [flyerText, setFlyerText] = useState('');
+  const [loading, setLoading] = useState(false);
+  const [results, setResults] = useState<ContentItem[]>([]);
+  const [history, setHistory] = useState<ContentItem[]>(contentStore.getItems());
 
   const selectedTrip = trips.find((t) => t.id === selectedTripId);
 
-  const handleGenerate = async () => {
-    setError('');
-    setGeneratedContent(null);
-
-    // Build the request payload
-    let payload: any;
-
-    if (mode === 'trip') {
-      if (!selectedTrip) {
-        setError('Please select a trip first.');
-        return;
-      }
-      payload = {
+  const getTripData = () => {
+    if (selectedTrip) {
+      return {
         tripName: selectedTrip.name,
         destination: selectedTrip.destination,
         departureDate: selectedTrip.departureDate,
+        category: selectedTrip.category,
         price: selectedTrip.price,
-        singlePrice: selectedTrip.singlePrice,
         description: selectedTrip.description,
-        operator: selectedTrip.operator,
-        flyerUrl: flyerUrl || selectedTrip.flyerUrl || undefined,
-        flyerText: flyerText || undefined,
-      };
-    } else {
-      if (!manualName || !manualDestination) {
-        setError('Please fill in at least the trip name and destination.');
-        return;
-      }
-      payload = {
-        tripName: manualName,
-        destination: manualDestination,
-        departureDate: manualDate || 'TBD',
-        price: Number(manualPrice) || 0,
-        description: manualDescription,
-        flyerUrl: flyerUrl || undefined,
-        flyerText: flyerText || undefined,
       };
     }
+    return {
+      tripName: manualName,
+      destination: manualDestination,
+      departureDate: manualDate,
+      description: manualDescription,
+    };
+  };
 
-    setIsGenerating(true);
+  const generate = async (contentType: ContentType) => {
+    const tripData = getTripData();
+    if (!tripData.tripName || !tripData.destination) {
+      toast.error('Please select a trip or enter trip name and destination');
+      return;
+    }
 
+    setLoading(true);
     try {
-      const { data, error: fnError } = await supabase.functions.invoke('generate-content', {
-        body: payload,
+      const { data, error } = await supabase.functions.invoke('generate-content', {
+        body: { ...tripData, flyerUrl: flyerUrl || undefined, flyerText: flyerText || undefined, contentType },
       });
 
-      if (fnError) {
-        throw new Error(fnError.message || 'Edge function error');
+      if (error) throw error;
+      if (data?.error) throw new Error(data.error);
+
+      const result = data.result;
+      const now = new Date().toISOString();
+      const newItems: ContentItem[] = [];
+
+      if (contentType === 'all' && typeof result === 'object') {
+        if (result.instagram) {
+          newItems.push({ id: crypto.randomUUID(), tripName: tripData.tripName, destination: tripData.destination, contentType: 'instagram', content: result.instagram, createdAt: now });
+        }
+        if (result.facebook) {
+          newItems.push({ id: crypto.randomUUID(), tripName: tripData.tripName, destination: tripData.destination, contentType: 'facebook', content: result.facebook, createdAt: now });
+        }
+        if (result.email_subject || result.email_body) {
+          newItems.push({ id: crypto.randomUUID(), tripName: tripData.tripName, destination: tripData.destination, contentType: 'email', content: result.email_body ?? '', subject: result.email_subject ?? '', createdAt: now });
+        }
+        if (result.sms) {
+          newItems.push({ id: crypto.randomUUID(), tripName: tripData.tripName, destination: tripData.destination, contentType: 'sms', content: result.sms, createdAt: now });
+        }
+        if (result.calendar) {
+          newItems.push({ id: crypto.randomUUID(), tripName: tripData.tripName, destination: tripData.destination, contentType: 'calendar', content: result.calendar, createdAt: now });
+        }
+      } else if (contentType === 'email' && typeof result === 'object') {
+        newItems.push({ id: crypto.randomUUID(), tripName: tripData.tripName, destination: tripData.destination, contentType: 'email', content: result.body ?? result.email_body ?? String(result), subject: result.subject ?? result.email_subject ?? '', createdAt: now });
+      } else {
+        newItems.push({ id: crypto.randomUUID(), tripName: tripData.tripName, destination: tripData.destination, contentType: contentType === 'all' ? 'instagram' : contentType, content: String(result), createdAt: now });
       }
 
-      if (data.error) {
-        throw new Error(data.error);
-      }
-
-      setGeneratedContent(data as GeneratedContent);
-    } catch (err: any) {
-      console.error('Content generation error:', err);
-      setError(
-        err.message ||
-          'Failed to generate content. Make sure the OPENAI_API_KEY is set in Supabase secrets.'
-      );
+      newItems.forEach((item) => contentStore.addItem(item));
+      setResults(newItems);
+      setHistory(contentStore.getItems());
+      toast.success(`Generated ${newItems.length} content piece${newItems.length > 1 ? 's' : ''}`);
+    } catch (e: any) {
+      console.error('Generation error:', e);
+      toast.error(e.message || 'Content generation failed');
     } finally {
-      setIsGenerating(false);
+      setLoading(false);
     }
   };
 
-  const weekColors = [
-    'bg-blue-50 border-blue-200',
-    'bg-purple-50 border-purple-200',
-    'bg-emerald-50 border-emerald-200',
-    'bg-amber-50 border-amber-200',
-  ];
+  const handleUpdate = (id: string, updates: Partial<ContentItem>) => {
+    contentStore.updateItem(id, updates);
+    setResults((prev) => prev.map((i) => (i.id === id ? { ...i, ...updates } : i)));
+    setHistory(contentStore.getItems());
+  };
+
+  const handleDelete = (id: string) => {
+    contentStore.deleteItem(id);
+    setResults((prev) => prev.filter((i) => i.id !== id));
+    setHistory(contentStore.getItems());
+  };
 
   return (
     <div className="space-y-8">
-      {/* Header */}
-      <div>
-        <h2
-          className="text-heading-md font-semibold text-foreground"
-          style={{ fontFamily: 'var(--font-display)' }}
-        >
-          Content Studio
-        </h2>
-        <p className="text-muted-foreground mt-1">
-          Upload a flyer or select a trip — AI generates social media content, email copy, and a
-          4-week content calendar.
-        </p>
-      </div>
-
-      {/* Input Section */}
-      <div className="bg-card border border-border rounded-xl p-6 space-y-6">
-        {/* Mode Toggle */}
-        <div className="flex gap-3">
-          <Button
-            variant={mode === 'trip' ? 'default' : 'outline'}
-            onClick={() => setMode('trip')}
-            className="gap-2"
-          >
-            <FileText className="w-4 h-4" />
-            From Existing Trip
-          </Button>
-          <Button
-            variant={mode === 'manual' ? 'default' : 'outline'}
-            onClick={() => setMode('manual')}
-            className="gap-2"
-          >
-            <Upload className="w-4 h-4" />
-            Manual / Flyer Only
-          </Button>
+      {/* Generator Section */}
+      <div className="bg-card border border-border rounded-xl p-6 lg:p-8 space-y-6">
+        <div>
+          <h2 className="text-heading-md font-semibold text-foreground" style={{ fontFamily: 'var(--font-display)' }}>
+            Content Studio
+          </h2>
+          <p className="text-muted-foreground mt-1">Generate marketing content for your trips using AI.</p>
         </div>
 
-        {/* Trip Selector */}
-        {mode === 'trip' && (
+        {/* Trip Selection */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <div className="space-y-2">
-            <Label className="text-base">Select Trip</Label>
+            <label className="text-sm font-medium text-foreground">Select Trip</label>
             <Select value={selectedTripId} onValueChange={setSelectedTripId}>
-              <SelectTrigger className="h-12">
-                <SelectValue placeholder="Choose a trip to generate content for..." />
+              <SelectTrigger>
+                <SelectValue placeholder="Choose a trip or enter manually" />
               </SelectTrigger>
               <SelectContent>
-                {trips.map((trip) => (
-                  <SelectItem key={trip.id} value={trip.id}>
-                    {trip.name} — {trip.destination} ({trip.departureDate})
+                <SelectItem value="manual">✏️ Enter manually</SelectItem>
+                {trips.map((t) => (
+                  <SelectItem key={t.id} value={t.id}>
+                    {t.name}
                   </SelectItem>
                 ))}
               </SelectContent>
             </Select>
-            {selectedTrip && (
-              <div className="mt-3 p-3 bg-muted/50 rounded-lg text-sm text-muted-foreground">
-                <strong>{selectedTrip.name}</strong> · {selectedTrip.destination} ·{' '}
-                {selectedTrip.departureDate} · ${selectedTrip.price.toLocaleString()}
-                {selectedTrip.flyerUrl && (
-                  <span className="ml-2 text-xs text-green-600 font-medium">
-                    ✓ Flyer attached
-                  </span>
-                )}
+          </div>
+
+          {selectedTripId === 'manual' && (
+            <>
+              <div className="space-y-2">
+                <label className="text-sm font-medium text-foreground">Trip Name *</label>
+                <input className="w-full rounded-md border border-input bg-background px-3 py-2 text-sm" value={manualName} onChange={(e) => setManualName(e.target.value)} placeholder="e.g. Danube River Cruise" />
               </div>
-            )}
-          </div>
-        )}
+              <div className="space-y-2">
+                <label className="text-sm font-medium text-foreground">Destination *</label>
+                <input className="w-full rounded-md border border-input bg-background px-3 py-2 text-sm" value={manualDestination} onChange={(e) => setManualDestination(e.target.value)} placeholder="e.g. Budapest, Vienna, Prague" />
+              </div>
+              <div className="space-y-2">
+                <label className="text-sm font-medium text-foreground">Departure Date</label>
+                <input className="w-full rounded-md border border-input bg-background px-3 py-2 text-sm" value={manualDate} onChange={(e) => setManualDate(e.target.value)} placeholder="e.g. October 15, 2025" />
+              </div>
+              <div className="space-y-2 md:col-span-2">
+                <label className="text-sm font-medium text-foreground">Description</label>
+                <Textarea value={manualDescription} onChange={(e) => setManualDescription(e.target.value)} placeholder="Trip highlights, included amenities, etc." className="min-h-[80px]" />
+              </div>
+            </>
+          )}
+        </div>
 
-        {/* Manual Mode Fields */}
-        {mode === 'manual' && (
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <div className="space-y-2">
-              <Label className="text-base">Trip Name *</Label>
-              <Input
-                value={manualName}
-                onChange={(e) => setManualName(e.target.value)}
-                placeholder="e.g., Grand Canyon Adventure 2026"
-                className="h-12"
-              />
-            </div>
-            <div className="space-y-2">
-              <Label className="text-base">Destination *</Label>
-              <Input
-                value={manualDestination}
-                onChange={(e) => setManualDestination(e.target.value)}
-                placeholder="e.g., Arizona"
-                className="h-12"
-              />
-            </div>
-            <div className="space-y-2">
-              <Label className="text-base">Departure Date</Label>
-              <Input
-                value={manualDate}
-                onChange={(e) => setManualDate(e.target.value)}
-                placeholder="e.g., Oct 15-22, 2026"
-                className="h-12"
-              />
-            </div>
-            <div className="space-y-2">
-              <Label className="text-base">Price ($)</Label>
-              <Input
-                type="number"
-                value={manualPrice}
-                onChange={(e) => setManualPrice(e.target.value)}
-                placeholder="e.g., 1895"
-                className="h-12"
-              />
-            </div>
-            <div className="space-y-2 md:col-span-2">
-              <Label className="text-base">Description / Key Details</Label>
-              <Textarea
-                value={manualDescription}
-                onChange={(e) => setManualDescription(e.target.value)}
-                placeholder="Paste any trip details, highlights, inclusions, etc."
-                rows={3}
-              />
-            </div>
+        {/* Optional Flyer Inputs */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div className="space-y-2">
+            <label className="text-sm font-medium text-foreground">Flyer Image URL <span className="text-muted-foreground">(optional)</span></label>
+            <input className="w-full rounded-md border border-input bg-background px-3 py-2 text-sm" value={flyerUrl} onChange={(e) => setFlyerUrl(e.target.value)} placeholder="https://example.com/flyer.jpg" />
           </div>
-        )}
-
-        {/* Flyer Input — available in both modes */}
-        <div className="border-t border-border pt-5 space-y-4">
-          <h3 className="text-sm font-semibold text-foreground flex items-center gap-2">
-            <ImageIcon className="w-4 h-4" />
-            Flyer (Optional — AI will read it for extra details)
-          </h3>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <div className="space-y-2">
-              <Label className="text-sm">Flyer Image/PDF URL</Label>
-              <Input
-                value={flyerUrl}
-                onChange={(e) => setFlyerUrl(e.target.value)}
-                placeholder="https://... (paste URL of uploaded flyer image)"
-                className="h-11"
-              />
-              <p className="text-xs text-muted-foreground">
-                Upload the flyer to Supabase Storage or any image host, then paste the public URL
-                here. AI will read the image using vision.
-              </p>
-            </div>
-            <div className="space-y-2">
-              <Label className="text-sm">Or Paste Flyer Text</Label>
-              <Textarea
-                value={flyerText}
-                onChange={(e) => setFlyerText(e.target.value)}
-                placeholder="Copy-paste the text from the flyer here if you don't have an image URL..."
-                rows={3}
-              />
-            </div>
+          <div className="space-y-2">
+            <label className="text-sm font-medium text-foreground">Paste Flyer Text <span className="text-muted-foreground">(optional)</span></label>
+            <Textarea value={flyerText} onChange={(e) => setFlyerText(e.target.value)} placeholder="Paste flyer details, itinerary text, etc." className="min-h-[80px]" />
           </div>
         </div>
 
-        {/* Error */}
-        {error && (
-          <div className="p-3 bg-red-50 border border-red-200 rounded-lg text-sm text-red-700">
-            {error}
+        {/* Generate Buttons */}
+        <div className="flex flex-wrap gap-2">
+          {CONTENT_TYPES.map((ct) => (
+            <Button
+              key={ct.value}
+              onClick={() => generate(ct.value)}
+              disabled={loading}
+              variant={ct.value === 'all' ? 'default' : 'outline'}
+              className="gap-2"
+            >
+              {loading ? <Loader2 className="w-4 h-4 animate-spin" /> : ct.icon}
+              {ct.label}
+            </Button>
+          ))}
+        </div>
+
+        {loading && (
+          <div className="flex items-center gap-3 text-muted-foreground py-4">
+            <Loader2 className="w-5 h-5 animate-spin" />
+            <span>Generating content with AI...</span>
           </div>
         )}
-
-        {/* Generate Button */}
-        <Button
-          onClick={handleGenerate}
-          disabled={isGenerating}
-          className="gap-2 h-12 px-8 text-base"
-          size="lg"
-        >
-          {isGenerating ? (
-            <>
-              <Loader2 className="w-5 h-5 animate-spin" />
-              Generating Content...
-            </>
-          ) : (
-            <>
-              <Sparkles className="w-5 h-5" />
-              Generate All Content
-            </>
-          )}
-        </Button>
       </div>
 
-      {/* Generated Content */}
-      {generatedContent && (
-        <div className="space-y-6">
+      {/* Latest Results */}
+      {results.length > 0 && (
+        <div className="space-y-4">
+          <h3 className="text-heading-sm font-semibold text-foreground" style={{ fontFamily: 'var(--font-display)' }}>
+            Latest Generation
+          </h3>
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
+            {results.map((item) => (
+              <ContentCard key={item.id} item={item} onUpdate={handleUpdate} onDelete={handleDelete} />
+            ))}
+          </div>
+        </div>
+      )}
+
+      {/* History */}
+      {history.length > 0 && (
+        <div className="space-y-4">
           <div className="flex items-center justify-between">
-            <h3
-              className="text-heading-sm font-semibold text-foreground"
-              style={{ fontFamily: 'var(--font-display)' }}
-            >
-              Generated Content
+            <h3 className="text-heading-sm font-semibold text-foreground" style={{ fontFamily: 'var(--font-display)' }}>
+              Content History
             </h3>
-            <p className="text-sm text-muted-foreground">
-              Click the copy icon on any card to copy to clipboard. Edit inline before copying.
-            </p>
-          </div>
-
-          {/* Social Media Cards */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
-            <ContentCard
-              title="Instagram Post"
-              subtitle="Feed caption with hashtags"
-              icon={<Instagram className="w-4 h-4 text-purple-600" />}
-              content={generatedContent.instagram}
-              platform="instagram"
-            />
-            <ContentCard
-              title="Facebook Post"
-              subtitle="Community-focused announcement"
-              icon={<Facebook className="w-4 h-4 text-blue-600" />}
-              content={generatedContent.facebook}
-              platform="facebook"
-            />
-            <ContentCard
-              title="Email Blast"
-              subtitle={`Subject: ${generatedContent.emailSubject}`}
-              icon={<Mail className="w-4 h-4 text-emerald-600" />}
-              content={`Subject: ${generatedContent.emailSubject}\n\n${generatedContent.emailBody}`}
-              platform="email"
-            />
-            <ContentCard
-              title="SMS / Text Blast"
-              subtitle="160 character max"
-              icon={<MessageSquare className="w-4 h-4 text-amber-600" />}
-              content={generatedContent.sms}
-              platform="sms"
-              charLimit={160}
-            />
-          </div>
-
-          {/* Content Calendar */}
-          <div className="bg-card border border-border rounded-xl overflow-hidden">
-            <button
-              onClick={() => setShowCalendar(!showCalendar)}
-              className="w-full flex items-center justify-between p-5 hover:bg-muted/30 transition-colors"
+            <Button
+              variant="outline"
+              size="sm"
+              onClick={() => {
+                if (confirm('Clear all saved content?')) {
+                  contentStore.clearAll();
+                  setHistory([]);
+                  setResults([]);
+                }
+              }}
             >
-              <div className="flex items-center gap-2.5">
-                <CalendarDays className="w-5 h-5 text-primary" />
-                <h3 className="font-semibold text-foreground">
-                  4-Week Content Calendar
-                </h3>
-                <span className="text-xs text-muted-foreground bg-muted px-2 py-0.5 rounded-full">
-                  {generatedContent.calendar.length} posts planned
-                </span>
-              </div>
-              {showCalendar ? (
-                <ChevronUp className="w-5 h-5 text-muted-foreground" />
-              ) : (
-                <ChevronDown className="w-5 h-5 text-muted-foreground" />
-              )}
-            </button>
-
-            {showCalendar && (
-              <div className="border-t border-border p-5 space-y-4">
-                {[1, 2, 3, 4].map((week) => {
-                  const weekEntries = generatedContent.calendar.filter(
-                    (e) => e.week === week
-                  );
-                  if (weekEntries.length === 0) return null;
-                  return (
-                    <div key={week}>
-                      <h4 className="text-sm font-semibold text-foreground mb-2">
-                        Week {week}
-                      </h4>
-                      <div className="space-y-2">
-                        {weekEntries.map((entry, idx) => (
-                          <div
-                            key={idx}
-                            className={cn(
-                              'flex items-start gap-4 p-3 rounded-lg border text-sm',
-                              weekColors[week - 1]
-                            )}
-                          >
-                            <div className="w-20 shrink-0 font-medium text-foreground">
-                              {entry.day}
-                            </div>
-                            <div className="w-24 shrink-0">
-                              <span
-                                className={cn(
-                                  'inline-block px-2 py-0.5 rounded text-xs font-medium',
-                                  entry.platform === 'Instagram' &&
-                                    'bg-purple-100 text-purple-700',
-                                  entry.platform === 'Facebook' &&
-                                    'bg-blue-100 text-blue-700',
-                                  entry.platform === 'Email' &&
-                                    'bg-emerald-100 text-emerald-700',
-                                  entry.platform === 'SMS' &&
-                                    'bg-amber-100 text-amber-700'
-                                )}
-                              >
-                                {entry.platform}
-                              </span>
-                            </div>
-                            <div className="flex-1">
-                              <span className="font-medium text-foreground">
-                                {entry.contentType}
-                              </span>
-                              <span className="text-muted-foreground ml-2">
-                                — {entry.suggestion}
-                              </span>
-                            </div>
-                          </div>
-                        ))}
-                      </div>
-                    </div>
-                  );
-                })}
-              </div>
-            )}
+              Clear All
+            </Button>
+          </div>
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
+            {history.map((item) => (
+              <ContentCard key={item.id} item={item} onUpdate={handleUpdate} onDelete={handleDelete} />
+            ))}
           </div>
         </div>
       )}

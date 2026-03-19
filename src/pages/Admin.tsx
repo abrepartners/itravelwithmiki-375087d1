@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { Plus, LogOut, RotateCcw, Map, Image, Shield, Sparkles, Loader2 } from 'lucide-react';
+import { Plus, LogOut, RotateCcw, Map, Image, Shield, Loader2, Pencil } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { useAdmin } from '@/contexts/AdminContext';
@@ -123,7 +123,7 @@ const Admin = () => {
                   <span className="hidden sm:inline">Trips</span>
                 </TabsTrigger>
                 <TabsTrigger value="content" className="gap-2 text-sm px-4">
-                  <Sparkles className="w-4 h-4" />
+                  <Pencil className="w-4 h-4" />
                   <span className="hidden sm:inline">Content</span>
                 </TabsTrigger>
                 <TabsTrigger value="gallery" className="gap-2 text-sm px-4">
@@ -224,7 +224,7 @@ const Admin = () => {
 
             {/* Content Studio Tab */}
             <TabsContent value="content">
-              <ContentStudio trips={trips} />
+              <ContentStudio />
             </TabsContent>
 
             {/* Gallery Tab */}
