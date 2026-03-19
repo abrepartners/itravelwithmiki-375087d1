@@ -8,14 +8,15 @@ const defaultInsuranceProviders: InsuranceProvider[] = [
     name: 'Allianz Insurance',
     subtitle: 'For International Trips',
     description: 'Comprehensive travel insurance coverage for Grand Circle and international adventures. Covers trip cancellation, medical emergencies, and more.',
-    pdfUrl: '#',
+    pdfUrl: 'https://www.agentmaxonline.com/agentmaxweb/storefront/index.html#/home?emaillinkcode=ABIYU4TLWGBGTNHC6ZWLRSKAR7AIBWE33AAW7OYIPBPWYZZAHMNHGWLFCSBPQAJ6E2UXQWYTMKOYTPH4G6KDZGM72DHCDFWIBJ77XAMEYFS3BAVJD4QGZPHUMYAJ27ZH',
   },
   {
     id: 'diamond',
     name: 'Travel Confident',
     subtitle: 'For Diamond Tours',
     description: 'Travel protection designed specifically for Diamond Tours motorcoach trips. Affordable coverage for domestic travel.',
-    pdfUrl: '#',
+    pdfUrl: 'https://www.itravelwithmiki.com/_files/ugd/a20104_2244cb970c174f20b548326471f9c61d.pdf',
+    websiteUrl: 'https://www.travelconfident.com/',
   },
 ];
 

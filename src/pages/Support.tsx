@@ -74,7 +74,7 @@ const Support = () => {
         <div className="container mx-auto max-w-4xl">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             <motion.a
-              href="tel:+15019511749"
+              href="tel:+15016912152"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5 }}
@@ -84,7 +84,7 @@ const Support = () => {
                 <Phone className="w-7 h-7 text-primary" />
               </div>
               <h3 className="font-semibold text-foreground mb-1">Call Us</h3>
-              <span className="text-primary text-xl font-bold">(501) 951-1749</span>
+              <span className="text-primary text-xl font-bold">(501) 691-2152</span>
               <p className="text-muted-foreground text-sm mt-2">Mon-Fri 9am-5pm CST</p>
             </motion.a>
 
@@ -235,12 +235,22 @@ const Support = () => {
                 <p className="text-primary font-medium text-sm mb-3">{provider.subtitle}</p>
                 <p className="text-muted-foreground text-sm mb-6">{provider.description}</p>
                 {provider.pdfUrl && provider.pdfUrl !== '#' ? (
-                  <Button asChild className="gap-2">
-                    <a href={provider.pdfUrl} target="_blank" rel="noopener noreferrer">
-                      <Download className="w-4 h-4" />
-                      Download PDF
-                    </a>
-                  </Button>
+                  <div className="flex flex-col gap-2">
+                    {provider.websiteUrl && (
+                      <Button asChild className="gap-2">
+                        <a href={provider.websiteUrl} target="_blank" rel="noopener noreferrer">
+                          <Shield className="w-4 h-4" />
+                          Signup Online
+                        </a>
+                      </Button>
+                    )}
+                    <Button asChild variant={provider.websiteUrl ? "outline" : "default"} className="gap-2">
+                      <a href={provider.pdfUrl} target="_blank" rel="noopener noreferrer">
+                        <Download className="w-4 h-4" />
+                        {provider.id === 'allianz' ? 'Purchase Insurance' : 'Download Flyer'}
+                      </a>
+                    </Button>
+                  </div>
                 ) : (
                   <p className="text-muted-foreground text-sm italic">PDF coming soon</p>
                 )}
@@ -315,7 +325,7 @@ const Support = () => {
               We're just a phone call or email away. Don't hesitate to reach out!
             </p>
             <Button className="btn-senior bg-primary hover:bg-primary/90" asChild>
-              <a href="tel:+15019511749">Call Now — We'd Love to Chat!</a>
+              <a href="tel:+15016912152">Call Now — We'd Love to Chat!</a>
             </Button>
           </motion.div>
         </div>
