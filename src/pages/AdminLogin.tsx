@@ -9,7 +9,7 @@ import { useAdmin } from '@/contexts/AdminContext';
 import wordmarkLogo from '@/assets/logos/wordmark-logo.webp';
 
 const AdminLogin = () => {
-  const [email, setEmail] = useState('');
+  const [email, setEmail] = useState('book@averyandbryant.com');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
   const [submitting, setSubmitting] = useState(false);

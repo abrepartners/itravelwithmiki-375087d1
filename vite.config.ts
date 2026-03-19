@@ -20,6 +20,12 @@ export default defineConfig(({ mode }) => ({
     dedupe: ["react", "react-dom", "react/jsx-runtime"],
   },
   optimizeDeps: {
-    include: ["@tanstack/react-query"],
+    include: [
+      "@tanstack/react-query",
+      "react",
+      "react-dom",
+      "react/jsx-runtime",
+      "react-dom/client",
+    ],
   },
 }));
