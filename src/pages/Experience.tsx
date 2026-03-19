@@ -294,10 +294,7 @@ const Experience = () => {
       >
         <div ref={statsReveal.ref} className="container mx-auto max-w-4xl">
           <div className="text-center mb-12">
-            <p
-              className="uppercase tracking-[0.2em] text-sm font-medium mb-4"
-              style={{ color: 'hsl(40 80% 60%)' }}
-            >
+            <p className="uppercase tracking-[0.2em] text-sm font-medium mb-4 text-white/60">
               By the Numbers
             </p>
             <h2
