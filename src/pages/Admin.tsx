@@ -12,6 +12,7 @@ import TripForm from '@/components/admin/TripForm';
 import TripList from '@/components/admin/TripList';
 import GalleryManager from '@/components/admin/GalleryManager';
 import InsuranceManager from '@/components/admin/InsuranceManager';
+import ContentStudio from '@/components/admin/ContentStudio';
 import type { Trip } from '@/types/trip';
 import type { GalleryImage, InsuranceProvider } from '@/types/gallery';
 import wordmarkLogo from '@/assets/logos/wordmark-logo.webp';
