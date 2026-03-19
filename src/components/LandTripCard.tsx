@@ -1,10 +1,9 @@
 import { useState } from 'react';
 import { motion } from 'framer-motion';
-import { ChevronLeft, ChevronRight, Calendar } from 'lucide-react';
-import { Card, CardContent } from '@/components/ui/card';
+import { ChevronLeft, ChevronRight, Calendar, ArrowRight } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-import { Badge } from '@/components/ui/badge';
 import { LandTrip } from '@/types/land-trip';
+import { cn } from '@/lib/utils';
 
 interface LandTripCardProps {
   trip: LandTrip;
@@ -34,7 +33,7 @@ const LandTripCard = ({ trip, index }: LandTripCardProps) => {
       viewport={{ once: true }}
       transition={{ duration: 0.6, delay: index * 0.1 }}
     >
-      <Card className="group overflow-hidden border-0 shadow-lg hover:shadow-xl transition-all duration-500 bg-card">
+      <div className="group overflow-hidden rounded-2xl border-0 shadow-elevated hover-lift bg-card flex flex-col h-full">
         {/* Image Carousel */}
         <div className="relative aspect-[4/3] overflow-hidden">
           <img
@@ -42,18 +41,20 @@ const LandTripCard = ({ trip, index }: LandTripCardProps) => {
             alt={trip.title}
             className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
           />
-          
-          {/* Status Badge */}
+
+          {/* Status dot pill */}
           <div className="absolute top-4 left-4">
-            <Badge
-              className={`text-sm font-semibold px-3 py-1.5 ${
+            <span
+              className={cn(
+                'inline-flex items-center gap-2 text-sm font-semibold px-3 py-1.5 rounded-full backdrop-blur-md border',
                 isActive
-                  ? 'bg-green-100 text-green-800 border-green-200'
-                  : 'bg-amber-100 text-amber-800 border-amber-200'
-              }`}
+                  ? 'bg-green-500/20 text-white border-green-400/30'
+                  : 'bg-amber-500/20 text-white border-amber-400/30'
+              )}
             >
+              <span className={cn('w-2 h-2 rounded-full', isActive ? 'bg-green-400' : 'bg-amber-400')} />
               {trip.status}
-            </Badge>
+            </span>
           </div>
 
           {/* Image Navigation */}
@@ -73,8 +74,7 @@ const LandTripCard = ({ trip, index }: LandTripCardProps) => {
               >
                 <ChevronRight className="w-5 h-5 text-foreground" />
               </button>
-              
-              {/* Image Dots */}
+
               <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-2">
                 {trip.images.map((_, idx) => (
                   <button
@@ -83,11 +83,10 @@ const LandTripCard = ({ trip, index }: LandTripCardProps) => {
                       e.stopPropagation();
                       setCurrentImageIndex(idx);
                     }}
-                    className={`w-2 h-2 rounded-full transition-all duration-300 ${
-                      idx === currentImageIndex
-                        ? 'bg-white w-6'
-                        : 'bg-white/60 hover:bg-white/80'
-                    }`}
+                    className={cn(
+                      'w-2 h-2 rounded-full transition-all duration-300',
+                      idx === currentImageIndex ? 'bg-white w-6' : 'bg-white/60 hover:bg-white/80'
+                    )}
                     aria-label={`Go to image ${idx + 1}`}
                   />
                 ))}
@@ -96,10 +95,13 @@ const LandTripCard = ({ trip, index }: LandTripCardProps) => {
           )}
         </div>
 
-        {/* Card Content */}
-        <CardContent className="p-6 space-y-4">
-          {/* Title */}
-          <h3 className="font-playfair text-xl md:text-2xl font-bold text-foreground leading-tight">
+        {/* Card Content — flex-col with flex-grow for uniform height */}
+        <div className="flex flex-col flex-grow p-6 space-y-3">
+          {/* Title — line-clamp-2 for uniform header height */}
+          <h3
+            className="text-xl md:text-2xl font-bold text-foreground leading-tight line-clamp-2"
+            style={{ fontFamily: 'var(--font-display)' }}
+          >
             {trip.title}
           </h3>
 
@@ -114,9 +116,11 @@ const LandTripCard = ({ trip, index }: LandTripCardProps) => {
             {trip.sub_description}
           </p>
 
+          {/* Spacer to push buttons to bottom */}
+          <div className="flex-grow" />
+
           {/* Buttons */}
           <div className="flex flex-wrap gap-3 pt-2">
-            {/* Learn More - Always visible */}
             <Button
               variant="outline"
               size="lg"
@@ -128,25 +132,26 @@ const LandTripCard = ({ trip, index }: LandTripCardProps) => {
               </a>
             </Button>
 
-            {/* Book Now - Only if Active AND booking_link exists */}
             {showBookNow && (
               <Button
                 size="lg"
-                className="flex-1 min-w-[140px] rounded-full bg-primary text-primary-foreground hover:bg-primary/90"
+                className="flex-1 min-w-[140px] rounded-full bg-primary text-primary-foreground hover:bg-primary/90 group/btn"
                 asChild
               >
                 <a
                   href={trip.booking_link!}
                   target="_blank"
                   rel="noopener noreferrer"
+                  className="flex items-center justify-center gap-2"
                 >
                   Book Now
+                  <ArrowRight className="w-4 h-4 transition-transform duration-300 group-hover/btn:translate-x-1" />
                 </a>
               </Button>
             )}
           </div>
-        </CardContent>
-      </Card>
+        </div>
+      </div>
     </motion.div>
   );
 };

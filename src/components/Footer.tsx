@@ -1,8 +1,14 @@
-import { Compass, BookOpen, Phone, Mail, MapPin } from 'lucide-react';
+import { Compass, BookOpen, Phone, Mail, MapPin, Facebook, Instagram, Youtube } from 'lucide-react';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import FooterGallery from '@/components/FooterGallery';
 import primaryLogo from '@/assets/logos/primary-logo.webp';
+
+const socialLinks = [
+  { icon: Facebook, href: 'https://www.facebook.com/itravelwithmiki', label: 'Facebook' },
+  { icon: Instagram, href: 'https://www.instagram.com/itravelwithmiki', label: 'Instagram' },
+  { icon: Youtube, href: 'https://www.youtube.com/@itravelwithmiki', label: 'YouTube' },
+];
 
 const Footer = () => {
   return (
@@ -17,14 +23,12 @@ const Footer = () => {
               Your trusted travel family since 2009. Creating unforgettable memories, one trip at a time.
             </p>
             <div className="flex gap-3">
-              {[
-                { icon: Compass, href: '/experience', label: 'The Experience' },
-                { icon: BookOpen, href: '/land-trips', label: 'Land Trips' },
-                { icon: Phone, href: '/support', label: 'Support' },
-              ].map(({ icon: Icon, href, label }) => (
+              {socialLinks.map(({ icon: Icon, href, label }) => (
                 <a
                   key={label}
                   href={href}
+                  target="_blank"
+                  rel="noopener noreferrer"
                   className="w-11 h-11 rounded-full bg-primary-foreground/10 flex items-center justify-center hover:bg-primary-foreground hover:text-primary transition-all duration-300"
                   aria-label={label}
                 >

@@ -136,12 +136,23 @@ const Experience = () => {
         />
         <div className="absolute inset-0 bg-gradient-to-b from-black/50 via-black/40 to-black/70" />
 
+        {/* Reticle corner accents */}
+        <div className="absolute top-8 left-8 w-16 h-16 border-t-2 border-l-2 border-white/25 z-10" />
+        <div className="absolute top-8 right-8 w-16 h-16 border-t-2 border-r-2 border-white/25 z-10" />
+        <div className="absolute bottom-8 left-8 w-16 h-16 border-b-2 border-l-2 border-white/25 z-10" />
+        <div className="absolute bottom-8 right-8 w-16 h-16 border-b-2 border-r-2 border-white/25 z-10" />
+
         <div className="relative z-10 text-center px-6 max-w-4xl">
           <motion.div
             initial={{ opacity: 0, y: 40 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 1, ease: 'easeOut' }}
           >
+            {/* Eyebrow pill */}
+            <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/10 backdrop-blur-md border border-white/20 text-sm font-semibold tracking-widest uppercase text-white/90 mb-8">
+              <Camera className="w-4 h-4" />
+              The Experience
+            </span>
             <h1
               className="text-heading-xl sm:text-hero lg:text-[5rem] text-white font-bold leading-[1.1] mb-6"
               style={{ fontFamily: 'var(--font-display)' }}
@@ -150,7 +161,7 @@ const Experience = () => {
               <br />
               <span className="text-primary-foreground">We Create Memories</span>
             </h1>
-            <p className="text-white/70 text-lg lg:text-xl max-w-2xl mx-auto mb-12">
+            <p className="text-white/70 text-lg lg:text-xl max-w-2xl mx-auto mb-12 italic">
               Made by travelers, for travelers
             </p>
           </motion.div>
