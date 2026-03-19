@@ -184,10 +184,7 @@ const Experience = () => {
               viewport={{ once: true, margin: '-100px' }}
               transition={{ duration: 0.8 }}
             >
-              <p
-                className="uppercase tracking-[0.2em] text-sm font-medium mb-4"
-                style={{ color: 'hsl(40 80% 55%)' }}
-              >
+              <p className="uppercase tracking-[0.2em] text-sm font-medium mb-4 text-primary">
                 Our Story
               </p>
               <h2
