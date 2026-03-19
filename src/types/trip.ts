@@ -3,7 +3,8 @@ export interface Trip {
   name: string;
   destination: string;
   images: string[];
-  price: number;
+  price: number;               // double/shared occupancy price (or base price for intl trips)
+  singlePrice?: number;        // single occupancy price (bus trips only)
   discountPrice?: number;
   spotsLeft?: number;
   urgencyMessage?: string;
@@ -11,7 +12,9 @@ export interface Trip {
   category: 'land' | 'river-cruise' | 'ocean-cruise' | 'bus';
   featured: boolean;
   description?: string;
-  bookingUrl?: string;
+  bookingUrl?: string;         // TravelJoy booking link
+  waitlistUrl?: string;        // Separate waitlist link (if different from bookingUrl)
+  flyerUrl?: string;           // Uploaded flyer PDF/image URL
   subheading?: string;
   operator?: string;
   soldOut?: boolean;
