@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { Plus, LogOut, RotateCcw, Map, Image, Shield } from 'lucide-react';
+import { Plus, LogOut, RotateCcw, Map, Image, Shield, Loader2 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { useAdmin } from '@/contexts/AdminContext';
@@ -17,7 +17,7 @@ import type { GalleryImage, InsuranceProvider } from '@/types/gallery';
 import wordmarkLogo from '@/assets/logos/wordmark-logo.webp';
 
 const Admin = () => {
-  const { isAuthenticated, logout } = useAdmin();
+  const { isAuthenticated, isAdmin, isLoading, displayName, logout } = useAdmin();
   const navigate = useNavigate();
   const [trips, setTrips] = useState<Trip[]>([]);
   const [galleryImages, setGalleryImages] = useState<GalleryImage[]>([]);
@@ -27,12 +27,14 @@ const Admin = () => {
   const [activeTab, setActiveTab] = useState('trips');
 
   useEffect(() => {
-    if (!isAuthenticated) {
+    if (!isLoading && (!isAuthenticated || !isAdmin)) {
       navigate('/admin/login');
       return;
     }
-    refreshAll();
-  }, [isAuthenticated, navigate]);
+    if (isAuthenticated && isAdmin) {
+      refreshAll();
+    }
+  }, [isAuthenticated, isAdmin, isLoading, navigate]);
 
   const refreshAll = () => {
     setTrips(tripStore.getTrips());
@@ -77,8 +79,8 @@ const Admin = () => {
     }
   };
 
-  const handleLogout = () => {
-    logout();
+  const handleLogout = async () => {
+    await logout();
     navigate('/');
   };
 
@@ -92,7 +94,15 @@ const Admin = () => {
     setEditingTrip(null);
   };
 
-  if (!isAuthenticated) {
+  if (isLoading) {
+    return (
+      <main className="min-h-screen bg-background flex items-center justify-center">
+        <Loader2 className="w-8 h-8 animate-spin text-primary" />
+      </main>
+    );
+  }
+
+  if (!isAuthenticated || !isAdmin) {
     return null;
   }
 
@@ -120,10 +130,17 @@ const Admin = () => {
                   <span className="hidden sm:inline">Insurance</span>
                 </TabsTrigger>
               </TabsList>
-              <Button variant="outline" onClick={handleLogout} className="gap-2 shrink-0">
-                <LogOut className="w-4 h-4" />
-                <span className="hidden sm:inline">Logout</span>
-              </Button>
+              <div className="flex items-center gap-3 shrink-0">
+                {displayName && (
+                  <span className="text-sm text-muted-foreground hidden md:inline">
+                    {displayName}
+                  </span>
+                )}
+                <Button variant="outline" onClick={handleLogout} className="gap-2">
+                  <LogOut className="w-4 h-4" />
+                  <span className="hidden sm:inline">Logout</span>
+                </Button>
+              </div>
             </div>
           </div>
         </header>
