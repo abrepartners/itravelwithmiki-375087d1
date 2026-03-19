@@ -23,14 +23,12 @@ const Footer = () => {
               Your trusted travel family since 2009. Creating unforgettable memories, one trip at a time.
             </p>
             <div className="flex gap-3">
-              {[
-                { icon: Compass, href: '/experience', label: 'The Experience' },
-                { icon: BookOpen, href: '/land-trips', label: 'Land Trips' },
-                { icon: Phone, href: '/support', label: 'Support' },
-              ].map(({ icon: Icon, href, label }) => (
+              {socialLinks.map(({ icon: Icon, href, label }) => (
                 <a
                   key={label}
                   href={href}
+                  target="_blank"
+                  rel="noopener noreferrer"
                   className="w-11 h-11 rounded-full bg-primary-foreground/10 flex items-center justify-center hover:bg-primary-foreground hover:text-primary transition-all duration-300"
                   aria-label={label}
                 >
