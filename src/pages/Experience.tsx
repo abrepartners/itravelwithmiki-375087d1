@@ -1,547 +1,602 @@
-import { useEffect, useRef, useState } from 'react';
-import { motion } from 'framer-motion';
-import {
-  Users, Heart, Shield, MapPin, Bus, Camera, Star,
-  Luggage, Search, Smile, Mouse, ChevronDown,
-  Globe, Phone,
-} from 'lucide-react';
+import { useEffect, useRef, useState, useCallback } from 'react';
+import { motion, AnimatePresence, useScroll, useTransform } from 'framer-motion';
+import { Play, Camera, Sparkles, Heart, Shield, MapPin, ArrowRight, Quote, ChevronLeft, ChevronRight } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import SEOHead from '@/components/SEOHead';
-import BreadcrumbNav from '@/components/BreadcrumbNav';
 import mikiPhoto from '@/assets/miki-photo.jpeg';
 
 /* ───────────────────── Data ───────────────────── */
 
-const differentiators = [
+const pillars = [
   {
-    icon: Luggage,
-    title: 'Stress-Free Travel',
-    description: 'We plan every detail — hotels, meals, attractions, transportation — so you just pack your bags and enjoy the ride.',
+    icon: Sparkles,
+    title: 'Curated Experiences',
+    description:
+      'Every destination is handpicked by Miki herself. No cookie-cutter itineraries — just authentic adventures designed around what our travel family actually loves.',
+    image: 'https://images.unsplash.com/photo-1506929562872-bb421503ef21?w=1200&q=80&fm=webp',
+  },
+  {
+    icon: Camera,
+    title: 'Photo-First Storytelling',
+    description:
+      'We document every moment so you can relive it forever. Professional photos, candid memories, and stories that make your friends jealous.',
+    image: 'https://images.unsplash.com/photo-1488646953014-85cb44e25828?w=1200&q=80&fm=webp',
   },
   {
     icon: Heart,
-    title: 'Family, Not a Tour Group',
-    description: 'You\'re not joining a tour group — you\'re joining a family. We remember your name, your seat preference, and your birthday.',
+    title: 'Family-Style Hosting',
+    description:
+      'You\'re not a booking number — you\'re family. Miki remembers your name, your birthday, and your favorite seat on the bus.',
+    image: 'https://images.unsplash.com/photo-1527631746610-bca00a040d60?w=1200&q=80&fm=webp',
   },
   {
     icon: Shield,
-    title: 'Designed for Your Comfort',
-    description: 'Every trip is built with your comfort and pace in mind. Frequent rest stops, accessible accommodations, and no rushed itineraries.',
-  },
-  {
-    icon: Star,
-    title: 'Moments That Matter',
-    description: 'Bus games with prizes, surprise stops, group dinners, and Miki\'s legendary energy turn every trip into a celebration.',
+    title: 'Worry-Free Planning',
+    description:
+      'Hotels, meals, transportation, activities — we handle every single detail. You just show up with a smile and your sense of adventure.',
+    image: 'https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1?w=1200&q=80&fm=webp',
   },
 ];
 
-const stats = [
-  { value: '2,000+', label: 'Happy Travelers' },
-  { value: '500+', label: 'Trips Completed' },
-  { value: '15+', label: 'Years of Adventures' },
-  { value: '30+', label: 'Destinations' },
-];
-
-const steps = [
-  { number: '01', icon: Search, title: 'Browse & Choose', description: 'Explore our upcoming trips and find the adventure that calls to you.' },
-  { number: '02', icon: Phone, title: 'Book with Ease', description: 'Reserve your spot online or by phone. We offer flexible payment plans.' },
-  { number: '03', icon: Luggage, title: 'Pack & Prepare', description: 'We send you everything you need — packing lists, itineraries, and tips.' },
-  { number: '04', icon: Smile, title: 'Travel & Enjoy', description: 'Show up with a smile. We handle the rest — meals, transport, and fun.' },
-];
-
-const milestones = [
-  { year: '2009', text: 'Miki leads her first group trip with just 12 travelers to Branson, Missouri' },
-  { year: '2012', text: 'iTravel with Miki becomes a licensed travel agency in Arkansas' },
-  { year: '2016', text: 'First international trip — Ireland steals everyone\'s heart' },
-  { year: '2020', text: 'Pivoted to virtual travel events to keep the family connected during the pandemic' },
-  { year: '2023', text: 'Expanded to river cruises and ocean voyages worldwide' },
-  { year: '2026', text: 'Over 2,000 travelers have joined the iTravel family' },
-];
-
-const experienceFaqs = [
+const testimonials = [
   {
-    question: 'Who are these trips designed for?',
-    answer: 'Our trips are designed for travelers aged 50 and up who want stress-free, well-organized adventures with like-minded people. Whether you\'re a seasoned traveler or taking your first big trip, we plan everything so you can just relax and enjoy.',
+    quote: 'Traveling with Miki changed my life. I went solo and came home with a family. I\'ve been on 8 trips now and I\'m already planning number 9!',
+    name: 'Barbara K.',
+    trip: 'Ireland Adventure 2023',
+    photo: 'https://images.unsplash.com/photo-1580489944761-15a19d654956?w=200&q=80&fm=webp',
   },
   {
-    question: "What's included in the trip price?",
-    answer: 'Most trips include transportation, hotel accommodations, many meals (breakfast is almost always included), admission to attractions, and the services of a professional tour guide. Specifics vary by trip and are listed on each trip page.',
+    quote: 'I was nervous about traveling alone at 67. By the second day, I had 30 new friends. Miki makes everyone feel like they belong.',
+    name: 'James R.',
+    trip: 'Branson Fall Festival',
+    photo: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=200&q=80&fm=webp',
   },
   {
-    question: 'Can I travel solo or do I need a companion?',
-    answer: 'You can absolutely come solo! Many of our travelers do. We foster a warm, family-like atmosphere where everyone feels welcome. Solo travelers can choose single-occupancy rooms or be matched with a roommate to share costs.',
-  },
-  {
-    question: 'What makes traveling with Miki different from other travel agencies?',
-    answer: 'We\'re a family, not a faceless agency. Miki personally plans and often leads every trip. Expect bus games, surprise stops, birthday celebrations, and someone who genuinely cares about your comfort and happiness.',
-  },
-  {
-    question: 'How physically demanding are the trips?',
-    answer: 'Our trips are designed with comfort in mind. We include frequent rest stops, accessible accommodations, and no rushed itineraries. If you have specific mobility needs, let us know at booking and we\'ll make accommodations.',
+    quote: 'The attention to detail is incredible. Every meal, every stop, every surprise — you can tell Miki pours her heart into every trip.',
+    name: 'Linda M.',
+    trip: 'Mediterranean Cruise 2024',
+    photo: 'https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=200&q=80&fm=webp',
   },
 ];
 
-/* ───────────── Scroll-reveal hook ─────────────── */
-
-const useScrollReveal = (rootMargin = '0px 0px -60px 0px') => {
-  const ref = useRef<HTMLDivElement>(null);
-  const [visible, setVisible] = useState<Set<number>>(new Set());
-
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            const idx = Number(entry.target.getAttribute('data-idx'));
-            if (!isNaN(idx)) setVisible((prev) => new Set([...prev, idx]));
-          }
-        });
-      },
-      { threshold: 0.15, rootMargin }
-    );
-    const items = ref.current?.querySelectorAll('[data-idx]');
-    items?.forEach((el) => observer.observe(el));
-    return () => observer.disconnect();
-  }, [rootMargin]);
-
-  return { ref, visible };
-};
+const mosaicImages = [
+  { src: 'https://images.unsplash.com/photo-1527631746610-bca00a040d60?w=600&q=80&fm=webp', alt: 'Group travel moment' },
+  { src: 'https://images.unsplash.com/photo-1506929562872-bb421503ef21?w=600&q=80&fm=webp', alt: 'Beach paradise' },
+  { src: 'https://images.unsplash.com/photo-1488646953014-85cb44e25828?w=600&q=80&fm=webp', alt: 'Mountain adventure' },
+  { src: 'https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1?w=600&q=80&fm=webp', alt: 'Scenic waterway' },
+  { src: 'https://images.unsplash.com/photo-1502920917128-1aa500764cbd?w=600&q=80&fm=webp', alt: 'Cultural experience' },
+  { src: 'https://images.unsplash.com/photo-1501785888041-af3ef285b470?w=600&q=80&fm=webp', alt: 'Sunset view' },
+];
 
 /* ───────────────── Component ──────────────────── */
 
 const Experience = () => {
-  const timeline = useScrollReveal();
-  const diffCards = useScrollReveal();
-  const processCards = useScrollReveal();
-  const statsReveal = useScrollReveal();
-  const [openFaq, setOpenFaq] = useState<number | null>(null);
+  const [phase, setPhase] = useState<'teaser' | 'video' | 'revealed'>('teaser');
+  const [testimonialIndex, setTestimonialIndex] = useState(0);
+  const videoRef = useRef<HTMLVideoElement>(null);
+  const revealRef = useRef<HTMLDivElement>(null);
+
+  // Parallax for reveal section
+  const { scrollYProgress } = useScroll({
+    target: revealRef,
+    offset: ['start end', 'end start'],
+  });
+  const parallaxY = useTransform(scrollYProgress, [0, 1], [60, -60]);
+
+  const handleEnter = useCallback(() => {
+    setPhase('video');
+  }, []);
+
+  // Auto-transition after "video" plays (placeholder for now)
+  useEffect(() => {
+    if (phase === 'video') {
+      const timer = setTimeout(() => {
+        setPhase('revealed');
+      }, 4000); // 4s simulated video intro
+      return () => clearTimeout(timer);
+    }
+  }, [phase]);
+
+  // Testimonial auto-rotate
+  useEffect(() => {
+    if (phase !== 'revealed') return;
+    const interval = setInterval(() => {
+      setTestimonialIndex((prev) => (prev + 1) % testimonials.length);
+    }, 6000);
+    return () => clearInterval(interval);
+  }, [phase]);
+
+  const nextTestimonial = () => setTestimonialIndex((prev) => (prev + 1) % testimonials.length);
+  const prevTestimonial = () => setTestimonialIndex((prev) => (prev - 1 + testimonials.length) % testimonials.length);
 
   return (
     <main className="min-h-screen bg-background">
       <SEOHead
         title="The Experience — iTravelWithMiki"
-        description="Discover what makes traveling with Miki different. Stress-free group adventures designed for travelers 50+ with a family atmosphere."
+        description="Discover what makes traveling with Miki different. An immersive look into our travel family."
         canonical="https://itravelwithmiki.lovable.app/experience"
       />
-      <Navbar />
 
-      {/* ════════════ HERO — Full-Screen Cinematic ════════════ */}
-      <section className="relative h-screen w-full overflow-hidden flex items-center justify-center">
-        <img
-          src="https://images.unsplash.com/photo-1527631746610-bca00a040d60?w=1400&q=75&fm=webp"
-          alt="Happy travelers together"
-          className="absolute inset-0 w-full h-full object-cover"
-        />
-        <div className="absolute inset-0 bg-gradient-to-b from-black/50 via-black/40 to-black/70" />
+      {/* Navbar only shows after reveal */}
+      {phase === 'revealed' && <Navbar />}
 
-        {/* Reticle corner accents */}
-        <div className="absolute top-8 left-8 w-16 h-16 border-t-2 border-l-2 border-white/25 z-10" />
-        <div className="absolute top-8 right-8 w-16 h-16 border-t-2 border-r-2 border-white/25 z-10" />
-        <div className="absolute bottom-8 left-8 w-16 h-16 border-b-2 border-l-2 border-white/25 z-10" />
-        <div className="absolute bottom-8 right-8 w-16 h-16 border-b-2 border-r-2 border-white/25 z-10" />
-
-        <div className="relative z-10 text-center px-6 max-w-4xl">
-          <motion.div
-            initial={{ opacity: 0, y: 40 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 1, ease: 'easeOut' }}
+      {/* ═══════════ PHASE 1: TEASER ═══════════ */}
+      <AnimatePresence>
+        {phase === 'teaser' && (
+          <motion.section
+            key="teaser"
+            exit={{ opacity: 0, scale: 1.05 }}
+            transition={{ duration: 0.8, ease: 'easeInOut' }}
+            className="fixed inset-0 z-50 flex items-center justify-center overflow-hidden"
           >
-            {/* Eyebrow pill */}
-            <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/10 backdrop-blur-md border border-white/20 text-sm font-semibold tracking-widest uppercase text-white/90 mb-8">
-              <Camera className="w-4 h-4" />
-              The Experience
-            </span>
-            <h1
-              className="text-heading-xl sm:text-hero lg:text-[5rem] text-white font-bold leading-[1.1] mb-6"
-              style={{ fontFamily: 'var(--font-display)' }}
+            {/* BG image with slow zoom */}
+            <motion.div
+              className="absolute inset-0"
+              animate={{ scale: [1, 1.08] }}
+              transition={{ duration: 20, ease: 'linear', repeat: Infinity, repeatType: 'reverse' }}
             >
-              We Don't Just Plan Trips —
-              <br />
-              <span className="text-primary-foreground">We Create Memories</span>
-            </h1>
-            <p className="text-white/70 text-lg lg:text-xl max-w-2xl mx-auto mb-12 italic">
-              Made by travelers, for travelers
-            </p>
-          </motion.div>
-
-          {/* Scroll indicator */}
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 1.5, duration: 1 }}
-            className="flex flex-col items-center gap-2"
-          >
-            <span className="text-white/50 text-sm tracking-widest uppercase">Scroll to Explore</span>
-            <div className="w-6 h-10 rounded-full border-2 border-white/30 flex items-start justify-center p-1.5">
-              <motion.div
-                className="w-1.5 h-1.5 rounded-full bg-white/70"
-                animate={{ y: [0, 16, 0] }}
-                transition={{ duration: 2, repeat: Infinity, ease: 'easeInOut' }}
+              <img
+                src="https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?w=1600&q=80&fm=webp"
+                alt=""
+                className="w-full h-full object-cover"
               />
-            </div>
-          </motion.div>
-        </div>
-      </section>
-
-      {/* ════════════ MIKI'S STORY — Parallax Reveal ════════════ */}
-      <section className="py-24 lg:py-32 px-6 lg:px-12">
-        <div className="container mx-auto max-w-5xl">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-14 lg:gap-20 items-center">
-            <motion.div
-              initial={{ opacity: 0, x: -40 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true, margin: '-100px' }}
-              transition={{ duration: 0.8 }}
-            >
-              <p className="uppercase tracking-[0.2em] text-sm font-medium mb-4 text-primary">
-                Our Story
-              </p>
-              <h2
-                className="text-heading-md lg:text-heading-lg text-foreground font-bold mb-8"
-                style={{ fontFamily: 'var(--font-display)' }}
-              >
-                A Story That Started
-                <br />
-                <span className="text-primary">15+ Years Ago</span>
-              </h2>
-              <div className="space-y-5 text-muted-foreground text-lg leading-relaxed">
-                <p>
-                  In 2009, Miki — a mother, grandmother, and lifelong adventurer from Maumelle, 
-                  Arkansas — gathered 12 friends for a weekend bus trip to Branson, Missouri. 
-                  What was supposed to be a one-time getaway became the spark for something extraordinary.
-                </p>
-                <p>
-                  Miki saw that travelers aged 50 and up were underserved. They wanted adventure 
-                  without the stress, companionship without the awkwardness, and someone who truly 
-                  cared about their comfort. So she built exactly that.
-                </p>
-                <p>
-                  Today, iTravel with Miki is a full-service travel agency offering bus tours, 
-                  river cruises, ocean voyages, and international land trips. But the heart of 
-                  it hasn't changed — every traveler is family, every trip is personal, and 
-                  every memory is precious.
-                </p>
-              </div>
             </motion.div>
+            <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/50 to-black/80" />
 
-            <motion.div
-              initial={{ opacity: 0, x: 40 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true, margin: '-100px' }}
-              transition={{ duration: 0.8, delay: 0.2 }}
-              className="relative"
-            >
-              <div className="rounded-2xl overflow-hidden shadow-elevated">
-                <img
-                  src={mikiPhoto}
-                  alt="Miki — Your Travel Guide"
-                  className="w-full h-[420px] lg:h-[520px] object-cover"
-                />
-              </div>
-              <div className="absolute -bottom-5 -left-5 bg-primary text-primary-foreground px-7 py-5 rounded-xl shadow-lg">
-                <p className="text-3xl font-bold" style={{ fontFamily: 'var(--font-display)' }}>15+</p>
-                <p className="text-sm text-primary-foreground/80">Years of Adventures</p>
-              </div>
-            </motion.div>
-          </div>
-        </div>
-      </section>
+            {/* Reticle corners */}
+            <div className="absolute top-6 left-6 w-14 h-14 border-t-2 border-l-2 border-white/20 z-10" />
+            <div className="absolute top-6 right-6 w-14 h-14 border-t-2 border-r-2 border-white/20 z-10" />
+            <div className="absolute bottom-6 left-6 w-14 h-14 border-b-2 border-l-2 border-white/20 z-10" />
+            <div className="absolute bottom-6 right-6 w-14 h-14 border-b-2 border-r-2 border-white/20 z-10" />
 
-      {/* ════════════ WHAT MAKES US DIFFERENT — 4 Cards ════════════ */}
-      <section className="py-24 lg:py-32 px-6 lg:px-12 bg-secondary">
-        <div className="container mx-auto max-w-5xl">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="text-center mb-16"
-          >
-            <p className="uppercase tracking-[0.2em] text-sm font-medium text-primary mb-4">
-              The Difference
-            </p>
-            <h2
-              className="text-heading-lg lg:text-heading-xl text-foreground font-bold"
-              style={{ fontFamily: 'var(--font-display)' }}
-            >
-              What Makes Us Different
-            </h2>
-          </motion.div>
-
-          <div ref={diffCards.ref} className="grid grid-cols-1 sm:grid-cols-2 gap-6 lg:gap-8">
-            {differentiators.map((d, i) => {
-              const DIcon = d.icon;
-              return (
-                <div
-                  key={i}
-                  data-idx={i}
-                  className={`bg-card border border-border rounded-2xl p-8 lg:p-10 shadow-soft transition-all duration-700 ease-out ${
-                    diffCards.visible.has(i) ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
-                  }`}
-                  style={{ transitionDelay: `${i * 120}ms` }}
-                >
-                  <div className="w-14 h-14 rounded-xl bg-primary/10 flex items-center justify-center mb-6">
-                    <DIcon className="w-7 h-7 text-primary" />
-                  </div>
-                  <h3
-                    className="text-xl font-semibold text-foreground mb-3"
-                    style={{ fontFamily: 'var(--font-display)' }}
-                  >
-                    {d.title}
-                  </h3>
-                  <p className="text-muted-foreground text-base leading-relaxed">{d.description}</p>
-                </div>
-              );
-            })}
-          </div>
-        </div>
-      </section>
-
-      {/* ════════════ BY THE NUMBERS — Stats ════════════ */}
-      <section
-        className="py-20 lg:py-24 px-6 lg:px-12"
-        style={{ background: 'linear-gradient(135deg, hsl(220 15% 10%), hsl(220 15% 15%))' }}
-      >
-        <div ref={statsReveal.ref} className="container mx-auto max-w-4xl">
-          <div className="text-center mb-12">
-            <p className="uppercase tracking-[0.2em] text-sm font-medium mb-4 text-white/60">
-              By the Numbers
-            </p>
-            <h2
-              className="text-heading-lg text-white font-bold"
-              style={{ fontFamily: 'var(--font-display)' }}
-            >
-              A Growing Family
-            </h2>
-          </div>
-          <div className="grid grid-cols-2 lg:grid-cols-4 gap-8">
-            {stats.map((s, i) => (
-              <div
-                key={i}
-                data-idx={i}
-                className={`text-center transition-all duration-700 ease-out ${
-                  statsReveal.visible.has(i) ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
-                }`}
-                style={{ transitionDelay: `${i * 100}ms` }}
+            <div className="relative z-10 text-center px-6 max-w-3xl">
+              <motion.div
+                initial={{ opacity: 0, y: 50 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 1.2, ease: [0.22, 1, 0.36, 1] }}
               >
-                <p
-                  className="text-4xl lg:text-5xl font-bold mb-2 text-primary"
+                <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/10 border border-white/20 text-xs font-semibold tracking-[0.25em] uppercase text-white/80 mb-8">
+                  <Camera className="w-3.5 h-3.5" />
+                  The Experience
+                </span>
+                <h1
+                  className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl text-white font-bold leading-[1.05] mb-6"
                   style={{ fontFamily: 'var(--font-display)' }}
                 >
-                  {s.value}
+                  We Don't Just
+                  <br />
+                  Plan Trips —
+                  <br />
+                  <em className="text-primary not-italic">We Create Memories</em>
+                </h1>
+                <p className="text-white/60 text-lg md:text-xl mb-12 max-w-xl mx-auto">
+                  An immersive look into what makes our travel family special
                 </p>
-                <p className="text-white/60 text-base">{s.label}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
+              </motion.div>
 
-      {/* ════════════ HOW IT WORKS — 4-Step Process ════════════ */}
-      <section className="py-24 lg:py-32 px-6 lg:px-12">
-        <div className="container mx-auto max-w-5xl">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="text-center mb-16"
-          >
-            <p className="uppercase tracking-[0.2em] text-sm font-medium text-primary mb-4">
-              Your Journey
-            </p>
-            <h2
-              className="text-heading-lg lg:text-heading-xl text-foreground font-bold"
-              style={{ fontFamily: 'var(--font-display)' }}
-            >
-              How It Works
-            </h2>
-          </motion.div>
-
-          <div ref={processCards.ref} className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
-            {steps.map((step, i) => {
-              const SIcon = step.icon;
-              return (
-                <div
-                  key={i}
-                  data-idx={i}
-                  className={`relative text-center transition-all duration-700 ease-out ${
-                    processCards.visible.has(i) ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-12'
-                  }`}
-                  style={{ transitionDelay: `${i * 150}ms` }}
-                >
-                  {/* Step number */}
-                  <span
-                    className="block text-6xl font-bold mb-4 opacity-10 text-primary"
-                    style={{ fontFamily: 'var(--font-display)' }}
-                  >
-                    {step.number}
-                  </span>
-                  <div className="w-14 h-14 mx-auto mb-5 rounded-xl bg-primary/10 flex items-center justify-center">
-                    <SIcon className="w-7 h-7 text-primary" />
-                  </div>
-                  <h3
-                    className="text-lg font-semibold text-foreground mb-2"
-                    style={{ fontFamily: 'var(--font-display)' }}
-                  >
-                    {step.title}
-                  </h3>
-                  <p className="text-muted-foreground text-base leading-relaxed">{step.description}</p>
-
-                  {/* Connector arrow (desktop) */}
-                  {i < steps.length - 1 && (
-                    <div className="hidden lg:block absolute top-20 -right-4 text-border">
-                      <ChevronDown className="w-6 h-6 rotate-[-90deg]" />
-                    </div>
-                  )}
-                </div>
-              );
-            })}
-          </div>
-        </div>
-      </section>
-
-      {/* ════════════ TIMELINE ════════════ */}
-      <section
-        className="py-24 lg:py-32 px-6 lg:px-12"
-        style={{ background: 'linear-gradient(135deg, hsl(220 15% 10%), hsl(220 15% 15%))' }}
-      >
-        <div className="container mx-auto max-w-3xl">
-          <div className="text-center mb-14">
-            <p className="uppercase tracking-[0.2em] text-sm font-medium mb-4 text-white/60">
-              Our Journey
-            </p>
-            <h2
-              className="text-heading-lg text-white font-bold"
-              style={{ fontFamily: 'var(--font-display)' }}
-            >
-              Milestones Along the Way
-            </h2>
-          </div>
-          <div ref={timeline.ref} className="relative">
-            <div className="absolute left-6 top-0 bottom-0 w-px bg-primary/20" />
-            <div className="space-y-10">
-              {milestones.map((m, i) => (
-                <div
-                  key={i}
-                  data-idx={i}
-                  className={`relative pl-16 transition-all duration-600 ease-out ${
-                    timeline.visible.has(i) ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-6'
-                  }`}
-                  style={{ transitionDelay: `${i * 80}ms` }}
-                >
-                  <div
-                    className={`absolute left-4 top-1 w-5 h-5 rounded-full border-2 border-primary transition-colors duration-400 ${
-                      timeline.visible.has(i) ? 'bg-primary' : 'bg-transparent'
-                    }`}
-                  />
-                  <span className="block text-sm font-bold mb-1 text-primary">
-                    {m.year}
-                  </span>
-                  <p className="text-white/80 text-lg">{m.text}</p>
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* ════════════ EXPERIENCE FAQs ════════════ */}
-      <section className="py-24 lg:py-32 px-6 lg:px-12">
-        <div className="container mx-auto max-w-3xl">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="text-center mb-14"
-          >
-            <p className="uppercase tracking-[0.2em] text-sm font-medium text-primary mb-4">
-              Common Questions
-            </p>
-            <h2
-              className="text-heading-lg lg:text-heading-xl text-foreground font-bold"
-              style={{ fontFamily: 'var(--font-display)' }}
-            >
-              Questions About the Experience
-            </h2>
-          </motion.div>
-
-          <div className="space-y-3">
-            {experienceFaqs.map((faq, i) => (
               <motion.div
-                key={i}
-                initial={{ opacity: 0, y: 10 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: i * 0.05 }}
-                className="bg-card border border-border rounded-xl overflow-hidden shadow-soft"
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.8, delay: 1 }}
               >
                 <button
-                  onClick={() => setOpenFaq(openFaq === i ? null : i)}
-                  className="w-full flex items-center justify-between p-5 text-left text-foreground hover:bg-muted/50 transition-colors duration-200"
+                  onClick={handleEnter}
+                  className="group relative inline-flex items-center gap-3 px-10 py-5 rounded-full bg-primary text-primary-foreground text-lg font-semibold overflow-hidden transition-all duration-300 hover:shadow-[0_0_40px_hsl(var(--primary)/0.4)]"
                 >
-                  <span className="text-base font-medium pr-4">{faq.question}</span>
-                  <ChevronDown
-                    className={`w-5 h-5 flex-shrink-0 text-muted-foreground transition-transform duration-300 ${
-                      openFaq === i ? 'rotate-180' : ''
-                    }`}
-                  />
+                  <span className="relative z-10 flex items-center gap-3">
+                    <Play className="w-5 h-5" fill="currentColor" />
+                    Enter the Experience
+                  </span>
+                  <div className="absolute inset-0 bg-white/10 translate-y-full group-hover:translate-y-0 transition-transform duration-500" />
                 </button>
-                <div
-                  className={`overflow-hidden transition-all duration-300 ease-out ${
-                    openFaq === i ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0'
-                  }`}
+              </motion.div>
+
+              {/* Scroll hint pulse */}
+              <motion.div
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ delay: 2 }}
+                className="mt-16"
+              >
+                <motion.div
+                  animate={{ y: [0, 8, 0] }}
+                  transition={{ duration: 2, repeat: Infinity }}
+                  className="w-5 h-8 rounded-full border-2 border-white/25 mx-auto flex items-start justify-center p-1"
                 >
-                  <p className="px-5 pb-5 text-muted-foreground text-base leading-relaxed">
-                    {faq.answer}
+                  <div className="w-1 h-2 rounded-full bg-white/50" />
+                </motion.div>
+              </motion.div>
+            </div>
+          </motion.section>
+        )}
+      </AnimatePresence>
+
+      {/* ═══════════ PHASE 2: VIDEO INTRO ═══════════ */}
+      <AnimatePresence>
+        {phase === 'video' && (
+          <motion.section
+            key="video"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.6 }}
+            className="fixed inset-0 z-50 bg-black flex items-center justify-center"
+          >
+            {/* Placeholder video — swap for Miki's branding video later */}
+            <video
+              ref={videoRef}
+              autoPlay
+              muted
+              playsInline
+              className="w-full h-full object-cover opacity-80"
+            >
+              <source
+                src="https://videos.pexels.com/video-files/3015510/3015510-uhd_2560_1440_24fps.mp4"
+                type="video/mp4"
+              />
+            </video>
+
+            {/* Cinematic letterbox bars */}
+            <div className="absolute top-0 left-0 right-0 h-[8%] bg-black" />
+            <div className="absolute bottom-0 left-0 right-0 h-[8%] bg-black" />
+
+            {/* Centered brand text overlay */}
+            <motion.div
+              className="absolute inset-0 flex items-center justify-center z-10"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 1, duration: 1.5 }}
+            >
+              <div className="text-center">
+                <motion.h2
+                  className="text-3xl md:text-5xl lg:text-6xl text-white font-bold"
+                  style={{ fontFamily: 'var(--font-display)' }}
+                  initial={{ opacity: 0, y: 30 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 1.5, duration: 1 }}
+                >
+                  iTravel with Miki
+                </motion.h2>
+                <motion.p
+                  className="text-white/50 text-lg mt-4 tracking-widest uppercase"
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  transition={{ delay: 2.5, duration: 1 }}
+                >
+                  Let's Travel Together
+                </motion.p>
+              </div>
+            </motion.div>
+
+            {/* Skip button */}
+            <motion.button
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 1.5 }}
+              onClick={() => setPhase('revealed')}
+              className="absolute bottom-12 right-12 z-20 text-white/40 hover:text-white/80 text-sm tracking-widest uppercase transition-colors"
+            >
+              Skip →
+            </motion.button>
+          </motion.section>
+        )}
+      </AnimatePresence>
+
+      {/* ═══════════ PHASE 3: THE REVEALED EXPERIENCE ═══════════ */}
+      {phase === 'revealed' && (
+        <>
+          {/* ─── THE REVEAL: Story + Photo Mosaic ─── */}
+          <section ref={revealRef} className="relative py-24 lg:py-36 px-6 lg:px-12 overflow-hidden">
+            <div className="container mx-auto max-w-7xl">
+              <div className="grid grid-cols-1 lg:grid-cols-2 gap-14 lg:gap-20 items-center">
+                {/* Left: Story */}
+                <motion.div
+                  initial={{ opacity: 0, x: -50 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ duration: 1, delay: 0.3, ease: [0.22, 1, 0.36, 1] }}
+                >
+                  <p className="uppercase tracking-[0.2em] text-sm font-semibold mb-4 text-primary">
+                    Our Story
                   </p>
+                  <h2
+                    className="text-heading-lg lg:text-heading-xl text-foreground font-bold mb-8 leading-tight"
+                    style={{ fontFamily: 'var(--font-display)' }}
+                  >
+                    We Don't Just Plan Trips —{' '}
+                    <em className="text-primary not-italic">We Create Memories</em>
+                  </h2>
+                  <div className="space-y-5 text-muted-foreground text-lg leading-relaxed">
+                    <p>
+                      In 2009, Miki gathered 12 friends for a weekend bus trip to Branson, Missouri.
+                      What started as a simple getaway became the spark for something extraordinary —
+                      a travel family that now spans thousands of members across the country.
+                    </p>
+                    <p>
+                      Miki saw what others didn't: travelers aged 50+ wanted more than a tour.
+                      They wanted genuine connection, stress-free adventures, and someone who
+                      remembered their name and their birthday. So she built exactly that.
+                    </p>
+                    <p>
+                      Today, iTravel with Miki offers bus tours, river cruises, ocean voyages,
+                      and international adventures. But the heart hasn't changed — every traveler
+                      is family, every trip is personal, and every memory is precious.
+                    </p>
+                  </div>
+                  <div className="mt-8 flex items-center gap-5">
+                    <img
+                      src={mikiPhoto}
+                      alt="Miki"
+                      className="w-14 h-14 rounded-full object-cover border-2 border-primary/30"
+                    />
+                    <div>
+                      <p className="font-semibold text-foreground" style={{ fontFamily: 'var(--font-display)' }}>Miki</p>
+                      <p className="text-sm text-muted-foreground">Founder & Chief Adventure Officer</p>
+                    </div>
+                  </div>
+                </motion.div>
+
+                {/* Right: Asymmetric Photo Mosaic */}
+                <motion.div
+                  initial={{ opacity: 0, x: 50 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ duration: 1, delay: 0.5, ease: [0.22, 1, 0.36, 1] }}
+                  className="relative"
+                  style={{ y: parallaxY }}
+                >
+                  <div className="grid grid-cols-3 grid-rows-3 gap-3 h-[500px] lg:h-[600px]">
+                    {/* Large top-left */}
+                    <div className="col-span-2 row-span-2 rounded-2xl overflow-hidden group">
+                      <img
+                        src={mosaicImages[0].src}
+                        alt={mosaicImages[0].alt}
+                        className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                      />
+                    </div>
+                    {/* Top-right */}
+                    <div className="rounded-2xl overflow-hidden group">
+                      <img
+                        src={mosaicImages[1].src}
+                        alt={mosaicImages[1].alt}
+                        className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                      />
+                    </div>
+                    {/* Mid-right */}
+                    <div className="rounded-2xl overflow-hidden group">
+                      <img
+                        src={mosaicImages[2].src}
+                        alt={mosaicImages[2].alt}
+                        className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                      />
+                    </div>
+                    {/* Bottom row */}
+                    <div className="rounded-2xl overflow-hidden group">
+                      <img
+                        src={mosaicImages[3].src}
+                        alt={mosaicImages[3].alt}
+                        className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                      />
+                    </div>
+                    <div className="rounded-2xl overflow-hidden group">
+                      <img
+                        src={mosaicImages[4].src}
+                        alt={mosaicImages[4].alt}
+                        className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                      />
+                    </div>
+                    <div className="rounded-2xl overflow-hidden group">
+                      <img
+                        src={mosaicImages[5].src}
+                        alt={mosaicImages[5].alt}
+                        className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                      />
+                    </div>
+                  </div>
+                </motion.div>
+              </div>
+            </div>
+          </section>
+
+          {/* ─── SCROLL PILLARS: Full-Width Cards ─── */}
+          <section className="relative">
+            {pillars.map((pillar, i) => {
+              const Icon = pillar.icon;
+              return (
+                <motion.div
+                  key={pillar.title}
+                  initial={{ opacity: 0 }}
+                  whileInView={{ opacity: 1 }}
+                  viewport={{ once: true, margin: '-100px' }}
+                  transition={{ duration: 0.8 }}
+                  className="relative w-full min-h-[70vh] flex items-center overflow-hidden"
+                >
+                  {/* Background Image */}
+                  <div className="absolute inset-0">
+                    <img
+                      src={pillar.image}
+                      alt=""
+                      className="w-full h-full object-cover"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-r from-black/85 via-black/70 to-black/40" />
+                  </div>
+
+                  {/* Content */}
+                  <div className="relative z-10 container mx-auto max-w-7xl px-6 lg:px-12 py-20">
+                    <motion.div
+                      initial={{ opacity: 0, x: -40 }}
+                      whileInView={{ opacity: 1, x: 0 }}
+                      viewport={{ once: true }}
+                      transition={{ duration: 0.8, delay: 0.2 }}
+                      className="max-w-xl"
+                    >
+                      <div className="flex items-center gap-4 mb-6">
+                        <div className="w-14 h-14 rounded-xl bg-primary/20 border border-primary/30 flex items-center justify-center">
+                          <Icon className="w-7 h-7 text-primary" />
+                        </div>
+                        <span className="text-white/40 text-sm font-medium tracking-widest uppercase">
+                          0{i + 1} / 04
+                        </span>
+                      </div>
+                      <h3
+                        className="text-3xl md:text-4xl lg:text-5xl text-white font-bold mb-6"
+                        style={{ fontFamily: 'var(--font-display)' }}
+                      >
+                        {pillar.title}
+                      </h3>
+                      <p className="text-white/70 text-lg md:text-xl leading-relaxed max-w-lg">
+                        {pillar.description}
+                      </p>
+                      {/* Accent line */}
+                      <div className="mt-8 w-16 h-1 rounded-full bg-primary" />
+                    </motion.div>
+                  </div>
+                </motion.div>
+              );
+            })}
+          </section>
+
+          {/* ─── TESTIMONIALS CAROUSEL ─── */}
+          <section
+            className="py-24 lg:py-32 px-6 lg:px-12"
+            style={{ background: 'linear-gradient(135deg, hsl(220 15% 8%), hsl(220 15% 12%))' }}
+          >
+            <div className="container mx-auto max-w-4xl">
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                className="text-center mb-16"
+              >
+                <p className="uppercase tracking-[0.2em] text-sm font-semibold text-primary mb-4">
+                  From Our Travel Family
+                </p>
+                <h2
+                  className="text-heading-lg lg:text-heading-xl text-white font-bold"
+                  style={{ fontFamily: 'var(--font-display)' }}
+                >
+                  What Travelers Say
+                </h2>
+              </motion.div>
+
+              {/* Carousel */}
+              <div className="relative">
+                <AnimatePresence mode="wait">
+                  <motion.div
+                    key={testimonialIndex}
+                    initial={{ opacity: 0, x: 40 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    exit={{ opacity: 0, x: -40 }}
+                    transition={{ duration: 0.5 }}
+                    className="text-center"
+                  >
+                    <Quote className="w-12 h-12 mx-auto mb-8 text-primary/40" />
+                    <blockquote
+                      className="text-xl md:text-2xl lg:text-3xl text-white/90 font-light leading-relaxed mb-10 max-w-3xl mx-auto italic"
+                      style={{ fontFamily: 'var(--font-display)' }}
+                    >
+                      "{testimonials[testimonialIndex].quote}"
+                    </blockquote>
+                    <div className="flex items-center justify-center gap-4">
+                      <img
+                        src={testimonials[testimonialIndex].photo}
+                        alt={testimonials[testimonialIndex].name}
+                        className="w-14 h-14 rounded-full object-cover border-2 border-primary/40"
+                      />
+                      <div className="text-left">
+                        <p className="text-white font-semibold">{testimonials[testimonialIndex].name}</p>
+                        <p className="text-white/40 text-sm">{testimonials[testimonialIndex].trip}</p>
+                      </div>
+                    </div>
+                  </motion.div>
+                </AnimatePresence>
+
+                {/* Navigation arrows */}
+                <div className="flex justify-center gap-4 mt-10">
+                  <button
+                    onClick={prevTestimonial}
+                    className="w-12 h-12 rounded-full border border-white/20 flex items-center justify-center text-white/50 hover:text-white hover:border-white/40 transition-colors"
+                    aria-label="Previous testimonial"
+                  >
+                    <ChevronLeft className="w-5 h-5" />
+                  </button>
+                  {/* Dots */}
+                  <div className="flex items-center gap-2">
+                    {testimonials.map((_, i) => (
+                      <button
+                        key={i}
+                        onClick={() => setTestimonialIndex(i)}
+                        className={`w-2 h-2 rounded-full transition-all duration-300 ${
+                          i === testimonialIndex ? 'bg-primary w-6' : 'bg-white/20'
+                        }`}
+                        aria-label={`Go to testimonial ${i + 1}`}
+                      />
+                    ))}
+                  </div>
+                  <button
+                    onClick={nextTestimonial}
+                    className="w-12 h-12 rounded-full border border-white/20 flex items-center justify-center text-white/50 hover:text-white hover:border-white/40 transition-colors"
+                    aria-label="Next testimonial"
+                  >
+                    <ChevronRight className="w-5 h-5" />
+                  </button>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          {/* ─── CTA: Join the Family ─── */}
+          <section
+            className="relative py-28 lg:py-36 px-6 lg:px-12 overflow-hidden"
+            style={{ background: 'linear-gradient(135deg, hsl(1 76% 50%), hsl(1 76% 40%))' }}
+          >
+            {/* Subtle texture overlay */}
+            <div className="absolute inset-0 opacity-[0.04]" style={{ backgroundImage: 'url("data:image/svg+xml,%3Csvg width=\'60\' height=\'60\' viewBox=\'0 0 60 60\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cg fill=\'none\' fill-rule=\'evenodd\'%3E%3Cg fill=\'%23ffffff\' fill-opacity=\'1\'%3E%3Cpath d=\'M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z\'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")' }} />
+
+            <div className="relative z-10 container mx-auto text-center max-w-3xl">
+              <motion.div
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.8 }}
+              >
+                <MapPin className="w-10 h-10 mx-auto mb-6 text-white/80" />
+                <h2
+                  className="text-heading-lg lg:text-hero text-white font-bold mb-6"
+                  style={{ fontFamily: 'var(--font-display)' }}
+                >
+                  Ready to Be Part of
+                  <br />
+                  Something Special?
+                </h2>
+                <p className="text-white/80 text-lg md:text-xl mb-12 max-w-xl mx-auto">
+                  Join the iTravel with Miki family and discover why thousands of travelers keep coming back trip after trip.
+                </p>
+                <div className="flex flex-col sm:flex-row gap-4 justify-center">
+                  <Button
+                    className="btn-senior text-lg px-10 rounded-full bg-white text-foreground hover:bg-white/90 font-semibold"
+                    asChild
+                  >
+                    <a href="/trips">
+                      Join the Family
+                      <ArrowRight className="w-5 h-5 ml-2" />
+                    </a>
+                  </Button>
+                  <Button
+                    variant="outline"
+                    className="btn-senior text-lg px-10 rounded-full border-white/30 text-white hover:bg-white/10 bg-transparent"
+                    asChild
+                  >
+                    <a href="/support">Talk to Miki</a>
+                  </Button>
                 </div>
               </motion.div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* ════════════ CTA ════════════ */}
-      <section className="py-24 lg:py-32 px-6 lg:px-12 bg-secondary">
-        <div className="container mx-auto text-center max-w-3xl">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-          >
-            <MapPin className="w-10 h-10 mx-auto mb-6 text-primary" />
-            <h2
-              className="text-heading-lg lg:text-heading-xl text-foreground font-bold mb-6"
-              style={{ fontFamily: 'var(--font-display)' }}
-            >
-              Ready to Experience It
-              <br />
-              <span className="text-primary">For Yourself?</span>
-            </h2>
-            <p className="text-muted-foreground text-lg mb-10 max-w-xl mx-auto">
-              Join the iTravel with Miki family and discover why thousands of travelers keep coming back.
-            </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Button
-                className="btn-senior text-lg px-10 rounded-xl bg-primary hover:bg-primary/90"
-                asChild
-              >
-                <a href="/trips">Browse Trips</a>
-              </Button>
-              <Button
-                variant="outline"
-                className="btn-senior text-lg px-10 rounded-xl"
-                asChild
-              >
-                <a href="/support">Contact Us</a>
-              </Button>
             </div>
-          </motion.div>
-        </div>
-      </section>
+          </section>
 
-      <Footer />
+          <Footer />
+        </>
+      )}
     </main>
   );
 };
