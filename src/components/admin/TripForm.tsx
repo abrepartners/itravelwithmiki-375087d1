@@ -12,6 +12,7 @@ import {
   SelectValue,
 } from '@/components/ui/select';
 import type { Trip } from '@/types/trip';
+import { isSafeUrl } from '@/lib/url-validation';
 
 interface TripFormProps {
   trip?: Trip | null;
@@ -57,8 +58,22 @@ const TripForm = ({ trip, onSave, onCancel }: TripFormProps) => {
     }
   }, [trip]);
 
+  const [urlError, setUrlError] = useState('');
+
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+    setUrlError('');
+
+    // Validate all URL fields
+    const urlsToCheck = [
+      { value: formData.bookingUrl || '', label: 'Booking URL' },
+      ...formData.images.filter(img => img.trim() !== '').map((img, i) => ({ value: img, label: `Image ${i + 1} URL` })),
+    ];
+    const unsafeUrl = urlsToCheck.find(u => u.value.trim() !== '' && !isSafeUrl(u.value));
+    if (unsafeUrl) {
+      setUrlError(`${unsafeUrl.label} must start with http:// or https://`);
+      return;
+    }
     
     // Generate ID if new trip
     const id = formData.id || formData.name
@@ -271,6 +286,11 @@ const TripForm = ({ trip, onSave, onCancel }: TripFormProps) => {
           />
         ))}
       </div>
+
+      {/* URL Validation Error */}
+      {urlError && (
+        <p className="text-sm text-destructive">{urlError}</p>
+      )}
 
       {/* Buttons */}
       <div className="flex justify-end gap-4 pt-4 border-t border-border">
