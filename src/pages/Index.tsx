@@ -2,6 +2,7 @@ import Navbar from '@/components/Navbar';
 import HeroSection from '@/components/HeroSection';
 import TripTypeSelector from '@/components/TripTypeSelector';
 import FeaturedTrips from '@/components/FeaturedTrips';
+import SignatureExperience from '@/components/SignatureExperience';
 import HowItWorks from '@/components/HowItWorks';
 import AboutMiki from '@/components/AboutMiki';
 import FAQSection from '@/components/FAQSection';
@@ -16,6 +17,7 @@ const Index = () => {
       <HeroSection />
       <TripTypeSelector />
       <FeaturedTrips />
+      <SignatureExperience />
       <HowItWorks />
       <AboutMiki />
       <FAQSection compact={true} showHeader={true} />
