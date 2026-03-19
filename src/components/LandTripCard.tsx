@@ -1,9 +1,7 @@
 import { useState } from 'react';
 import { motion } from 'framer-motion';
-import { ChevronLeft, ChevronRight, Calendar } from 'lucide-react';
-import { Card, CardContent } from '@/components/ui/card';
+import { ChevronLeft, ChevronRight, Calendar, ArrowRight, Clock } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-import { Badge } from '@/components/ui/badge';
 import { LandTrip } from '@/types/land-trip';
 
 interface LandTripCardProps {
@@ -32,28 +30,37 @@ const LandTripCard = ({ trip, index }: LandTripCardProps) => {
       initial={{ opacity: 0, y: 30 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
-      transition={{ duration: 0.6, delay: index * 0.1 }}
+      transition={{ duration: 0.6, delay: index * 0.08 }}
+      className="flex flex-col h-full"
     >
-      <Card className="group overflow-hidden border-0 shadow-lg hover:shadow-xl transition-all duration-500 bg-card">
+      <div className="group flex flex-col h-full rounded-3xl overflow-hidden border border-border bg-card shadow-soft hover:shadow-elevated transition-all duration-500 hover:-translate-y-1.5">
         {/* Image Carousel */}
-        <div className="relative aspect-[4/3] overflow-hidden">
+        <div className="relative aspect-[4/3] overflow-hidden flex-shrink-0">
           <img
             src={trip.images[currentImageIndex]}
             alt={trip.title}
             className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
           />
-          
+
+          {/* Gradient overlay */}
+          <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent" />
+
           {/* Status Badge */}
           <div className="absolute top-4 left-4">
-            <Badge
-              className={`text-sm font-semibold px-3 py-1.5 ${
+            <span
+              className={`inline-flex items-center gap-1.5 text-xs font-semibold px-3 py-1.5 rounded-full backdrop-blur-sm border ${
                 isActive
-                  ? 'bg-green-100 text-green-800 border-green-200'
-                  : 'bg-amber-100 text-amber-800 border-amber-200'
+                  ? 'bg-emerald-500/15 text-emerald-700 border-emerald-200'
+                  : 'bg-amber-500/15 text-amber-700 border-amber-200'
               }`}
             >
+              {isActive ? (
+                <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
+              ) : (
+                <Clock className="w-3 h-3" />
+              )}
               {trip.status}
-            </Badge>
+            </span>
           </div>
 
           {/* Image Navigation */}
@@ -61,21 +68,21 @@ const LandTripCard = ({ trip, index }: LandTripCardProps) => {
             <>
               <button
                 onClick={prevImage}
-                className="absolute left-3 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-background/90 backdrop-blur-sm flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 hover:bg-background"
+                className="absolute left-3 top-1/2 -translate-y-1/2 w-9 h-9 rounded-full bg-black/30 backdrop-blur-sm flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 hover:bg-black/50 border border-white/20"
                 aria-label="Previous image"
               >
-                <ChevronLeft className="w-5 h-5 text-foreground" />
+                <ChevronLeft className="w-4 h-4 text-white" />
               </button>
               <button
                 onClick={nextImage}
-                className="absolute right-3 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-background/90 backdrop-blur-sm flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 hover:bg-background"
+                className="absolute right-3 top-1/2 -translate-y-1/2 w-9 h-9 rounded-full bg-black/30 backdrop-blur-sm flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 hover:bg-black/50 border border-white/20"
                 aria-label="Next image"
               >
-                <ChevronRight className="w-5 h-5 text-foreground" />
+                <ChevronRight className="w-4 h-4 text-white" />
               </button>
-              
+
               {/* Image Dots */}
-              <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-2">
+              <div className="absolute bottom-3 left-1/2 -translate-x-1/2 flex gap-1.5">
                 {trip.images.map((_, idx) => (
                   <button
                     key={idx}
@@ -83,10 +90,10 @@ const LandTripCard = ({ trip, index }: LandTripCardProps) => {
                       e.stopPropagation();
                       setCurrentImageIndex(idx);
                     }}
-                    className={`w-2 h-2 rounded-full transition-all duration-300 ${
+                    className={`rounded-full transition-all duration-300 ${
                       idx === currentImageIndex
-                        ? 'bg-white w-6'
-                        : 'bg-white/60 hover:bg-white/80'
+                        ? 'bg-white w-5 h-1.5'
+                        : 'bg-white/50 w-1.5 h-1.5 hover:bg-white/75'
                     }`}
                     aria-label={`Go to image ${idx + 1}`}
                   />
@@ -97,42 +104,44 @@ const LandTripCard = ({ trip, index }: LandTripCardProps) => {
         </div>
 
         {/* Card Content */}
-        <CardContent className="p-6 space-y-4">
-          {/* Title */}
-          <h3 className="font-playfair text-xl md:text-2xl font-bold text-foreground leading-tight">
+        <div className="flex flex-col flex-grow p-6">
+          {/* Date */}
+          <div className="flex items-center gap-2 text-muted-foreground text-xs mb-3">
+            <Calendar className="w-3.5 h-3.5 flex-shrink-0" />
+            <span>{trip.date_display}</span>
+          </div>
+
+          {/* Title — line-clamp-2 for uniform height */}
+          <h3
+            className="text-lg font-semibold text-foreground leading-snug mb-3 line-clamp-2"
+            style={{ fontFamily: 'var(--font-display)' }}
+          >
             {trip.title}
           </h3>
 
-          {/* Dates */}
-          <div className="flex items-center gap-2 text-muted-foreground">
-            <Calendar className="w-4 h-4" />
-            <span className="text-base">{trip.date_display}</span>
-          </div>
-
-          {/* Description */}
-          <p className="text-muted-foreground text-base leading-relaxed line-clamp-3">
+          {/* Description — line-clamp-3 */}
+          <p className="text-muted-foreground text-sm leading-relaxed line-clamp-3 flex-grow mb-5">
             {trip.sub_description}
           </p>
 
-          {/* Buttons */}
-          <div className="flex flex-wrap gap-3 pt-2">
-            {/* Learn More - Always visible */}
+          {/* Buttons — always at bottom */}
+          <div className="flex flex-wrap gap-2.5 mt-auto">
             <Button
               variant="outline"
-              size="lg"
-              className="flex-1 min-w-[140px] rounded-full"
+              size="sm"
+              className="flex-1 min-w-[130px] rounded-full text-sm border-border hover:border-primary hover:text-primary transition-colors duration-200"
               asChild
             >
-              <a href={`/land-trips/${trip.id}`}>
-                Explore Trip Details
+              <a href={`/land-trips/${trip.id}`} className="flex items-center justify-center gap-1.5">
+                Trip Details
+                <ArrowRight className="w-3.5 h-3.5" />
               </a>
             </Button>
 
-            {/* Book Now - Only if Active AND booking_link exists */}
             {showBookNow && (
               <Button
-                size="lg"
-                className="flex-1 min-w-[140px] rounded-full bg-primary text-primary-foreground hover:bg-primary/90"
+                size="sm"
+                className="flex-1 min-w-[130px] rounded-full text-sm bg-primary text-primary-foreground hover:bg-primary/90"
                 asChild
               >
                 <a
@@ -145,8 +154,8 @@ const LandTripCard = ({ trip, index }: LandTripCardProps) => {
               </Button>
             )}
           </div>
-        </CardContent>
-      </Card>
+        </div>
+      </div>
     </motion.div>
   );
 };
