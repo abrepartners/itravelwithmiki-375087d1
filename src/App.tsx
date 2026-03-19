@@ -9,6 +9,7 @@ import Support from "./pages/Support";
 import Trips from "./pages/Trips";
 import TripTypeDetail from "./pages/TripTypeDetail";
 import LandTrips from "./pages/LandTrips";
+import LandTripDetail from "./pages/LandTripDetail";
 import Admin from "./pages/Admin";
 import AdminLogin from "./pages/AdminLogin";
 import FAQ from "./pages/FAQ";
@@ -30,6 +31,7 @@ const App = () => (
             <Route path="/trips" element={<Trips />} />
             <Route path="/trips/:type" element={<TripTypeDetail />} />
             <Route path="/land-trips" element={<LandTrips />} />
+            <Route path="/land-trips/:tripId" element={<LandTripDetail />} />
             <Route path="/admin" element={<Admin />} />
             <Route path="/faq" element={<FAQ />} />
             <Route path="/experience" element={<Experience />} />

@@ -9,7 +9,6 @@ export const landTrips: LandTrip[] = [
     date_display: 'October 10 to 25, 2026',
     sub_description: 'Experience the charm of Italy, Switzerland, Austria, and Germany on a journey through the heart of the Alps. Highlights include the Borromean Islands, Zermatt and the Matterhorn, a Swiss farm visit, a Liechtenstein winery, Innsbruck, and a home-hosted Italian dinner.',
     status: 'Active',
-    learn_more_link: 'https://www.itravelwithmiki.com/copy-of-italy-2026-1',
     booking_link: null,
     images: [
       'https://images.unsplash.com/photo-1531366936337-7c912a4589a7?w=800&auto=format&fit=crop',
@@ -24,7 +23,6 @@ export const landTrips: LandTrip[] = [
     date_display: 'March 27 to April 10, 2027',
     sub_description: 'Experience the heart of Ireland in Depth as you journey through Dublin, Kilkenny, Cork, Killarney, and Galway, blending iconic sights like the Cliffs of Moher and Ring of Kerry with rich culture, history, and warm local connections. This immersive adventure features guided tours, scenic countryside, home-hosted experiences, and unforgettable moments shared with a wonderful group of travelers.',
     status: 'Active',
-    learn_more_link: 'https://www.itravelwithmiki.com/copy-of-australia-new-zealand-2027',
     booking_link: null,
     images: [
       'https://images.unsplash.com/photo-1590089415225-401ed6f9db8e?w=800&auto=format&fit=crop',
@@ -39,7 +37,6 @@ export const landTrips: LandTrip[] = [
     date_display: 'August 26, 2027 to September 13, 2027',
     sub_description: 'An unforgettable journey through Australia and New Zealand featuring iconic cities, natural wonders, and immersive cultural experiences, from the Great Barrier Reef and Sydney to Milford Sound and Auckland.',
     status: 'Active',
-    learn_more_link: 'https://www.itravelwithmiki.com/copy-of-dominican-republic-2026',
     booking_link: null,
     images: [
       'https://images.unsplash.com/photo-1523482580672-f109ba8cb9be?w=800&auto=format&fit=crop',
@@ -54,7 +51,6 @@ export const landTrips: LandTrip[] = [
     date_display: 'May 6 to 16, 2026',
     sub_description: 'Sold out, waitlist only.',
     status: 'Sold out, waitlist only',
-    learn_more_link: 'https://www.itravelwithmiki.com/copy-of-spain-portugal-2026',
     booking_link: null,
     images: [
       'https://images.unsplash.com/photo-1523906834658-6e24ef2386f9?w=800&auto=format&fit=crop',
@@ -69,7 +65,6 @@ export const landTrips: LandTrip[] = [
     date_display: 'February 20 to March 6, 2026',
     sub_description: 'Discover the heart and soul of the Iberian Peninsula on this immersive 15-day adventure. From high tea in Gibraltar to the charm of Lisbon and the grandeur of Seville, this journey is rich in culture, coastal beauty, and unforgettable experiences.',
     status: 'Sold out, waitlist only',
-    learn_more_link: 'https://www.itravelwithmiki.com/spain-and-portugal',
     booking_link: 'https://traveljoy.com/bookings/NBjnABZJC7pH1jTWCYjW9B3X',
     images: [
       'https://images.unsplash.com/photo-1509840841025-9088ba78a826?w=800&auto=format&fit=crop',
@@ -77,3 +72,5 @@ export const landTrips: LandTrip[] = [
     ],
   },
 ];
+
+export const getLandTripById = (id: string) => landTrips.find((trip) => trip.id === id);

@@ -123,8 +123,8 @@ const LandTripCard = ({ trip, index }: LandTripCardProps) => {
               className="flex-1 min-w-[140px] rounded-full"
               asChild
             >
-              <a href={trip.learn_more_link}>
-                Learn More
+              <a href={`/land-trips/${trip.id}`}>
+                Explore Trip Details
               </a>
             </Button>
 
