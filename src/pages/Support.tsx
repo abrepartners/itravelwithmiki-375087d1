@@ -235,12 +235,22 @@ const Support = () => {
                 <p className="text-primary font-medium text-sm mb-3">{provider.subtitle}</p>
                 <p className="text-muted-foreground text-sm mb-6">{provider.description}</p>
                 {provider.pdfUrl && provider.pdfUrl !== '#' ? (
-                  <Button asChild className="gap-2">
-                    <a href={provider.pdfUrl} target="_blank" rel="noopener noreferrer">
-                      <Download className="w-4 h-4" />
-                      Download PDF
-                    </a>
-                  </Button>
+                  <div className="flex flex-col gap-2">
+                    {provider.websiteUrl && (
+                      <Button asChild className="gap-2">
+                        <a href={provider.websiteUrl} target="_blank" rel="noopener noreferrer">
+                          <Shield className="w-4 h-4" />
+                          Signup Online
+                        </a>
+                      </Button>
+                    )}
+                    <Button asChild variant={provider.websiteUrl ? "outline" : "default"} className="gap-2">
+                      <a href={provider.pdfUrl} target="_blank" rel="noopener noreferrer">
+                        <Download className="w-4 h-4" />
+                        {provider.id === 'allianz' ? 'Purchase Insurance' : 'Download Flyer'}
+                      </a>
+                    </Button>
+                  </div>
                 ) : (
                   <p className="text-muted-foreground text-sm italic">PDF coming soon</p>
                 )}
