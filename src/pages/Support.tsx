@@ -74,7 +74,7 @@ const Support = () => {
         <div className="container mx-auto max-w-4xl">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             <motion.a
-              href="tel:+15016912152"
+              href="tel:+15015015079"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5 }}
@@ -84,7 +84,7 @@ const Support = () => {
                 <Phone className="w-7 h-7 text-primary" />
               </div>
               <h3 className="font-semibold text-foreground mb-1">Call Us</h3>
-              <span className="text-primary text-xl font-bold">(501) 691-2152</span>
+              <span className="text-primary text-xl font-bold">(501) 501-5079</span>
               <p className="text-muted-foreground text-sm mt-2">Mon-Fri 9am-5pm CST</p>
             </motion.a>
 
@@ -325,7 +325,7 @@ const Support = () => {
               We're just a phone call or email away. Don't hesitate to reach out!
             </p>
             <Button className="btn-senior bg-primary hover:bg-primary/90" asChild>
-              <a href="tel:+15016912152">Call Now — We'd Love to Chat!</a>
+              <a href="tel:+15015015079">Call Now — We'd Love to Chat!</a>
             </Button>
           </motion.div>
         </div>
