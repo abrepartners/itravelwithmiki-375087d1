@@ -9,9 +9,9 @@ export const allTrips: Trip[] = [
     name: "Romantic Villages of Alpine Europe",
     destination: "Switzerland & Austria",
     images: [
-      "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=600&q=75&fm=webp",
-      "https://images.unsplash.com/photo-1531366936337-7c912a4589a7?w=600&q=75&fm=webp",
-      "https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1?w=600&q=75&fm=webp",
+      "https://images.unsplash.com/photo-1527668752968-14dc70a27c95?w=800&q=80",
+      "https://images.unsplash.com/photo-1516483638261-f4dbaf036963?w=800&q=80",
+      "https://images.unsplash.com/photo-1491555103944-7c647fd857e6?w=800&q=80",
     ],
     price: 6095,
     departureDate: "Oct 10-25, 2026",
