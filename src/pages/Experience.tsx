@@ -438,7 +438,7 @@ const Experience = () => {
           >
             <div className="container mx-auto max-w-4xl">
               <motion.div
-                initial={{ opacity: 0, y: 20 }}
+                initial={{ opacity: 0.4, y: 15 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 className="text-center mb-16"
