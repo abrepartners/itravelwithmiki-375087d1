@@ -217,7 +217,7 @@ const Support = () => {
               <motion.div
                 key={provider.id}
                 id={`insurance-${provider.id}`}
-                initial={{ opacity: 0, y: 20 }}
+                initial={{ opacity: 0.4, y: 15 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.6, delay: index * 0.1 }}
