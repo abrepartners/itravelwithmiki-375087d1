@@ -91,7 +91,7 @@ const HowItWorks = () => {
                 key={index}
                 data-index={index}
                 className={`relative text-center group transition-all duration-700 ease-out ${
-                  visibleItems.has(index) ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-12'
+                  visibleItems.has(index) ? 'opacity-100 translate-y-0' : 'opacity-40 translate-y-4'
                 }`}
                 style={{ transitionDelay: `${index * 150}ms` }}
               >
