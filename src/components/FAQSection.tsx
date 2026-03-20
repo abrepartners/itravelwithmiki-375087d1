@@ -153,7 +153,7 @@ const FAQSection = ({ compact = false, showHeader = true }: FAQSectionProps) => 
         {compact && (
           <div
             className={`text-center mt-10 transition-all duration-700 ease-out ${
-              visible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'
+              visible ? 'opacity-100 translate-y-0' : 'opacity-40 translate-y-3'
             }`}
             style={{ transitionDelay: '300ms' }}
           >

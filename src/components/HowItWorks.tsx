@@ -134,7 +134,7 @@ const HowItWorks = () => {
         <div
           data-index={10}
           className={`text-center transition-all duration-700 ease-out ${
-            visibleItems.has(10) ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
+            visibleItems.has(10) ? 'opacity-100 translate-y-0' : 'opacity-40 translate-y-4'
           }`}
         >
           <div className="inline-flex items-center gap-2 mb-6 px-5 py-2 rounded-full text-sm bg-primary/10 border border-primary/20 text-primary-foreground/80">
