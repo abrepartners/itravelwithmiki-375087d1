@@ -75,7 +75,7 @@ const mosaicImages = [
 const Experience = () => {
   const [phase, setPhase] = useState<'teaser' | 'video' | 'revealed'>('teaser');
   const [testimonialIndex, setTestimonialIndex] = useState(0);
-  const videoRef = useRef<HTMLVideoElement>(null);
+  const videoRef = useRef<HTMLDivElement>(null);
   const revealRef = useRef<HTMLDivElement>(null);
 
   // Parallax for reveal section
