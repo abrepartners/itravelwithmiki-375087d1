@@ -88,9 +88,9 @@ export const allTrips: Trip[] = [
     name: "Spain & Portugal in Depth",
     destination: "Spain & Portugal",
     images: [
-      "https://images.unsplash.com/photo-1539037116277-4db20889f2d4?w=600&q=75&fm=webp",
-      "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=600&q=75&fm=webp",
-      "https://images.unsplash.com/photo-1585208798174-6cedd86e019a?w=600&q=75&fm=webp",
+      "https://images.unsplash.com/photo-1509840841025-9088ba78a826?w=800&q=80",
+      "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=800&q=80",
+      "https://images.unsplash.com/photo-1585208798174-6cedd86e019a?w=800&q=80",
     ],
     price: 4575,
     departureDate: "Feb 20 - Mar 6, 2026",
