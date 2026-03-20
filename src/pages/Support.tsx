@@ -260,7 +260,8 @@ const Support = () => {
         </div>
       </section>
 
-      {/* Downloadable Resources */}
+      {/* Downloadable Resources — only render if resources exist */}
+      {downloadableResources.length > 0 && (
       <section className="py-16 lg:py-24 px-6 lg:px-12">
         <div className="container mx-auto max-w-4xl">
           <motion.div
@@ -286,7 +287,7 @@ const Support = () => {
               <motion.a
                 key={resource.title}
                 href={resource.href}
-              initial={{ opacity: 0.4, y: 15 }}
+                initial={{ opacity: 0.4, y: 15 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.6, delay: index * 0.1 }}
@@ -305,6 +306,7 @@ const Support = () => {
           </div>
         </div>
       </section>
+      )}
 
       {/* Final CTA */}
       <section className="py-16 lg:py-24 px-6 lg:px-12 bg-secondary">
