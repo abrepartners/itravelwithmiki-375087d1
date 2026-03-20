@@ -399,7 +399,7 @@ const Experience = () => {
                   {/* Content */}
                   <div className="relative z-10 container mx-auto max-w-7xl px-6 lg:px-12 py-20">
                     <motion.div
-                      initial={{ opacity: 0, x: -40 }}
+                      initial={{ opacity: 0.4, x: -20 }}
                       whileInView={{ opacity: 1, x: 0 }}
                       viewport={{ once: true }}
                       transition={{ duration: 0.8, delay: 0.2 }}
