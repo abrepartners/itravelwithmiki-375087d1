@@ -152,9 +152,9 @@ export const allTrips: Trip[] = [
     name: "Holland & Belgium in the Springtime",
     destination: "Netherlands & Belgium",
     images: [
-      "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=600&q=75&fm=webp",
-      "https://images.unsplash.com/photo-1583037189850-1921ae7c6c22?w=600&q=75&fm=webp",
-      "https://images.unsplash.com/photo-1585208798174-6cedd86e019a?w=600&q=75&fm=webp",
+      "https://images.unsplash.com/photo-1583037189850-1921ae7c6c22?w=800&q=80",
+      "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=800&q=80",
+      "https://images.unsplash.com/photo-1585208798174-6cedd86e019a?w=800&q=80",
     ],
     price: 4325,
     departureDate: "Mar 28 - Apr 8, 2026",
