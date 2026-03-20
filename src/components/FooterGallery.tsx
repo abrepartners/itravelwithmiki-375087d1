@@ -26,7 +26,7 @@ const FooterGallery = () => {
             <img
               src={image.url}
               alt={image.caption || 'Travel memory'}
-              className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-500"
+              className="w-full h-full object-cover transition-all duration-500"
               loading="lazy"
               onError={(e) => {
                 (e.target as HTMLImageElement).style.display = 'none';

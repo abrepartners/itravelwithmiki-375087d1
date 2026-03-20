@@ -215,8 +215,8 @@ export const allTrips: Trip[] = [
     destination: "New Orleans, LA",
     images: [
       "https://images.unsplash.com/photo-1568402102990-bc541580b59f?w=600&q=75&fm=webp",
-      "https://images.unsplash.com/photo-1541971297127-c4e7f6e4c7fd?w=600&q=75&fm=webp",
-      "https://images.unsplash.com/photo-1550355191-aa8a80b41353?w=600&q=75&fm=webp",
+      "https://images.unsplash.com/photo-1571893544028-06b07af6dade?w=600&q=75&fm=webp",
+      "https://images.unsplash.com/photo-1569514223825-e7b50b8bf575?w=600&q=75&fm=webp",
     ],
     price: 825,
     departureDate: "Apr 20-24, 2026",
