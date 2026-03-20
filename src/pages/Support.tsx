@@ -75,7 +75,7 @@ const Support = () => {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             <motion.a
               href="tel:+15015015079"
-              initial={{ opacity: 0, y: 20 }}
+              initial={{ opacity: 0.4, y: 15 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5 }}
               className="bg-card rounded-2xl p-6 text-center shadow-elevated hover-lift border border-border"
@@ -90,7 +90,7 @@ const Support = () => {
 
             <motion.a
               href="mailto:info@itravelwithmiki.com"
-              initial={{ opacity: 0, y: 20 }}
+              initial={{ opacity: 0.4, y: 15 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: 0.1 }}
               className="bg-card rounded-2xl p-6 text-center shadow-elevated hover-lift border border-border"
@@ -104,7 +104,7 @@ const Support = () => {
             </motion.a>
 
             <motion.div
-              initial={{ opacity: 0, y: 20 }}
+              initial={{ opacity: 0.4, y: 15 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: 0.2 }}
               className="bg-card rounded-2xl p-6 text-center shadow-elevated hover-lift border border-border"
@@ -125,7 +125,7 @@ const Support = () => {
       <section className="py-16 lg:py-24 px-6 lg:px-12">
         <div className="container mx-auto max-w-4xl">
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0.4, y: 15 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
@@ -148,7 +148,7 @@ const Support = () => {
               return (
                 <motion.div
                   key={category.title}
-                  initial={{ opacity: 0, y: 20 }}
+                  initial={{ opacity: 0.4, y: 15 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
                   transition={{ duration: 0.6, delay: categoryIndex * 0.1 }}
@@ -195,7 +195,7 @@ const Support = () => {
       <section className="py-16 lg:py-24 px-6 lg:px-12 bg-secondary" id="insurance">
         <div className="container mx-auto max-w-4xl">
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0.4, y: 15 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
@@ -217,7 +217,7 @@ const Support = () => {
               <motion.div
                 key={provider.id}
                 id={`insurance-${provider.id}`}
-                initial={{ opacity: 0, y: 20 }}
+                initial={{ opacity: 0.4, y: 15 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.6, delay: index * 0.1 }}
@@ -264,7 +264,7 @@ const Support = () => {
       <section className="py-16 lg:py-24 px-6 lg:px-12">
         <div className="container mx-auto max-w-4xl">
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0.4, y: 15 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
@@ -286,7 +286,7 @@ const Support = () => {
               <motion.a
                 key={resource.title}
                 href={resource.href}
-                initial={{ opacity: 0, y: 20 }}
+              initial={{ opacity: 0.4, y: 15 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.6, delay: index * 0.1 }}
@@ -310,7 +310,7 @@ const Support = () => {
       <section className="py-16 lg:py-24 px-6 lg:px-12 bg-secondary">
         <div className="container mx-auto text-center max-w-3xl">
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0.4, y: 15 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}

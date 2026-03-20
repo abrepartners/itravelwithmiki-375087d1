@@ -399,7 +399,7 @@ const Experience = () => {
                   {/* Content */}
                   <div className="relative z-10 container mx-auto max-w-7xl px-6 lg:px-12 py-20">
                     <motion.div
-                      initial={{ opacity: 0, x: -40 }}
+                      initial={{ opacity: 0.4, x: -20 }}
                       whileInView={{ opacity: 1, x: 0 }}
                       viewport={{ once: true }}
                       transition={{ duration: 0.8, delay: 0.2 }}
@@ -438,7 +438,7 @@ const Experience = () => {
           >
             <div className="container mx-auto max-w-4xl">
               <motion.div
-                initial={{ opacity: 0, y: 20 }}
+                initial={{ opacity: 0.4, y: 15 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 className="text-center mb-16"
@@ -530,7 +530,7 @@ const Experience = () => {
 
             <div className="relative z-10 container mx-auto text-center max-w-3xl">
               <motion.div
-                initial={{ opacity: 0, y: 30 }}
+                initial={{ opacity: 0.4, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.8 }}

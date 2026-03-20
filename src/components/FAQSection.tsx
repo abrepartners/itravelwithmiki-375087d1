@@ -66,7 +66,7 @@ const FAQSection = ({ compact = false, showHeader = true }: FAQSectionProps) => 
         {showHeader && (
           <div
             className={`text-center mb-14 transition-all duration-700 ease-out ${
-              visible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
+              visible ? 'opacity-100 translate-y-0' : 'opacity-40 translate-y-4'
             }`}
           >
             <p className="uppercase tracking-[0.2em] text-sm font-medium text-primary mb-4">
@@ -89,7 +89,7 @@ const FAQSection = ({ compact = false, showHeader = true }: FAQSectionProps) => 
             <div
               key={category.title}
               className={`transition-all duration-600 ease-out ${
-                visible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'
+                visible ? 'opacity-100 translate-y-0' : 'opacity-40 translate-y-3'
               }`}
               style={{ transitionDelay: `${catIndex * 100}ms` }}
             >
@@ -153,7 +153,7 @@ const FAQSection = ({ compact = false, showHeader = true }: FAQSectionProps) => 
         {compact && (
           <div
             className={`text-center mt-10 transition-all duration-700 ease-out ${
-              visible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'
+              visible ? 'opacity-100 translate-y-0' : 'opacity-40 translate-y-3'
             }`}
             style={{ transitionDelay: '300ms' }}
           >

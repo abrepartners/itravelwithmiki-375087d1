@@ -63,7 +63,7 @@ const HowItWorks = () => {
         <div
           data-index={-1}
           className={`text-center mb-16 lg:mb-20 transition-all duration-700 ease-out ${
-            visibleItems.has(-1) ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
+            visibleItems.has(-1) ? 'opacity-100 translate-y-0' : 'opacity-40 translate-y-4'
           }`}
         >
           <p className="uppercase tracking-[0.2em] text-sm font-medium mb-4 text-white/60">
@@ -91,7 +91,7 @@ const HowItWorks = () => {
                 key={index}
                 data-index={index}
                 className={`relative text-center group transition-all duration-700 ease-out ${
-                  visibleItems.has(index) ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-12'
+                  visibleItems.has(index) ? 'opacity-100 translate-y-0' : 'opacity-40 translate-y-4'
                 }`}
                 style={{ transitionDelay: `${index * 150}ms` }}
               >
@@ -134,7 +134,7 @@ const HowItWorks = () => {
         <div
           data-index={10}
           className={`text-center transition-all duration-700 ease-out ${
-            visibleItems.has(10) ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
+            visibleItems.has(10) ? 'opacity-100 translate-y-0' : 'opacity-40 translate-y-4'
           }`}
         >
           <div className="inline-flex items-center gap-2 mb-6 px-5 py-2 rounded-full text-sm bg-primary/10 border border-primary/20 text-primary-foreground/80">
