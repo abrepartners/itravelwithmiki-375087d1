@@ -222,53 +222,28 @@ const Experience = () => {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.6 }}
-            className="fixed inset-0 z-50 bg-black flex items-center justify-center"
+            className="fixed inset-0 z-50 bg-black flex flex-col items-center justify-center"
           >
-            {/* Placeholder video — swap for Miki's branding video later */}
-            <video
+            {/* Facebook Video Embed */}
+            <div
               ref={videoRef}
-              autoPlay
-              muted
-              playsInline
-              className="w-full h-full object-cover opacity-80"
+              className="relative w-full max-w-5xl mx-auto px-6"
+              style={{
+                filter: 'drop-shadow(0 0 60px rgba(220, 60, 50, 0.3))',
+              }}
             >
-              <source
-                src="https://videos.pexels.com/video-files/3015510/3015510-uhd_2560_1440_24fps.mp4"
-                type="video/mp4"
-              />
-            </video>
-
-            {/* Cinematic letterbox bars */}
-            <div className="absolute top-0 left-0 right-0 h-[8%] bg-black" />
-            <div className="absolute bottom-0 left-0 right-0 h-[8%] bg-black" />
-
-            {/* Centered brand text overlay */}
-            <motion.div
-              className="absolute inset-0 flex items-center justify-center z-10"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ delay: 1, duration: 1.5 }}
-            >
-              <div className="text-center">
-                <motion.h2
-                  className="text-3xl md:text-5xl lg:text-6xl text-white font-bold"
-                  style={{ fontFamily: 'var(--font-display)' }}
-                  initial={{ opacity: 0, y: 30 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 1.5, duration: 1 }}
-                >
-                  iTravel with Miki
-                </motion.h2>
-                <motion.p
-                  className="text-white/50 text-lg mt-4 tracking-widest uppercase"
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  transition={{ delay: 2.5, duration: 1 }}
-                >
-                  Let's Travel Together
-                </motion.p>
+              <div className="relative w-full rounded-lg overflow-hidden" style={{ paddingBottom: '56.25%' }}>
+                <iframe
+                  src="https://www.facebook.com/plugins/video.php?href=https%3A%2F%2Fwww.facebook.com%2Fitravelwithmiki%2Fvideos%2F856054342105177%2F&width=900&show_text=false"
+                  className="absolute inset-0 w-full h-full"
+                  style={{ border: 'none' }}
+                  allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"
+                  allowFullScreen
+                />
               </div>
-            </motion.div>
+              {/* Warm red glow ring */}
+              <div className="absolute -inset-3 rounded-xl border border-red-500/20 pointer-events-none" />
+            </div>
 
             {/* Skip button */}
             <motion.button
