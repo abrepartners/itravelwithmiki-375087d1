@@ -89,7 +89,7 @@ const FAQSection = ({ compact = false, showHeader = true }: FAQSectionProps) => 
             <div
               key={category.title}
               className={`transition-all duration-600 ease-out ${
-                visible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'
+                visible ? 'opacity-100 translate-y-0' : 'opacity-40 translate-y-3'
               }`}
               style={{ transitionDelay: `${catIndex * 100}ms` }}
             >
