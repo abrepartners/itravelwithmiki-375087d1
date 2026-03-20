@@ -48,9 +48,9 @@ export const allTrips: Trip[] = [
     name: "Australia & New Zealand - 2027",
     destination: "Australia & New Zealand",
     images: [
-      "https://images.unsplash.com/photo-1506973035872-a4ec16b8e8d9?w=600&q=75&fm=webp",
-      "https://images.unsplash.com/photo-1507699622108-4be3abd695ad?w=600&q=75&fm=webp",
-      "https://images.unsplash.com/photo-1624138784614-87fd1b6528f8?w=600&q=75&fm=webp",
+      "https://images.unsplash.com/photo-1506973035872-a4ec16b8e8d9?w=800&q=80",
+      "https://images.unsplash.com/photo-1507699622108-4be3abd695ad?w=800&q=80",
+      "https://images.unsplash.com/photo-1589871973318-9ca1258faa93?w=800&q=80",
     ],
     price: 7915,
     departureDate: "Aug 26 - Sep 13, 2027",
