@@ -33,7 +33,7 @@ const SignatureExperience = () => {
     <section className="bg-background py-20 lg:py-28 px-6 lg:px-12">
       <div className="container mx-auto">
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0.4, y: 15 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
