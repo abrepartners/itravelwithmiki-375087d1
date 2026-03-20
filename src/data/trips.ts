@@ -68,9 +68,9 @@ export const allTrips: Trip[] = [
     name: "Our Private Italy 2026",
     destination: "Italy",
     images: [
-      "https://images.unsplash.com/photo-1534445867742-43195f401b6c?w=600&q=75&fm=webp",
-      "https://images.unsplash.com/photo-1516483638261-f4dbaf036963?w=600&q=75&fm=webp",
-      "https://images.unsplash.com/photo-1523906834658-6e24ef2386f9?w=600&q=75&fm=webp",
+      "https://images.unsplash.com/photo-1534445867742-43195f401b6c?w=800&q=80",
+      "https://images.unsplash.com/photo-1516483638261-f4dbaf036963?w=800&q=80",
+      "https://images.unsplash.com/photo-1523906834658-6e24ef2386f9?w=800&q=80",
     ],
     price: 5284,
     departureDate: "May 6-16, 2026",
