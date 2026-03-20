@@ -84,7 +84,7 @@ const Support = () => {
                 <Phone className="w-7 h-7 text-primary" />
               </div>
               <h3 className="font-semibold text-foreground mb-1">Call Us</h3>
-              <span className="text-primary text-xl font-bold">(501) 691-2152</span>
+              <span className="text-primary text-xl font-bold">(501) 501-5079</span>
               <p className="text-muted-foreground text-sm mt-2">Mon-Fri 9am-5pm CST</p>
             </motion.a>
 
