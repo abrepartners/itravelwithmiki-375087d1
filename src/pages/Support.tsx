@@ -75,7 +75,7 @@ const Support = () => {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             <motion.a
               href="tel:+15015015079"
-              initial={{ opacity: 0, y: 20 }}
+              initial={{ opacity: 0.4, y: 15 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5 }}
               className="bg-card rounded-2xl p-6 text-center shadow-elevated hover-lift border border-border"
