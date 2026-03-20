@@ -110,7 +110,7 @@ const Trips = () => {
               {filteredTrips.map((trip, index) => (
                 <motion.div
                   key={trip.id}
-                  initial={{ opacity: 0, y: 20 }}
+                  initial={{ opacity: 0.4, y: 15 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.4, delay: index * 0.05 }}
                 >
