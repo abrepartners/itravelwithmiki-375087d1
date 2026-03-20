@@ -620,9 +620,9 @@ export const allTrips: Trip[] = [
     name: "Christmas in New York City",
     destination: "New York, NY",
     images: [
-      "https://images.unsplash.com/photo-1543589077-47d81606c1bf?w=600&q=75&fm=webp",
-      "https://images.unsplash.com/photo-1482517967863-00e15c9b44be?w=600&q=75&fm=webp",
-      "https://images.unsplash.com/photo-1576919228236-a097c32a5cd4?w=600&q=75&fm=webp",
+      "https://images.unsplash.com/photo-1543589077-47d81606c1bf?w=800&q=80",
+      "https://images.unsplash.com/photo-1515542622106-78bda8ba0e5b?w=800&q=80",
+      "https://images.unsplash.com/photo-1576919228236-a097c32a5cd4?w=800&q=80",
     ],
     price: 2255,
     departureDate: "Nov 15-22, 2026",

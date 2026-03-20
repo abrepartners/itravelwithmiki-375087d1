@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion';
-import { Play, Users, Calendar, Award } from 'lucide-react';
+import { Users, Calendar, Award } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import mikiPhoto from '@/assets/miki-photo.jpeg';
 
