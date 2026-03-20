@@ -63,7 +63,7 @@ const HowItWorks = () => {
         <div
           data-index={-1}
           className={`text-center mb-16 lg:mb-20 transition-all duration-700 ease-out ${
-            visibleItems.has(-1) ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
+            visibleItems.has(-1) ? 'opacity-100 translate-y-0' : 'opacity-40 translate-y-4'
           }`}
         >
           <p className="uppercase tracking-[0.2em] text-sm font-medium mb-4 text-white/60">
