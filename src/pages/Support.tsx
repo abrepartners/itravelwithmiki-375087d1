@@ -74,7 +74,7 @@ const Support = () => {
         <div className="container mx-auto max-w-4xl">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             <motion.a
-              href="tel:+15016912152"
+              href="tel:+15015015079"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5 }}
