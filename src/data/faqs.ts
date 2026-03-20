@@ -117,22 +117,4 @@ export const faqCategories: FAQCategory[] = [
 ];
 
 export const downloadableResources = [
-  {
-    title: 'Travel Insurance Plan A',
-    description: 'Comprehensive coverage for peace of mind',
-    type: 'PDF',
-    href: '#',
-  },
-  {
-    title: 'Travel Insurance Plan B',
-    description: 'Essential coverage at an affordable price',
-    type: 'PDF',
-    href: '#',
-  },
-  {
-    title: 'Packing Checklist',
-    description: 'Never forget the essentials',
-    type: 'PDF',
-    href: '#',
-  },
 ];

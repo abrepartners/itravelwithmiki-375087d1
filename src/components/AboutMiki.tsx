@@ -48,14 +48,6 @@ const AboutMiki = () => {
                 alt="Miki - Your Travel Host"
                 className="w-full h-[350px] sm:h-[400px] md:h-[500px] object-cover"
               />
-              <button
-                className="absolute inset-0 flex items-center justify-center group"
-                aria-label="Play video"
-              >
-                <div className="w-20 h-20 rounded-full bg-primary flex items-center justify-center group-hover:scale-110 transition-transform duration-300 shadow-lg">
-                  <Play className="w-8 h-8 text-primary-foreground ml-1" fill="currentColor" />
-                </div>
-              </button>
             </div>
             {/* Decorative reticle corner */}
             <div className="absolute -bottom-3 -right-3 w-16 h-16 border-b-2 border-r-2 border-primary/25 rounded-br-lg pointer-events-none" />
