@@ -112,9 +112,9 @@ export const allTrips: Trip[] = [
     name: "The Great Rivers of Europe",
     destination: "Netherlands, Germany & Austria",
     images: [
-      "https://images.unsplash.com/photo-1548574505-5e239809ee19?w=600&q=75&fm=webp",
-      "https://images.unsplash.com/photo-1519451241324-20b4ea2c4220?w=600&q=75&fm=webp",
-      "https://images.unsplash.com/photo-1502602898657-3e91760cbb34?w=600&q=75&fm=webp",
+      "https://images.unsplash.com/photo-1548574505-5e239809ee19?w=800&q=80",
+      "https://images.unsplash.com/photo-1467269204594-9661b134dd2b?w=800&q=80",
+      "https://images.unsplash.com/photo-1502602898657-3e91760cbb34?w=800&q=80",
     ],
     price: 7095,
     departureDate: "Aug 15-30, 2026",
