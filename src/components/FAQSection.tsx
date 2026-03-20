@@ -66,7 +66,7 @@ const FAQSection = ({ compact = false, showHeader = true }: FAQSectionProps) => 
         {showHeader && (
           <div
             className={`text-center mb-14 transition-all duration-700 ease-out ${
-              visible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
+              visible ? 'opacity-100 translate-y-0' : 'opacity-40 translate-y-4'
             }`}
           >
             <p className="uppercase tracking-[0.2em] text-sm font-medium text-primary mb-4">
