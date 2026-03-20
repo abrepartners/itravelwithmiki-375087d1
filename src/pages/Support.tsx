@@ -90,7 +90,7 @@ const Support = () => {
 
             <motion.a
               href="mailto:info@itravelwithmiki.com"
-              initial={{ opacity: 0, y: 20 }}
+              initial={{ opacity: 0.4, y: 15 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: 0.1 }}
               className="bg-card rounded-2xl p-6 text-center shadow-elevated hover-lift border border-border"
