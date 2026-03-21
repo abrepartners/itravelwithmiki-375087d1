@@ -30,7 +30,7 @@ export const allTrips: Trip[] = [
     destination: "Ireland",
     images: [
       "https://images.unsplash.com/photo-1590089415225-401ed6f9db8e?w=800&q=80",
-      "https://images.unsplash.com/photo-1564959130747-897a8e5f8540?w=800&q=80",
+      "https://images.unsplash.com/photo-1533460004989-cef01064af7e?w=800&q=80",
       "https://images.unsplash.com/photo-1533460004989-cef01064af7e?w=800&q=80",
     ],
     price: 5695,
