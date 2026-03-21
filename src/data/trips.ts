@@ -1,3 +1,4 @@
+// Updated images Mar 20
 import type { Trip } from "@/types/trip";
 
 export const allTrips: Trip[] = [
