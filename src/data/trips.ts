@@ -216,7 +216,7 @@ export const allTrips: Trip[] = [
     images: [
       "https://images.unsplash.com/photo-1568402102990-bc541580b59f?w=800&q=80",
       "https://images.unsplash.com/photo-1571407970349-bc81e7e96d47?w=800&q=80",
-      "https://images.unsplash.com/photo-1571936830915-3e3cf76a51b1?w=800&q=80",
+      "https://images.unsplash.com/photo-1558024920-b41e1887dc32?w=800&q=80",
     ],
     price: 825,
     departureDate: "Apr 20-24, 2026",
