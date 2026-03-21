@@ -581,7 +581,7 @@ export const allTrips: Trip[] = [
     name: "Chattanooga Choo Choo",
     destination: "Chattanooga, TN",
     images: [
-      "https://images.unsplash.com/photo-1545419913-775e3e45f024?w=600&q=75&fm=webp",
+      "https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?w=600&q=75&fm=webp",
       "https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?w=600&q=75&fm=webp",
       "https://images.unsplash.com/photo-1510915361894-db8b60106cb1?w=600&q=75&fm=webp",
     ],
