@@ -274,7 +274,7 @@ export const allTrips: Trip[] = [
     destination: "Holland, MI",
     images: [
       "https://images.unsplash.com/photo-1490750967868-88aa4486c946?w=600&q=75&fm=webp",
-      "https://images.unsplash.com/photo-1518882605630-8e36be24f0aa?w=600&q=75&fm=webp",
+      "https://images.unsplash.com/photo-1490750967868-88aa4486c946?w=600&q=75&fm=webp",
       "https://images.unsplash.com/photo-1520763185298-1b434c919102?w=600&q=75&fm=webp",
     ],
     price: 1073,
