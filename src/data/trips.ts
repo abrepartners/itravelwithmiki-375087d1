@@ -465,9 +465,9 @@ export const allTrips: Trip[] = [
     name: "Mount Rushmore, The Badlands, Black Hills of South Dakota & Yellowstone National Park",
     destination: "South Dakota & Wyoming",
     images: [
-      "https://images.unsplash.com/photo-1559521783-1d1599583485?w=600&q=75&fm=webp",
-      "https://images.unsplash.com/photo-1559521783-1d1599583485?w=600&q=75&fm=webp",
-      "https://images.unsplash.com/photo-1507699622108-4be3abd695ad?w=600&q=75&fm=webp",
+      "https://images.unsplash.com/photo-1558024920-b41e1887dc32?w=800&q=80",
+      "https://images.unsplash.com/photo-1558024920-b41e1887dc32?w=800&q=80",
+      "https://images.unsplash.com/photo-1558024920-b41e1887dc32?w=800&q=80",
     ],
     price: 2474,
     departureDate: "Sep 12-23, 2026",
