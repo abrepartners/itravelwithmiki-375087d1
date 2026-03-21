@@ -640,7 +640,7 @@ export const allTrips: Trip[] = [
     name: "Nashville's Opryland Country Christmas",
     destination: "Nashville, TN",
     images: [
-      "https://images.unsplash.com/photo-1510915361894-db8b60106cb1?w=600&q=75&fm=webp",
+      "https://images.unsplash.com/photo-1496442226666-8d4d0e62e6e9?w=800&q=80",
       "https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?w=600&q=75&fm=webp",
       "https://images.unsplash.com/photo-1576919228236-a097c32a5cd4?w=600&q=75&fm=webp",
     ],
