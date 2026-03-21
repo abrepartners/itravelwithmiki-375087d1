@@ -466,7 +466,7 @@ export const allTrips: Trip[] = [
     destination: "South Dakota & Wyoming",
     images: [
       "https://images.unsplash.com/photo-1558024920-b41e1887dc32?w=800&q=80",
-      "https://images.unsplash.com/photo-1558024920-b41e1887dc32?w=800&q=80",
+      "https://images.unsplash.com/photo-1528164344705-47542687000d?w=800&q=80",
       "https://images.unsplash.com/photo-1558024920-b41e1887dc32?w=800&q=80",
     ],
     price: 2474,
