@@ -273,9 +273,9 @@ export const allTrips: Trip[] = [
     name: "Holland, Michigan Tulip Festival",
     destination: "Holland, MI",
     images: [
-      "https://images.unsplash.com/photo-1490750967868-88aa4486c946?w=600&q=75&fm=webp",
-      "https://images.unsplash.com/photo-1490750967868-88aa4486c946?w=600&q=75&fm=webp",
-      "https://images.unsplash.com/photo-1520763185298-1b434c919102?w=600&q=75&fm=webp",
+      "https://images.unsplash.com/photo-1524386416438-98b9b2d4b433?w=800&q=80",
+      "https://images.unsplash.com/photo-1524386416438-98b9b2d4b433?w=800&q=80",
+      "https://images.unsplash.com/photo-1524386416438-98b9b2d4b433?w=800&q=80",
     ],
     price: 1073,
     departureDate: "May 4-8, 2026",
