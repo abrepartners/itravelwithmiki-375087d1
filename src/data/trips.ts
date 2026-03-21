@@ -176,8 +176,8 @@ export const allTrips: Trip[] = [
     name: "Savannah, Jekyll Island, & Beaufort, SC",
     destination: "Savannah, GA",
     images: [
-      "https://images.unsplash.com/photo-1597466599360-3b9775841aec?w=600&q=75&fm=webp",
-      "https://images.unsplash.com/photo-1578469550956-0e16b69c6a3d?w=600&q=75&fm=webp",
+      "https://images.unsplash.com/photo-1597528662465-55ece5734101?w=800&q=80",
+      "https://images.unsplash.com/photo-1597528662465-55ece5734101?w=800&q=80",
       "https://images.unsplash.com/photo-1597528662465-55ece5734101?w=800&q=80",
     ],
     price: 1115,
