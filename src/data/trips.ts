@@ -215,7 +215,7 @@ export const allTrips: Trip[] = [
     destination: "New Orleans, LA",
     images: [
       "https://images.unsplash.com/photo-1568402102990-bc541580b59f?w=800&q=80",
-      "https://images.unsplash.com/photo-1571407970349-bc81e7e96d47?w=800&q=80",
+      "https://images.unsplash.com/photo-1568402102990-bc541580b59f?w=800&q=80",
       "https://images.unsplash.com/photo-1558024920-b41e1887dc32?w=800&q=80",
     ],
     price: 825,
