@@ -195,8 +195,8 @@ export const allTrips: Trip[] = [
     name: "Washington, DC - Our Nation's Capital",
     destination: "Washington, DC",
     images: [
-      "https://images.unsplash.com/photo-1501466044931-62695aada8e9?w=600&q=75&fm=webp",
-      "https://images.unsplash.com/photo-1617581629397-a72507c3de9e?w=600&q=75&fm=webp",
+      "https://images.unsplash.com/photo-1617581629397-a72507c3de9e?w=800&q=80",
+      "https://images.unsplash.com/photo-1617581629397-a72507c3de9e?w=800&q=80",
       "https://images.unsplash.com/photo-1617581629397-a72507c3de9e?w=800&q=80",
     ],
     price: 1133,
