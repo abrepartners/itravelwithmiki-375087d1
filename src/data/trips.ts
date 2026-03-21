@@ -178,7 +178,7 @@ export const allTrips: Trip[] = [
     images: [
       "https://images.unsplash.com/photo-1597528662465-55ece5734101?w=800&q=80",
       "https://images.unsplash.com/photo-1597528662465-55ece5734101?w=800&q=80",
-      "https://images.unsplash.com/photo-1597528662465-55ece5734101?w=800&q=80",
+      "https://images.unsplash.com/photo-1558642452-9d2a7deb7f62?w=800&q=80",
     ],
     price: 1115,
     departureDate: "Mar 22-28, 2026",
@@ -215,7 +215,7 @@ export const allTrips: Trip[] = [
     destination: "New Orleans, LA",
     images: [
       "https://images.unsplash.com/photo-1568402102990-bc541580b59f?w=800&q=80",
-      "https://images.unsplash.com/photo-1571407970349-bc81e7e96d47?w=800&q=80",
+      "https://images.unsplash.com/photo-1568402102990-bc541580b59f?w=800&q=80",
       "https://images.unsplash.com/photo-1558024920-b41e1887dc32?w=800&q=80",
     ],
     price: 825,
@@ -332,8 +332,8 @@ export const allTrips: Trip[] = [
     destination: "Niagara Falls, NY",
     images: [
       "https://images.unsplash.com/photo-1489447068241-b3490214e879?w=800&q=80",
-      "https://images.unsplash.com/photo-1489447068241-b3490214e879?w=800&q=80",
-      "https://images.unsplash.com/photo-1489447068241-b3490214e879?w=800&q=80",
+      "https://images.unsplash.com/photo-1609952048180-7b35ea6b083b?w=800&q=80",
+      "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=800&q=80",
     ],
     price: 1437,
     departureDate: "Jun 6-14, 2026",
@@ -466,7 +466,7 @@ export const allTrips: Trip[] = [
     destination: "South Dakota & Wyoming",
     images: [
       "https://images.unsplash.com/photo-1558024920-b41e1887dc32?w=800&q=80",
-      "https://images.unsplash.com/photo-1558024920-b41e1887dc32?w=800&q=80",
+      "https://images.unsplash.com/photo-1528164344705-47542687000d?w=800&q=80",
       "https://images.unsplash.com/photo-1558024920-b41e1887dc32?w=800&q=80",
     ],
     price: 2474,
@@ -581,7 +581,7 @@ export const allTrips: Trip[] = [
     name: "Chattanooga Choo Choo",
     destination: "Chattanooga, TN",
     images: [
-      "https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?w=600&q=75&fm=webp",
+      "https://images.unsplash.com/photo-1580477667995-2b94f01c9516?w=800&q=80",
       "https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?w=600&q=75&fm=webp",
       "https://images.unsplash.com/photo-1510915361894-db8b60106cb1?w=600&q=75&fm=webp",
     ],
@@ -640,7 +640,7 @@ export const allTrips: Trip[] = [
     name: "Nashville's Opryland Country Christmas",
     destination: "Nashville, TN",
     images: [
-      "https://images.unsplash.com/photo-1510915361894-db8b60106cb1?w=600&q=75&fm=webp",
+      "https://images.unsplash.com/photo-1496442226666-8d4d0e62e6e9?w=800&q=80",
       "https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?w=600&q=75&fm=webp",
       "https://images.unsplash.com/photo-1576919228236-a097c32a5cd4?w=600&q=75&fm=webp",
     ],
