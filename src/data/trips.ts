@@ -331,9 +331,9 @@ export const allTrips: Trip[] = [
     name: "Niagara Falls",
     destination: "Niagara Falls, NY",
     images: [
-      "https://images.unsplash.com/photo-1489447068241-b3490214e879?w=600&q=75&fm=webp",
       "https://images.unsplash.com/photo-1489447068241-b3490214e879?w=800&q=80",
-      "https://images.unsplash.com/photo-1414438992037-4cd2e11a9933?w=600&q=75&fm=webp",
+      "https://images.unsplash.com/photo-1489447068241-b3490214e879?w=800&q=80",
+      "https://images.unsplash.com/photo-1489447068241-b3490214e879?w=800&q=80",
     ],
     price: 1437,
     departureDate: "Jun 6-14, 2026",
