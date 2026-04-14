@@ -133,40 +133,22 @@ const defaultGalleryImages: GalleryImage[] = [
 
 export const galleryStore = {
   getImages: (): GalleryImage[] => {
-    const stored = localStorage.getItem(GALLERY_KEY);
-    if (stored) {
-      try {
-        return JSON.parse(stored);
-      } catch {
-        return defaultGalleryImages;
-      }
-    }
-    localStorage.setItem(GALLERY_KEY, JSON.stringify(defaultGalleryImages));
     return defaultGalleryImages;
   },
 
-  addImage: (image: Omit<GalleryImage, 'id' | 'createdAt'>): void => {
-    const images = galleryStore.getImages();
-    const newImage: GalleryImage = {
-      ...image,
-      id: Date.now().toString(),
-      createdAt: new Date().toISOString(),
-    };
-    images.push(newImage);
-    localStorage.setItem(GALLERY_KEY, JSON.stringify(images));
+  addImage: (_image: Omit<GalleryImage, 'id' | 'createdAt'>): void => {
+    // No-op: gallery images are managed via the codebase
   },
 
-  deleteImage: (id: string): void => {
-    const images = galleryStore.getImages();
-    const filtered = images.filter((img) => img.id !== id);
-    localStorage.setItem(GALLERY_KEY, JSON.stringify(filtered));
+  deleteImage: (_id: string): void => {
+    // No-op: gallery images are managed via the codebase
   },
 
   resetToDefaults: (): void => {
-    localStorage.setItem(GALLERY_KEY, JSON.stringify(defaultGalleryImages));
+    // No-op: defaults are always returned
   },
 };
 
 export const useGalleryImages = () => {
-  return galleryStore.getImages();
+  return defaultGalleryImages;
 };
