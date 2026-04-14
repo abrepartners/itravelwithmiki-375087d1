@@ -263,12 +263,11 @@ const TripForm = ({ trip, onSave, onCancel }: TripFormProps) => {
           type="url"
           value={formData.bookingUrl || ""}
           onChange={(e) => setFormData({ ...formData, bookingUrl: e.target.value })}
-          placeholder="https://traveljoy.com/..."
+          placeholder="https://example.com/booking-link"
           className="h-12"
         />
         <p className="text-xs text-muted-foreground">
-          Direct TravelJoy link where travelers register and pay. If blank, card shows "Contact to Book" linking to
-          /support.
+          Direct booking link where travelers register and pay. If blank, card shows "Contact Miki to Book" with an email link.
         </p>
       </div>
 

@@ -12,7 +12,7 @@ export interface Trip {
   category: 'land' | 'river-cruise' | 'ocean-cruise' | 'bus';
   featured: boolean;
   description?: string;
-  bookingUrl?: string;         // TravelJoy booking link
+  bookingUrl?: string | null;   // Booking link (null = contact to book)
   waitlistUrl?: string;        // Separate waitlist link for sold-out trips
   flyerUrl?: string;           // Uploaded Diamond Tours flyer PDF/image URL
   subheading?: string;

@@ -91,7 +91,12 @@ const Footer = () => {
             </p>
             <div className="flex flex-col gap-3">
               <Input type="email" placeholder="Your email" className="h-12 bg-primary-foreground/10 border-primary-foreground/20 text-primary-foreground placeholder:text-primary-foreground/50 focus-visible:ring-primary-foreground/30" />
-              <Button className="h-12 bg-accent text-accent-foreground hover:bg-accent/90 font-semibold">Subscribe</Button>
+              <Button
+                className="h-12 bg-accent text-accent-foreground hover:bg-accent/90 font-semibold"
+                onClick={() => window.open('mailto:info@itravelwithmiki.com?subject=Subscribe to iTravelWithMiki Updates', '_self')}
+              >
+                Subscribe
+              </Button>
             </div>
           </div>
         </div>
@@ -99,9 +104,13 @@ const Footer = () => {
         <div className="pt-8 border-t border-primary-foreground/20 flex flex-col md:flex-row justify-between items-center gap-4">
           <p className="text-primary-foreground/70 text-sm">© 2026 iTravelWithMiki. All rights reserved.</p>
           <div className="flex gap-6">
-            {['Privacy Policy', 'Terms of Service', 'Accessibility'].map((link) => (
-              <a key={link} href="#" className="text-primary-foreground/70 text-sm hover:text-primary-foreground transition-colors duration-300">
-                {link}
+            {[
+              { label: 'Privacy Policy', href: '/privacy' },
+              { label: 'Terms of Service', href: '/terms' },
+              { label: 'Accessibility', href: '/accessibility' },
+            ].map((link) => (
+              <a key={link.label} href={link.href} className="text-primary-foreground/70 text-sm hover:text-primary-foreground transition-colors duration-300">
+                {link.label}
               </a>
             ))}
             <a href="/admin" className="text-primary-foreground/50 text-sm hover:text-primary-foreground transition-colors duration-300">

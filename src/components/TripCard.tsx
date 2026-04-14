@@ -194,8 +194,8 @@ const TripCard = ({ trip, featured = false, className }: TripCardProps) => {
             className={cn('w-full btn-senior bg-primary hover:bg-primary/90 group/btn', featured && 'md:w-auto')}
             asChild
           >
-            <a href="/support" className="flex items-center justify-center gap-2">
-              Contact to Book
+            <a href={`mailto:info@itravelwithmiki.com?subject=Booking Inquiry: ${encodeURIComponent(trip.name)}`} className="flex items-center justify-center gap-2">
+              Contact Miki to Book
               <ArrowRight className="w-4 h-4 transition-transform duration-300 group-hover/btn:translate-x-1" />
             </a>
           </Button>

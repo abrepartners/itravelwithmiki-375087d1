@@ -11,7 +11,7 @@ export const landTrips: LandTrip[] = [
     status: 'Active',
     booking_link: null,
     images: [
-      'https://images.unsplash.com/photo-1531366936337-7c912a4589a7?w=600&q=75&fm=webp&fit=crop',
+      '/images/trips/alpine-europe-hero.png',
       'https://images.unsplash.com/photo-1527668752968-14dc70a27c95?w=600&q=75&fm=webp&fit=crop',
     ],
     detail: {
@@ -73,7 +73,7 @@ export const landTrips: LandTrip[] = [
     status: 'Active',
     booking_link: null,
     images: [
-      'https://images.unsplash.com/photo-1590089415225-401ed6f9db8e?w=600&q=75&fm=webp&fit=crop',
+      '/images/trips/ireland-hero.png',
       'https://images.unsplash.com/photo-1564959130747-897a8e5e5765?w=600&q=75&fm=webp&fit=crop',
     ],
     detail: {
@@ -135,7 +135,7 @@ export const landTrips: LandTrip[] = [
     status: 'Active',
     booking_link: null,
     images: [
-      'https://images.unsplash.com/photo-1523482580672-f109ba8cb9be?w=600&q=75&fm=webp&fit=crop',
+      '/images/trips/australia-nz-hero.png',
       'https://images.unsplash.com/photo-1507699622108-4be3abd695ad?w=600&q=75&fm=webp&fit=crop',
     ],
     detail: {
@@ -197,7 +197,7 @@ export const landTrips: LandTrip[] = [
     status: 'Sold out, waitlist only',
     booking_link: null,
     images: [
-      'https://images.unsplash.com/photo-1523906834658-6e24ef2386f9?w=600&q=75&fm=webp&fit=crop',
+      '/images/trips/italy-hero.png',
       'https://images.unsplash.com/photo-1534445867742-43195f401b6c?w=600&q=75&fm=webp&fit=crop',
     ],
     detail: {
@@ -240,9 +240,9 @@ export const landTrips: LandTrip[] = [
     date_display: 'February 20 to March 6, 2026',
     sub_description: 'Discover the heart and soul of the Iberian Peninsula on this immersive 15-day adventure. From high tea in Gibraltar to the charm of Lisbon and the grandeur of Seville, this journey is rich in culture, coastal beauty, and unforgettable experiences.',
     status: 'Sold out, waitlist only',
-    booking_link: 'https://traveljoy.com/bookings/NBjnABZJC7pH1jTWCYjW9B3X',
+    booking_link: null,
     images: [
-      'https://images.unsplash.com/photo-1509840841025-9088ba78a826?w=600&q=75&fm=webp&fit=crop',
+      '/images/trips/spain-portugal-hero.png',
       'https://images.unsplash.com/photo-1555881400-74d7acaacd8b?w=600&q=75&fm=webp&fit=crop',
     ],
     detail: {
