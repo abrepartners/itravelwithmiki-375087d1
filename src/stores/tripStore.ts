@@ -5,42 +5,23 @@ const TRIPS_KEY = 'admin_trips';
 
 export const tripStore = {
   getTrips: (): Trip[] => {
-    const stored = localStorage.getItem(TRIPS_KEY);
-    if (stored) {
-      try {
-        return JSON.parse(stored);
-      } catch {
-        return defaultTrips;
-      }
-    }
-    // Initialize with default trips on first load
-    localStorage.setItem(TRIPS_KEY, JSON.stringify(defaultTrips));
     return defaultTrips;
   },
 
-  addTrip: (trip: Trip): void => {
-    const trips = tripStore.getTrips();
-    trips.push(trip);
-    localStorage.setItem(TRIPS_KEY, JSON.stringify(trips));
+  addTrip: (_trip: Trip): void => {
+    // No-op: trips are managed via the codebase
   },
 
-  updateTrip: (id: string, updatedTrip: Trip): void => {
-    const trips = tripStore.getTrips();
-    const index = trips.findIndex((t) => t.id === id);
-    if (index !== -1) {
-      trips[index] = updatedTrip;
-      localStorage.setItem(TRIPS_KEY, JSON.stringify(trips));
-    }
+  updateTrip: (_id: string, _updatedTrip: Trip): void => {
+    // No-op: trips are managed via the codebase
   },
 
-  deleteTrip: (id: string): void => {
-    const trips = tripStore.getTrips();
-    const filtered = trips.filter((t) => t.id !== id);
-    localStorage.setItem(TRIPS_KEY, JSON.stringify(filtered));
+  deleteTrip: (_id: string): void => {
+    // No-op: trips are managed via the codebase
   },
 
   resetToDefaults: (): void => {
-    localStorage.setItem(TRIPS_KEY, JSON.stringify(defaultTrips));
+    // No-op: defaults are always returned
   },
 
   generateId: (name: string): string => {
