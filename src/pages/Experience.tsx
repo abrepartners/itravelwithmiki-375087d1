@@ -229,25 +229,26 @@ const Experience = () => {
             transition={{ duration: 0.6 }}
             className="fixed inset-0 z-50 bg-black flex flex-col items-center justify-center"
           >
-            {/* Facebook Video Embed */}
+            {/* Full-Screen Cinematic Video */}
             <div
               ref={videoRef}
-              className="relative w-full max-w-5xl mx-auto px-6"
-              style={{
-                filter: 'drop-shadow(0 0 60px rgba(220, 60, 50, 0.3))',
-              }}
+              className="absolute inset-0 w-full h-full"
             >
-              <div className="relative w-full rounded-lg overflow-hidden" style={{ paddingBottom: '56.25%' }}>
-                <iframe
-                  src="https://www.facebook.com/plugins/video.php?href=https%3A%2F%2Fwww.facebook.com%2Fitravelwithmiki%2Fvideos%2F856054342105177%2F&width=900&show_text=false"
-                  className="absolute inset-0 w-full h-full"
-                  style={{ border: 'none' }}
-                  allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"
-                  allowFullScreen
-                />
-              </div>
-              {/* Warm red glow ring */}
-              <div className="absolute -inset-3 rounded-xl border border-red-500/20 pointer-events-none" />
+              {/* Cinematic letterbox bars */}
+              <div className="absolute top-0 left-0 right-0 h-[8vh] bg-black z-10" />
+              <div className="absolute bottom-0 left-0 right-0 h-[8vh] bg-black z-10" />
+
+              {/* Video fills the screen */}
+              <iframe
+                src="https://www.facebook.com/plugins/video.php?href=https%3A%2F%2Fwww.facebook.com%2Fitravelwithmiki%2Fvideos%2F856054342105177%2F&width=900&show_text=false"
+                className="w-full h-full"
+                style={{ border: 'none', transform: 'scale(1.02)' }}
+                allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"
+                allowFullScreen
+              />
+
+              {/* Subtle vignette overlay */}
+              <div className="absolute inset-0 pointer-events-none z-10" style={{ boxShadow: 'inset 0 0 150px 60px rgba(0,0,0,0.5)' }} />
             </div>
 
             {/* Skip button */}
