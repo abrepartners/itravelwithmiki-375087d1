@@ -23,7 +23,7 @@ const pillars = [
     description:
       'We document every moment so you can relive it forever. Professional photos, candid memories, and stories that make your friends jealous.',
     image: '/images/gallery/versailles-hall.jpeg',
-    objectPosition: 'object-[30%_center]',
+    objectPosition: 'object-[20%_center]',
   },
   {
     icon: Heart,
