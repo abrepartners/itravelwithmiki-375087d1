@@ -37,6 +37,7 @@ const pillars = [
     description:
       'Hotels, meals, transportation, activities — we handle every single detail. You just show up with a smile and your sense of adventure.',
     image: '/images/gallery/french-patisserie.jpeg',
+    objectPosition: 'object-bottom',
   },
 ];
 
@@ -410,7 +411,7 @@ const Experience = () => {
                     <img
                       src={pillar.image}
                       alt=""
-                      className="w-full h-full object-cover"
+                      className={`w-full h-full object-cover ${pillar.objectPosition ?? ''}`}
                     />
                     <div className="absolute inset-0 bg-gradient-to-r from-black/85 via-black/70 to-black/40" />
                   </div>
