@@ -65,7 +65,7 @@ const Navbar = () => {
     : "text-white/90 hover:text-white";
 
   const linkStyle =
-    "text-[13px] font-medium uppercase tracking-[0.08em] transition-colors duration-300 whitespace-nowrap";
+    "text-[13px] font-medium uppercase tracking-[0.08em] transition-colors duration-300 whitespace-nowrap h-9 inline-flex items-center";
 
   return (
     <motion.header
@@ -98,7 +98,7 @@ const Navbar = () => {
               <DropdownMenuTrigger asChild>
                 <button
                   type="button"
-                  className={`inline-flex items-center gap-1 ${linkStyle} ${textClass} ${focusClass}`}
+                  className={`gap-1 ${linkStyle} ${textClass} ${focusClass}`}
                 >
                   Trips
                   <ChevronDown className="w-3.5 h-3.5" />
@@ -129,7 +129,7 @@ const Navbar = () => {
               <DropdownMenuTrigger asChild>
                 <button
                   type="button"
-                  className={`inline-flex items-center gap-1 ${linkStyle} ${textClass} ${focusClass}`}
+                  className={`gap-1 ${linkStyle} ${textClass} ${focusClass}`}
                 >
                   Travel Insurance
                   <ChevronDown className="w-3.5 h-3.5" />

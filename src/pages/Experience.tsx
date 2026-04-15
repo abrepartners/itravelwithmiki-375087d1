@@ -15,28 +15,28 @@ const pillars = [
     title: 'Curated Experiences',
     description:
       'Every destination is handpicked by Miki herself. No cookie-cutter itineraries — just authentic adventures designed around what our travel family actually loves.',
-    image: 'https://images.unsplash.com/photo-1506929562872-bb421503ef21?w=1200&q=80&fm=webp',
+    image: '/images/gallery/group-fall-foliage.jpeg',
   },
   {
     icon: Camera,
     title: 'Photo-First Storytelling',
     description:
       'We document every moment so you can relive it forever. Professional photos, candid memories, and stories that make your friends jealous.',
-    image: 'https://images.unsplash.com/photo-1488646953014-85cb44e25828?w=1200&q=80&fm=webp',
+    image: '/images/gallery/versailles-hall.jpeg',
   },
   {
     icon: Heart,
     title: 'Family-Style Hosting',
     description:
       'You\'re not a booking number — you\'re family. Miki remembers your name, your birthday, and your favorite seat on the bus.',
-    image: 'https://images.unsplash.com/photo-1527631746610-bca00a040d60?w=1200&q=80&fm=webp',
+    image: '/images/gallery/bus-games.jpeg',
   },
   {
     icon: Shield,
     title: 'Worry-Free Planning',
     description:
       'Hotels, meals, transportation, activities — we handle every single detail. You just show up with a smile and your sense of adventure.',
-    image: 'https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1?w=1200&q=80&fm=webp',
+    image: '/images/gallery/french-patisserie.jpeg',
   },
 ];
 
@@ -45,29 +45,29 @@ const testimonials = [
     quote: 'Traveling with Miki changed my life. I went solo and came home with a family. I\'ve been on 8 trips now and I\'m already planning number 9!',
     name: 'Barbara K.',
     trip: 'Ireland Adventure 2023',
-    photo: 'https://images.unsplash.com/photo-1580489944761-15a19d654956?w=200&q=80&fm=webp',
+    photo: '/images/gallery/sunny-selfie.jpeg',
   },
   {
     quote: 'I was nervous about traveling alone at 67. By the second day, I had 30 new friends. Miki makes everyone feel like they belong.',
     name: 'James R.',
     trip: 'Branson Fall Festival',
-    photo: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=200&q=80&fm=webp',
+    photo: '/images/gallery/nashville-fun.jpeg',
   },
   {
     quote: 'The attention to detail is incredible. Every meal, every stop, every surprise — you can tell Miki pours her heart into every trip.',
     name: 'Linda M.',
     trip: 'Mediterranean Cruise 2024',
-    photo: 'https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=200&q=80&fm=webp',
+    photo: '/images/gallery/ferry-deck.jpeg',
   },
 ];
 
 const mosaicImages = [
-  { src: 'https://images.unsplash.com/photo-1527631746610-bca00a040d60?w=600&q=80&fm=webp', alt: 'Group travel moment' },
-  { src: 'https://images.unsplash.com/photo-1506929562872-bb421503ef21?w=600&q=80&fm=webp', alt: 'Beach paradise' },
-  { src: 'https://images.unsplash.com/photo-1488646953014-85cb44e25828?w=600&q=80&fm=webp', alt: 'Mountain adventure' },
-  { src: 'https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1?w=600&q=80&fm=webp', alt: 'Scenic waterway' },
-  { src: 'https://images.unsplash.com/photo-1502920917128-1aa500764cbd?w=600&q=80&fm=webp', alt: 'Cultural experience' },
-  { src: 'https://images.unsplash.com/photo-1501785888041-af3ef285b470?w=600&q=80&fm=webp', alt: 'Sunset view' },
+  { src: '/images/gallery/stingray-caribbean.jpeg', alt: 'Group travel moment' },
+  { src: '/images/gallery/outdoor-dining.jpeg', alt: 'Dining experience' },
+  { src: '/images/gallery/versailles-ceiling.jpeg', alt: 'Cultural moment' },
+  { src: '/images/gallery/olive-market.jpeg', alt: 'Market experience' },
+  { src: '/images/gallery/french-village-selfie.jpeg', alt: 'Selfie fun' },
+  { src: '/images/gallery/line-dancing.jpeg', alt: 'Group activity' },
 ];
 
 /* ───────────────── Component ──────────────────── */
@@ -89,12 +89,15 @@ const Experience = () => {
     setPhase('video');
   }, []);
 
-  // Auto-transition after "video" plays (placeholder for now)
+  const [showContinue, setShowContinue] = useState(false);
+
+  // Show "Continue" button after 10 seconds so users know they can proceed
   useEffect(() => {
     if (phase === 'video') {
+      setShowContinue(false);
       const timer = setTimeout(() => {
-        setPhase('revealed');
-      }, 4000); // 4s simulated video intro
+        setShowContinue(true);
+      }, 10000);
       return () => clearTimeout(timer);
     }
   }, [phase]);
@@ -138,7 +141,7 @@ const Experience = () => {
               transition={{ duration: 20, ease: 'linear', repeat: Infinity, repeatType: 'reverse' }}
             >
               <img
-                src="https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?w=1600&q=80&fm=webp"
+                src="/images/trips/hero-poster.png"
                 alt=""
                 className="w-full h-full object-cover"
               />
@@ -255,6 +258,22 @@ const Experience = () => {
             >
               Skip →
             </motion.button>
+
+            {/* Continue button appears after ~10 seconds */}
+            <AnimatePresence>
+              {showContinue && (
+                <motion.button
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0 }}
+                  transition={{ duration: 0.5 }}
+                  onClick={() => setPhase('revealed')}
+                  className="absolute bottom-12 left-1/2 -translate-x-1/2 z-20 inline-flex items-center gap-2 px-8 py-3 rounded-full bg-primary text-primary-foreground font-semibold text-base tracking-wide transition-all hover:shadow-[0_0_30px_hsl(var(--primary)/0.4)]"
+                >
+                  Continue →
+                </motion.button>
+              )}
+            </AnimatePresence>
           </motion.section>
         )}
       </AnimatePresence>
