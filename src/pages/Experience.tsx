@@ -37,7 +37,7 @@ const pillars = [
     description:
       'Hotels, meals, transportation, activities — we handle every single detail. You just show up with a smile and your sense of adventure.',
     image: '/images/gallery/french-patisserie.jpeg',
-    objectPosition: 'object-bottom',
+    objectPosition: 'object-top',
   },
 ];
 
