@@ -12,7 +12,6 @@ export const landTrips: LandTrip[] = [
     booking_link: null,
     images: [
       '/images/trips/alpine-europe-hero.png',
-      'https://images.unsplash.com/photo-1527668752968-14dc70a27c95?w=600&q=75&fm=webp&fit=crop',
     ],
     detail: {
       overview:
@@ -74,7 +73,6 @@ export const landTrips: LandTrip[] = [
     booking_link: null,
     images: [
       '/images/trips/ireland-hero.png',
-      'https://images.unsplash.com/photo-1564959130747-897a8e5e5765?w=600&q=75&fm=webp&fit=crop',
     ],
     detail: {
       overview:
@@ -136,7 +134,6 @@ export const landTrips: LandTrip[] = [
     booking_link: null,
     images: [
       '/images/trips/australia-nz-hero.png',
-      'https://images.unsplash.com/photo-1507699622108-4be3abd695ad?w=600&q=75&fm=webp&fit=crop',
     ],
     detail: {
       overview:
@@ -198,7 +195,6 @@ export const landTrips: LandTrip[] = [
     booking_link: null,
     images: [
       '/images/trips/italy-hero.png',
-      'https://images.unsplash.com/photo-1534445867742-43195f401b6c?w=600&q=75&fm=webp&fit=crop',
     ],
     detail: {
       overview:
@@ -243,7 +239,6 @@ export const landTrips: LandTrip[] = [
     booking_link: null,
     images: [
       '/images/trips/spain-portugal-hero.png',
-      'https://images.unsplash.com/photo-1555881400-74d7acaacd8b?w=600&q=75&fm=webp&fit=crop',
     ],
     detail: {
       overview:

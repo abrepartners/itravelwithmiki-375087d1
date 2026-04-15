@@ -11,8 +11,6 @@ export const allTrips: Trip[] = [
     destination: "Switzerland & Austria",
     images: [
       "/images/trips/alpine-europe-hero.png",
-      "https://images.unsplash.com/photo-1516483638261-f4dbaf036963?w=800&q=80",
-      "https://images.unsplash.com/photo-1491555103944-7c647fd857e6?w=800&q=80",
     ],
     price: 6095,
     departureDate: "Oct 10-25, 2026",
@@ -31,8 +29,6 @@ export const allTrips: Trip[] = [
     destination: "Ireland",
     images: [
       "/images/trips/ireland-hero.png",
-      "https://images.unsplash.com/photo-1533460004989-cef01064af7e?w=800&q=80",
-      "https://images.unsplash.com/photo-1533460004989-cef01064af7e?w=800&q=80",
     ],
     price: 5695,
     departureDate: "Mar 27 - Apr 10, 2027",
@@ -50,8 +46,6 @@ export const allTrips: Trip[] = [
     destination: "Australia & New Zealand",
     images: [
       "/images/trips/australia-nz-hero.png",
-      "https://images.unsplash.com/photo-1507699622108-4be3abd695ad?w=800&q=80",
-      "https://images.unsplash.com/photo-1524386416438-98b9b2d4b433?w=800&q=80",
     ],
     price: 7915,
     departureDate: "Aug 26 - Sep 13, 2027",
@@ -70,8 +64,6 @@ export const allTrips: Trip[] = [
     destination: "Italy",
     images: [
       "/images/trips/italy-hero.png",
-      "https://images.unsplash.com/photo-1516483638261-f4dbaf036963?w=800&q=80",
-      "https://images.unsplash.com/photo-1523906834658-6e24ef2386f9?w=800&q=80",
     ],
     price: 5284,
     departureDate: "May 6-16, 2026",
@@ -90,8 +82,6 @@ export const allTrips: Trip[] = [
     destination: "Spain & Portugal",
     images: [
       "/images/trips/spain-portugal-hero.png",
-      "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=800&q=80",
-      "https://images.unsplash.com/photo-1585208798174-6cedd86e019a?w=800&q=80",
     ],
     price: 4575,
     departureDate: "Feb 20 - Mar 6, 2026",
@@ -114,8 +104,6 @@ export const allTrips: Trip[] = [
     destination: "Netherlands, Germany & Austria",
     images: [
       "/images/trips/great-rivers-europe-hero.png",
-      "https://images.unsplash.com/photo-1467269204594-9661b134dd2b?w=800&q=80",
-      "https://images.unsplash.com/photo-1502602898657-3e91760cbb34?w=800&q=80",
     ],
     price: 7095,
     departureDate: "Aug 15-30, 2026",
@@ -134,8 +122,6 @@ export const allTrips: Trip[] = [
     destination: "Rhine River, Europe",
     images: [
       "/images/trips/christmas-markets-hero.png",
-      "https://images.unsplash.com/photo-1576919228236-a097c32a5cd4?w=800&q=80",
-      "https://images.unsplash.com/photo-1482517967863-00e15c9b44be?w=800&q=80",
     ],
     price: 5085,
     departureDate: "Nov 24 - Dec 5, 2026",
@@ -154,8 +140,6 @@ export const allTrips: Trip[] = [
     destination: "Netherlands & Belgium",
     images: [
       "/images/trips/holland-belgium-hero.png",
-      "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=800&q=80",
-      "https://images.unsplash.com/photo-1585208798174-6cedd86e019a?w=800&q=80",
     ],
     price: 4325,
     departureDate: "Mar 28 - Apr 8, 2026",
@@ -178,8 +162,6 @@ export const allTrips: Trip[] = [
     destination: "Savannah, GA",
     images: [
       "/images/trips/savannah-hero.png",
-      "https://images.unsplash.com/photo-1597528662465-55ece5734101?w=800&q=80",
-      "https://images.unsplash.com/photo-1558642452-9d2a7deb7f62?w=800&q=80",
     ],
     price: 1115,
     departureDate: "Mar 22-28, 2026",
@@ -197,8 +179,6 @@ export const allTrips: Trip[] = [
     destination: "Washington, DC",
     images: [
       "/images/trips/washington-dc-hero.png",
-      "https://images.unsplash.com/photo-1617581629397-a72507c3de9e?w=800&q=80",
-      "https://images.unsplash.com/photo-1617581629397-a72507c3de9e?w=800&q=80",
     ],
     price: 1133,
     departureDate: "Apr 9-15, 2026",
@@ -216,8 +196,6 @@ export const allTrips: Trip[] = [
     destination: "New Orleans, LA",
     images: [
       "/images/trips/new-orleans-hero.png",
-      "https://images.unsplash.com/photo-1568402102990-bc541580b59f?w=800&q=80",
-      "https://images.unsplash.com/photo-1558024920-b41e1887dc32?w=800&q=80",
     ],
     price: 825,
     departureDate: "Apr 20-24, 2026",
@@ -236,8 +214,6 @@ export const allTrips: Trip[] = [
     destination: "Arizona & Nevada",
     images: [
       "/images/trips/grand-canyon-hero.png",
-      "https://images.unsplash.com/photo-1605833556294-ea5c7a74f57d?w=600&q=75&fm=webp",
-      "https://images.unsplash.com/photo-1540866225557-9e4c58100c67?w=600&q=75&fm=webp",
     ],
     price: 1599,
     departureDate: "Apr 17-26, 2026",
@@ -256,8 +232,6 @@ export const allTrips: Trip[] = [
     destination: "Myrtle Beach, SC",
     images: [
       "/images/trips/myrtle-beach-hero.png",
-      "https://images.unsplash.com/photo-1519046904884-53103b34b206?w=600&q=75&fm=webp",
-      "https://images.unsplash.com/photo-1473116763249-2faaef81ccda?w=600&q=75&fm=webp",
     ],
     price: 1062,
     departureDate: "May 3-9, 2026",
@@ -275,8 +249,6 @@ export const allTrips: Trip[] = [
     destination: "Holland, MI",
     images: [
       "/images/trips/holland-michigan-hero.png",
-      "https://images.unsplash.com/photo-1524386416438-98b9b2d4b433?w=800&q=80",
-      "https://images.unsplash.com/photo-1524386416438-98b9b2d4b433?w=800&q=80",
     ],
     price: 1073,
     departureDate: "May 4-8, 2026",
@@ -294,8 +266,6 @@ export const allTrips: Trip[] = [
     destination: "Florida",
     images: [
       "/images/trips/amelia-island-hero.png",
-      "https://images.unsplash.com/photo-1562095241-8c6714fd4178?w=600&q=75&fm=webp",
-      "https://images.unsplash.com/photo-1605723517503-3cadb5818a0c?w=600&q=75&fm=webp",
     ],
     price: 990,
     departureDate: "May 17-23, 2026",
@@ -313,8 +283,6 @@ export const allTrips: Trip[] = [
     destination: "New York, NY",
     images: [
       "/images/trips/new-york-city-hero.png",
-      "https://images.unsplash.com/photo-1534430480872-3498386e7856?w=600&q=75&fm=webp",
-      "https://images.unsplash.com/photo-1522083165195-3424ed129620?w=600&q=75&fm=webp",
     ],
     price: 1523,
     departureDate: "Jun 3-11, 2026",
@@ -333,8 +301,6 @@ export const allTrips: Trip[] = [
     destination: "Niagara Falls, NY",
     images: [
       "/images/trips/niagara-falls-hero.png",
-      "https://images.unsplash.com/photo-1609952048180-7b35ea6b083b?w=800&q=80",
-      "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=800&q=80",
     ],
     price: 1437,
     departureDate: "Jun 6-14, 2026",
@@ -352,8 +318,6 @@ export const allTrips: Trip[] = [
     destination: "Shipshewana, IN",
     images: [
       "/images/trips/shipshewana-hero.png",
-      "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=600&q=75&fm=webp",
-      "https://images.unsplash.com/photo-1501785888041-af3ef285b470?w=600&q=75&fm=webp",
     ],
     price: 966,
     departureDate: "Jun 14-19, 2026",
@@ -371,8 +335,6 @@ export const allTrips: Trip[] = [
     destination: "Canada",
     images: [
       "/images/trips/montreal-quebec-hero.png",
-      "https://images.unsplash.com/photo-1517935706615-2717063c2225?w=600&q=75&fm=webp",
-      "https://images.unsplash.com/photo-1544161515-4ab6ce6db874?w=600&q=75&fm=webp",
     ],
     price: 1734,
     departureDate: "Jun 19-28, 2026",
@@ -390,8 +352,6 @@ export const allTrips: Trip[] = [
     destination: "Shipshewana, IN",
     images: [
       "/images/trips/shipshewana-hero.png",
-      "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=600&q=75&fm=webp",
-      "https://images.unsplash.com/photo-1501785888041-af3ef285b470?w=600&q=75&fm=webp",
     ],
     price: 966,
     departureDate: "Jul 26-31, 2026",
@@ -409,8 +369,6 @@ export const allTrips: Trip[] = [
     destination: "Colorado Springs, CO",
     images: [
       "/images/trips/colorado-springs-hero.png",
-      "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=600&q=75&fm=webp",
-      "https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1?w=600&q=75&fm=webp",
     ],
     price: 1184,
     departureDate: "Aug 2-8, 2026",
@@ -428,8 +386,6 @@ export const allTrips: Trip[] = [
     destination: "Mackinac Island, MI",
     images: [
       "/images/trips/mackinac-island-hero.png",
-      "https://images.unsplash.com/photo-1506260408121-e353d10b87c7?w=600&q=75&fm=webp",
-      "https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?w=600&q=75&fm=webp",
     ],
     price: 1122,
     departureDate: "Aug 30 - Sep 5, 2026",
@@ -448,8 +404,6 @@ export const allTrips: Trip[] = [
     destination: "Mackinac Island, MI",
     images: [
       "/images/trips/mackinac-island-hero.png",
-      "https://images.unsplash.com/photo-1506260408121-e353d10b87c7?w=600&q=75&fm=webp",
-      "https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?w=600&q=75&fm=webp",
     ],
     price: 1122,
     departureDate: "Sep 13-19, 2026",
@@ -467,8 +421,6 @@ export const allTrips: Trip[] = [
     destination: "South Dakota & Wyoming",
     images: [
       "/images/trips/mount-rushmore-hero.png",
-      "https://images.unsplash.com/photo-1528164344705-47542687000d?w=800&q=80",
-      "https://images.unsplash.com/photo-1558024920-b41e1887dc32?w=800&q=80",
     ],
     price: 2474,
     departureDate: "Sep 12-23, 2026",
@@ -487,8 +439,6 @@ export const allTrips: Trip[] = [
     destination: "Mackinac Island, MI",
     images: [
       "/images/trips/mackinac-island-hero.png",
-      "https://images.unsplash.com/photo-1506260408121-e353d10b87c7?w=600&q=75&fm=webp",
-      "https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?w=600&q=75&fm=webp",
     ],
     price: 1088,
     departureDate: "Sep 27 - Oct 3, 2026",
@@ -506,8 +456,6 @@ export const allTrips: Trip[] = [
     destination: "Vermont",
     images: [
       "/images/trips/vermont-hero.png",
-      "https://images.unsplash.com/photo-1500382017468-9049fed747ef?w=600&q=75&fm=webp",
-      "https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1?w=600&q=75&fm=webp",
     ],
     price: 1754,
     departureDate: "Sep 26 - Oct 4, 2026",
@@ -526,8 +474,6 @@ export const allTrips: Trip[] = [
     destination: "Maine",
     images: [
       "/images/trips/maine-hero.png",
-      "https://images.unsplash.com/photo-1508739773434-c26b3d09e071?w=600&q=75&fm=webp",
-      "https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?w=600&q=75&fm=webp",
     ],
     price: 2064,
     departureDate: "Oct 2-12, 2026",
@@ -545,8 +491,6 @@ export const allTrips: Trip[] = [
     destination: "Massachusetts",
     images: [
       "/images/trips/cape-cod-hero.png",
-      "https://images.unsplash.com/photo-1519046904884-53103b34b206?w=600&q=75&fm=webp",
-      "https://images.unsplash.com/photo-1473116763249-2faaef81ccda?w=600&q=75&fm=webp",
     ],
     price: 1742,
     departureDate: "Oct 2-12, 2026",
@@ -564,8 +508,6 @@ export const allTrips: Trip[] = [
     destination: "Pigeon Forge, TN",
     images: [
       "/images/trips/pigeon-forge-hero.png",
-      "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=600&q=75&fm=webp",
-      "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=600&q=75&fm=webp",
     ],
     price: 1350,
     departureDate: "Oct 18-24, 2026",
@@ -583,8 +525,6 @@ export const allTrips: Trip[] = [
     destination: "Chattanooga, TN",
     images: [
       "/images/trips/chattanooga-hero.png",
-      "https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?w=600&q=75&fm=webp",
-      "https://images.unsplash.com/photo-1510915361894-db8b60106cb1?w=600&q=75&fm=webp",
     ],
     price: 1029,
     departureDate: "Oct 20-23, 2026",
@@ -602,8 +542,6 @@ export const allTrips: Trip[] = [
     destination: "Branson, MO",
     images: [
       "/images/trips/branson-hero.png",
-      "https://images.unsplash.com/photo-1544551763-46a013bb70d5?w=600&q=75&fm=webp",
-      "https://images.unsplash.com/photo-1482517967863-00e15c9b44be?w=600&q=75&fm=webp",
     ],
     price: 582,
     departureDate: "Nov 11-13, 2026",
@@ -622,8 +560,6 @@ export const allTrips: Trip[] = [
     destination: "New York, NY",
     images: [
       "/images/trips/christmas-nyc-hero.png",
-      "https://images.unsplash.com/photo-1515542622106-78bda8ba0e5b?w=800&q=80",
-      "https://images.unsplash.com/photo-1576919228236-a097c32a5cd4?w=800&q=80",
     ],
     price: 2255,
     departureDate: "Nov 15-22, 2026",
@@ -642,8 +578,6 @@ export const allTrips: Trip[] = [
     destination: "Nashville, TN",
     images: [
       "/images/trips/nashville-christmas-hero.png",
-      "https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?w=600&q=75&fm=webp",
-      "https://images.unsplash.com/photo-1576919228236-a097c32a5cd4?w=600&q=75&fm=webp",
     ],
     price: 1462,
     departureDate: "Nov 30 - Dec 3, 2026",
@@ -661,8 +595,6 @@ export const allTrips: Trip[] = [
     destination: "San Antonio, TX",
     images: [
       "/images/trips/san-antonio-hero.png",
-      "https://images.unsplash.com/photo-1568402102990-bc541580b59f?w=600&q=75&fm=webp",
-      "https://images.unsplash.com/photo-1550355191-aa8a80b41353?w=600&q=75&fm=webp",
     ],
     price: 840,
     departureDate: "Nov 30 - Dec 5, 2026",
@@ -680,8 +612,6 @@ export const allTrips: Trip[] = [
     destination: "Asheville, NC",
     images: [
       "/images/trips/biltmore-hero.png",
-      "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=600&q=75&fm=webp",
-      "https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1?w=600&q=75&fm=webp",
     ],
     price: 1010,
     departureDate: "Dec 6-11, 2026",
